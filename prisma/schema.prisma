@@ -1,0 +1,90 @@
+generator client {
+  provider = "prisma-client"
+  output   = "../src/generated/prisma"
+}
+
+datasource db {
+  provider = "postgresql"
+}
+
+model User {
+  id                 String        @id @default(uuid())
+  email              String?       @unique
+  name               String        @unique
+  password           String
+  eloRating          Int?
+  wins               Int?
+  looses             Int?
+  LeaderBoard        LeaderBoard[]
+  user_To_Player_One Matches[]     @relation("player_One")
+  user_To_Player_Two Matches[]     @relation("player_Two")
+  winner             Matches[]     @relation("winner")
+  submissions        submissions[]
+}
+
+model Problem {
+  id              String        @id @default(uuid())
+  title           String
+  description     String
+  diffculty       Diffculty
+  time_limit_ms   Int
+  memory_limit_kb Int
+  TestCases       TestCases[]
+  Matches         Matches[]
+  submissions     submissions[]
+}
+
+model TestCases {
+  id                String  @id @default(uuid())
+  input             String
+  expected_Output   String
+  is_Hidden         Boolean
+  problem_Id        String
+  problem_Test_Case Problem @relation(fields: [problem_Id], references: [id])
+}
+
+model Matches {
+  id            String @id @default(uuid())
+  player_Id_One String
+  player_Id_Two String
+  winner_Id     String
+  problem_Id    String
+  started_At    Int
+  ended_At      Int
+
+  submissions submissions[]
+
+  player_One User    @relation("player_One", fields: [player_Id_One], references: [id])
+  player_Two User    @relation("player_Two", fields: [player_Id_Two], references: [id])
+  winner     User    @relation("winner", fields: [winner_Id], references: [id])
+  problem    Problem @relation(fields: [problem_Id], references: [id])
+}
+
+model submissions {
+  id                String        @id @default(uuid())
+  match_Id          String
+  user_Id           String
+  problem_Id        String
+  code              String
+  verdict           String
+  language          String
+  exec_time_ms      String
+  memory_kb         String
+  submitted_at      String
+  matchSubmission   Matches       @relation(fields: [match_Id], references: [id])
+  userSubmission    User          @relation(fields: [user_Id], references: [id])
+  problemSubmission Problem   @relation(fields: [problem_Id], references: [id])
+}
+
+model LeaderBoard {
+  id          String @id @default(uuid())
+  user_Id     String
+  elo_ranking String
+  leader      User   @relation(fields: [user_Id], references: [id])
+}
+
+enum Diffculty {
+  easy
+  medium
+  hard
+}
