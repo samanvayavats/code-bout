@@ -6,7 +6,7 @@
   "type": "module",
   "scripts": {
     "dev": "next dev",
-    "socket": "tsx server/index.ts",
+    "socket": "tsx src/lib/redis.ts",
     "dev:all": "concurrently \"npm run dev\" \"npm run socket\"",
     "build": "next build",
     "start": "next start",
@@ -23,6 +23,7 @@
     "next": "16.1.6",
     "react": "19.2.3",
     "react-dom": "19.2.3",
+    "redis": "^5.12.1",
     "ws": "^8.20.1"
   },
   "devDependencies": {
