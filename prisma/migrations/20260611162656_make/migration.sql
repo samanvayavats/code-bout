@@ -1,0 +1,3 @@
+-- AlterTable
+ALTER TABLE "Matches" ALTER COLUMN "started_At" DROP NOT NULL,
+ALTER COLUMN "ended_At" DROP NOT NULL;

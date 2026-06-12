@@ -47,10 +47,10 @@ model Matches {
   id            String @id @default(uuid())
   player_Id_One String
   player_Id_Two String
-  winner_Id     String
+  winner_Id     String @default("none")
   problem_Id    String
-  started_At    Int
-  ended_At      Int
+  started_At    Int?
+  ended_At      Int?
 
   submissions submissions[]
 

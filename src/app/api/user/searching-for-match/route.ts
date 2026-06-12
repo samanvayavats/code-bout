@@ -1,6 +1,7 @@
 import { NextRequest, NextResponse } from "next/server";
 import { addInTheQueue, matchFound, checkIfMatched ,removeFromTheQueue } from "@/src/lib/redis";
 import { setTimeout as delay } from 'timers/promises';
+import prisma from "@/src/lib/prisma";
 // route for creating the match
   export async function POST(request: NextRequest) {
   const body = await request.formData()
@@ -33,12 +34,20 @@ import { setTimeout as delay } from 'timers/promises';
   await removeFromTheQueue(userId, problemId)
 
   if (result.status === "matched") {
-    const match = await matchFound(
-      userId,
-      result.opponent?.userId,
-      title,
-      problemId
-    )
+    
+    const match = await prisma.matches.create({
+      data :{
+        player_Id_One : userId ,
+        player_Id_Two : result.opponent?.userId,
+        problem_Id : problemId, 
+      },
+      select :{
+        id:true ,
+        player_Id_One : true ,
+        player_Id_Two : true ,
+        problem_Id:true
+      }
+    })
 
     return NextResponse.json({
       message: "match found",
