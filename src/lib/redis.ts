@@ -97,9 +97,7 @@ const matchFound = async (
     playerOne,
     playerTwo,
     problemId,
-    matchName,
-    startedAt: Date.now(),
-    status: "active"
+    matchName
   }
 
   await client.set(matchName, JSON.stringify(matchData))  // store in redis
@@ -107,10 +105,30 @@ const matchFound = async (
   return matchData  
 }
 
+const deleteTheMatchFound = async (
+  // playerOne: string,
+  // playerTwo: string,
+  matchName: string,
+  // problemId: string
+) => {
+  if (client.isOpen == false) await connectRedis()
+    
+  //  const matchData = {
+  //   playerOne,
+  //   playerTwo,
+  //   problemId,
+  //   matchName
+  // }
+
+  const deleteMatch = await client.unlink(matchName);
+
+  return deleteMatch;
+}
 
 export {
   matchFound,
   addInTheQueue,
   removeFromTheQueue,
-  checkIfMatched
+  checkIfMatched,
+  deleteTheMatchFound
 }

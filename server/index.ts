@@ -14,6 +14,7 @@ interface ExtendedWebSocket extends WebSocket {
 const matches = new Map<string, ExtendedWebSocket[]>()
 
 wss.on("connection", (ws: ExtendedWebSocket) => {
+
   ws.user = {}
 
   ws.on("error", console.error)
@@ -32,23 +33,23 @@ wss.on("connection", (ws: ExtendedWebSocket) => {
 
     // 2. both players join a match room
     else if (message.type === "match-found") {
-      const { matchId } = message   // ← fix
+      const  matchName  = message.matchName   // ← fix
 
-      if (!matches.has(matchId)) {
-        matches.set(matchId, [])
+      if (!matches.has(matchName)) {
+        matches.set(matchName, [])
       }
 
-      matches.get(matchId)?.push(ws)
-      console.log(`player joined match: ${matchId}`)
-
+      matches.get(matchName)?.push(ws)
+      console.log(`player joined match: ${matchName}`)
+  
       // store in redis too
-      const players = matches.get(matchId)
+      const players = matches.get(matchName)
       if (players?.length === 2) {
         // both players joined → store match in redis
         // matchFound(
         //   players[0].user.id!,
         //   players[1].user.id!,
-        //   matchId,
+        //   matchName,
         //   message.problemId
         // )
 
@@ -56,7 +57,7 @@ wss.on("connection", (ws: ExtendedWebSocket) => {
         players.forEach((client) => {
           client.send(JSON.stringify({
             type: "match-started",
-            matchId,
+            matchName,
             problemId: message.problemId,
           }))
         })
@@ -65,9 +66,11 @@ wss.on("connection", (ws: ExtendedWebSocket) => {
 
     // 3. broadcast problem to both players
     else if (message.type === "broadcast-match") {
-      const { matchId, problemId } = message   // ← fix
+      const  matchName  = message.matchName 
+      const problemId   = message.problemId
+      const code = message.code
 
-      const players = matches.get(matchId)
+      const players = matches.get(matchName)
 
       if (!players) {
         ws.send(JSON.stringify({ type: "error", message: "match not found" }))
@@ -77,12 +80,19 @@ wss.on("connection", (ws: ExtendedWebSocket) => {
       players.forEach((client) => {
         client.send(JSON.stringify({
           type: "match-data",
-          matchId,
+          matchName,
           problemId,
+          code
         }))
       })
 
-      console.log(`broadcasted match: ${matchId}`)
+      console.log(`broadcasted match: ${matchName}`)
+    }
+    else if(message.type == "match-completed"){
+      const matchName = message.matchName;
+
+      const match = matches.delete(matchName)
+      console.log("the match is deleted")
     }
   })
 
