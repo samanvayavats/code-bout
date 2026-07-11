@@ -1,9 +1,9 @@
 import React from 'react'
-
+import LandingPage from '../components/ui/landing-page'
 const page = () => {
   return (
     <div>
-      this is the home page 
+      <LandingPage />
     </div>
   )
 }
