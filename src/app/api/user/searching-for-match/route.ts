@@ -2,8 +2,16 @@ import { NextRequest, NextResponse } from "next/server";
 import { addInTheQueue, matchFound, checkIfMatched ,removeFromTheQueue ,deleteTheMatchFound } from "@/src/lib/redis";
 import { setTimeout as delay } from 'timers/promises';
 import prisma from "@/src/lib/prisma";
+import { getServerSession } from "next-auth/next"
+import { authOptions } from "@/src/lib/auth"
 // route for creating the match
   export async function POST(request: NextRequest) {
+
+   const session = await getServerSession(authOptions)
+   if(!session ){
+    console.log("not authenticated ")
+   }
+
   const body = await request.formData()
   const problemId = body.get("problemId") as string
   const title = body.get("title") as string
@@ -35,13 +43,26 @@ import prisma from "@/src/lib/prisma";
 
   if (result.status === "matched") {
     const matchName = `${title}-${10*Math.random()}`
-    const match = await matchFound(userId , result.opponent?.userId , matchName ,problemId)
+    // const match = await matchFound(userId , result.opponent?.userId , matchName ,problemId)
+    // todo: what we can do this matchfound thinkgy that means a queue architecure but for now its fine 
+    // todo : also we can check if the match is created dont need to save it again but for now its fine 
+    const match = await prisma.matches.create({
+      data :{
+        matchName : `$match-${userId}-${result.opponent?.userId}`,
+        player_Id_One : userId,
+        player_Id_Two :result.opponent?.userId,
+        problem_Id : problemId
+      }
+    })
+
     // const deleteMatch = await deleteTheMatchFound(matchName)
     // console.log("deleteMatch : " , deleteMatch)
+
     return NextResponse.json({
       message: "match found",
       match,
     }, { status: 201 })
+
   }
 
   return NextResponse.json({

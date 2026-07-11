@@ -45,6 +45,7 @@ model TestCases {
 
 model Matches {
   id            String    @id @default(uuid())
+  matchName     String
   player_Id_One String
   player_Id_Two String
   winner_Id     String?                      
