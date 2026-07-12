@@ -13,6 +13,7 @@ type Problem = {
   acceptanceRate?: number;
 };
 
+import Link from "next/link";
 // ── mock data (replace with real API fetch) ──
 const MOCK_PROBLEMS: Problem[] = Array.from({ length: 54 }, (_, i) => ({
   id: `${i + 1}`,
@@ -203,9 +204,11 @@ export default function ProblemsPage() {
                 </div>
 
                 {/* join arena */}
+                <Link href={'/waiting-area'}>
                 <div className="col-span-1 flex items-center justify-end">
                   <RedButton>1v1</RedButton>
                 </div>
+                </Link>
               </div>
             ))
           )}
