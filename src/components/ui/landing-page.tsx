@@ -49,7 +49,7 @@ export default function LandingPage() {
         </div>
         <div className="flex gap-4 flex-wrap justify-center">
           <Link
-            href="/signup"
+            href="/problems"
             className="text-sm font-semibold px-8 py-3 rounded-lg bg-[#E63946] text-white hover:-translate-y-0.5 hover:opacity-90 transition-all"
           >
             Enter the Arena
@@ -236,7 +236,7 @@ export default function LandingPage() {
         <h2 className="text-[clamp(36px,5vw,64px)] font-bold tracking-[-2px] mb-4">Ready to duel?</h2>
         <p className="text-base text-[#6B6B80] mb-10">Find your opponent. Write your code. Win the match.</p>
         <Link
-          href="/signup"
+          href="/problems"
           className="inline-block text-base font-semibold px-10 py-4 rounded-xl bg-[#E63946] text-white hover:-translate-y-1 hover:opacity-90 transition-all"
         >
           Enter the Arena →

@@ -1,6 +1,6 @@
 "use client";
 import { useState } from "react";
-
+import RedButton from "./red-button";
 // ── types ──
 type Difficulty = "all" | "easy" | "medium" | "hard";
 type Problem = {
@@ -142,16 +142,17 @@ export default function ProblemsPage() {
         </div>
 
         {/* ── TABLE ── */}
-        <div className="border border-[#1E1E2E] rounded-xl overflow-hidden">
+        <div className="border border-[#1E1E2E] rounded-xl overflow-hidden  ">
 
           {/* table header */}
           <div className="grid grid-cols-12 gap-4 px-5 py-3 bg-[#111118] border-b border-[#1E1E2E] text-[11px] font-semibold uppercase tracking-widest text-[#6B6B80]">
             <div className="col-span-1">#</div>
-            <div className="col-span-5">Title</div>
+            <div className="col-span-4">Title</div>
             <div className="col-span-2">Topic</div>
             <div className="col-span-2">Difficulty</div>
             <div className="col-span-1">Limit</div>
             <div className="col-span-1 text-right">Acc%</div>
+            <div className="col-span-1 text-right">Join-Arena</div>
           </div>
 
           {/* rows */}
@@ -171,7 +172,7 @@ export default function ProblemsPage() {
                 </div>
 
                 {/* title */}
-                <div className="col-span-5 flex items-center">
+                <div className="col-span-4 flex items-center">
                   <span className="text-sm font-medium group-hover:text-[#E63946] transition-colors">
                     {p.title}
                   </span>
@@ -197,8 +198,13 @@ export default function ProblemsPage() {
                 </div>
 
                 {/* acceptance */}
-                <div className="col-span-1 flex items-center justify-end font-mono text-xs text-[#6B6B80]">
+                <div className="col-span-1 flex items-center  font-mono text-xs text-[#6B6B80]">
                   {p.acceptanceRate}%
+                </div>
+
+                {/* join arena */}
+                <div className="col-span-1 flex items-center justify-end">
+                  <RedButton>1v1</RedButton>
                 </div>
               </div>
             ))
