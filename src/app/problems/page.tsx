@@ -1,10 +1,10 @@
 import React from 'react'
-import ProblemBox from '@/src/components/ui/problem-box'
+import ProblemsPage from '@/src/components/ui/problems-page'
 const page = () => {
   return (
     <div>
         {/* <ProblemBox/> */}
-        <ProblemBox/>
+        <ProblemsPage/>
     </div>
   )
 }
