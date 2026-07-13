@@ -57,6 +57,9 @@ callbacks: {
       return session;
     }
 },
+pages:{
+  signIn : "/sign-in" ,
+},
  secret: process.env.NEXTAUTH_SECRET
 }
 
