@@ -4,10 +4,14 @@ import RedButton from './red-button'
 import axios from 'axios'
 import { useRouter } from 'next/navigation';
 import { toast } from 'react-toastify';
+import { signIn } from "next-auth/react";
+
+
 const signUpPage = ({ type }: { type: boolean }) => {
     const router = useRouter()
 
     const [registerIsActive, setregisterIsActive] = useState<boolean>(false)
+    const [loginIsActive, setloginIsActive] = useState<boolean>(false)
 
     const [register, setregister] = useState({
         name: '',
@@ -17,28 +21,52 @@ const signUpPage = ({ type }: { type: boolean }) => {
 
     const [login, setlogin] = useState({
         name: '',
+        email: '',
         password: ''
     })
+    const handleLogin = async () => {
+        try {
+            setloginIsActive(true)
+            const result = await signIn("credentials", {
+                name: login.name,
+                password: login.password,
+                email: login.email,
+                redirect: false,
+            });
+
+            if (!result?.error) {
+                toast.success("Login successful");
+                router.push("/");
+            } else {
+                toast.error("Invalid credentials");
+            }
+        } catch (error) {
+            toast.error("Login failed");
+        } finally {
+            setloginIsActive(false)
+            setlogin((login) => ({ ...login, name: '', email: '', password: '' }))
+        }
+    };
 
     const handleRegister = async () => {
         try {
 
             setregisterIsActive(true)
             toast.success('sign-up can take some time')
-            const data = await axios.post(`${process.env.NEXT_PUBLIC_BACKEND_URL}/api/user/sign-up` ,register)
-            
-            if(data){
+            const data = await axios.post(`${process.env.NEXT_PUBLIC_BACKEND_URL}/api/user/sign-up`, register)
+
+            if (data) {
                 toast.success("successfully sign-up")
             }
             router.push('/sign-in')
 
-         } catch (error) {
+        } catch (error) {
             toast.error('sign-up failed')
             console.log('the error at time of registeration is ', error)
         }
-        finally{
+        finally {
             setregisterIsActive(false)
-            setregister((register)=>({...register , name :'' , email:'' ,password:''}))
+            setregister((register) => ({ ...register, name: '', email: '', password: '' }))
         }
     }
 
@@ -60,7 +88,7 @@ const signUpPage = ({ type }: { type: boolean }) => {
                 <div className='p-4'>
                     <label className='p-2 ' >NAME &nbsp;&nbsp;&nbsp;:&nbsp; </label>
                     <input
-                        value={ type ? register.name : login.name}
+                        value={type ? register.name : login.name}
                         type="text"
                         onChange={(e) => {
                             if (type) {
@@ -73,14 +101,24 @@ const signUpPage = ({ type }: { type: boolean }) => {
                     />
                 </div>
 
-                {type ? <div className=' p-6'>
+
+                <div className=' p-6'>
                     <label className='p-2'>EMAIL &nbsp;&nbsp;:&nbsp;&nbsp;</label>
-                    <input type="email"
-                        value={register.email}
-                        onChange={(e) => setregister(register => ({ ...register, email: e.target.value }))}
+                    <input
+                        type="email"
+                        value={type ? register.email : login.email}
+                        onChange={(e) => {
+                            if (type) {
+                                setregister((prev) => ({ ...prev, email: e.target.value }))
+                            }
+                            else {
+                                setlogin((prev) => ({ ...prev, email: e.target.value }))
+                            }
+                        }}
                         className='border-[#E63946] p-1 bg-transparent border bottom-1 rounded'
                     />
-                </div> : <></>}
+                </div>
+
 
                 <div className=' p-4'>
                     <label className='p-2'>PASSWORD : </label>
@@ -100,11 +138,11 @@ const signUpPage = ({ type }: { type: boolean }) => {
 
                 {type ? (
                     <div className='p-4' >
-                        <RedButton isActive ={registerIsActive}  onClick={() => handleRegister()}>Register</RedButton>
+                        <RedButton isActive={registerIsActive} onClick={() => handleRegister()}>Register</RedButton>
                     </div>
                 ) : (
                     <div className='p-4'>
-                        <RedButton>Login</RedButton>
+                        <RedButton isActive={loginIsActive} onClick={handleLogin} >Login</RedButton>
                     </div>
                 )}
             </form>
