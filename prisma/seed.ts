@@ -1,11 +1,11 @@
-import {prisma ,Diffculty} from "@/src/lib/prisma";
+import { prisma, Diffculty } from '@/src/lib/prisma'
 
 const problems = [
   // ─────────────────────────────────────────
   // ARRAYS
   // ─────────────────────────────────────────
   {
-    title: "Two Sum",
+    title: 'Two Sum',
     description: `Given an array of integers \`nums\` and an integer \`target\`, return the indices of the two numbers that add up to \`target\`. Each input has exactly one solution. You may not use the same element twice.
 
 **Example:**
@@ -19,15 +19,15 @@ Output: [0,1]
     time_limit_ms: 1000,
     memory_limit_kb: 65536,
     testCases: [
-      { input: "[2,7,11,15]\n9",        expected_Output: "[0,1]",  is_Hidden: false },
-      { input: "[3,2,4]\n6",            expected_Output: "[1,2]",  is_Hidden: false },
-      { input: "[3,3]\n6",              expected_Output: "[0,1]",  is_Hidden: true  },
-      { input: "[-1,-2,-3,-4]\n-6",     expected_Output: "[1,3]",  is_Hidden: true  },
-      { input: "[1000000,1]\n1000001",  expected_Output: "[0,1]",  is_Hidden: true  },
+      { input: '[2,7,11,15]\n9', expected_Output: '[0,1]', is_Hidden: false },
+      { input: '[3,2,4]\n6', expected_Output: '[1,2]', is_Hidden: false },
+      { input: '[3,3]\n6', expected_Output: '[0,1]', is_Hidden: true },
+      { input: '[-1,-2,-3,-4]\n-6', expected_Output: '[1,3]', is_Hidden: true },
+      { input: '[1000000,1]\n1000001', expected_Output: '[0,1]', is_Hidden: true },
     ],
   },
   {
-    title: "Maximum Subarray",
+    title: 'Maximum Subarray',
     description: `Given an integer array \`nums\`, find the contiguous subarray with the largest sum and return its sum. (Kadane's Algorithm)
 
 **Example:**
@@ -41,15 +41,15 @@ Output: 6
     time_limit_ms: 1000,
     memory_limit_kb: 65536,
     testCases: [
-      { input: "[-2,1,-3,4,-1,2,1,-5,4]", expected_Output: "6",  is_Hidden: false },
-      { input: "[1]",                      expected_Output: "1",  is_Hidden: false },
-      { input: "[-1]",                     expected_Output: "-1", is_Hidden: true  },
-      { input: "[-2,-1]",                  expected_Output: "-1", is_Hidden: true  },
-      { input: "[5,4,-1,7,8]",             expected_Output: "23", is_Hidden: true  },
+      { input: '[-2,1,-3,4,-1,2,1,-5,4]', expected_Output: '6', is_Hidden: false },
+      { input: '[1]', expected_Output: '1', is_Hidden: false },
+      { input: '[-1]', expected_Output: '-1', is_Hidden: true },
+      { input: '[-2,-1]', expected_Output: '-1', is_Hidden: true },
+      { input: '[5,4,-1,7,8]', expected_Output: '23', is_Hidden: true },
     ],
   },
   {
-    title: "Merge Intervals",
+    title: 'Merge Intervals',
     description: `Given an array of intervals where \`intervals[i] = [start, end]\`, merge all overlapping intervals and return the resulting array.
 
 **Example:**
@@ -62,15 +62,19 @@ Output: [[1,6],[8,10],[15,18]]
     time_limit_ms: 1500,
     memory_limit_kb: 65536,
     testCases: [
-      { input: "[[1,3],[2,6],[8,10],[15,18]]", expected_Output: "[[1,6],[8,10],[15,18]]", is_Hidden: false },
-      { input: "[[1,4],[4,5]]",                expected_Output: "[[1,5]]",                is_Hidden: false },
-      { input: "[[1,4],[2,3]]",                expected_Output: "[[1,4]]",                is_Hidden: true  },
-      { input: "[[1,4],[0,2],[3,5]]",           expected_Output: "[[0,5]]",                is_Hidden: true  },
-      { input: "[[1,2],[3,4],[5,6]]",           expected_Output: "[[1,2],[3,4],[5,6]]",    is_Hidden: true  },
+      {
+        input: '[[1,3],[2,6],[8,10],[15,18]]',
+        expected_Output: '[[1,6],[8,10],[15,18]]',
+        is_Hidden: false,
+      },
+      { input: '[[1,4],[4,5]]', expected_Output: '[[1,5]]', is_Hidden: false },
+      { input: '[[1,4],[2,3]]', expected_Output: '[[1,4]]', is_Hidden: true },
+      { input: '[[1,4],[0,2],[3,5]]', expected_Output: '[[0,5]]', is_Hidden: true },
+      { input: '[[1,2],[3,4],[5,6]]', expected_Output: '[[1,2],[3,4],[5,6]]', is_Hidden: true },
     ],
   },
   {
-    title: "Product of Array Except Self",
+    title: 'Product of Array Except Self',
     description: `Given an integer array \`nums\`, return an array where each element is the product of all other elements. Must run in O(n) without division.
 
 **Example:**
@@ -83,15 +87,15 @@ Output: [24,12,8,6]
     time_limit_ms: 1500,
     memory_limit_kb: 65536,
     testCases: [
-      { input: "[1,2,3,4]",     expected_Output: "[24,12,8,6]",      is_Hidden: false },
-      { input: "[-1,1,0,-3,3]", expected_Output: "[0,0,9,0,0]",      is_Hidden: false },
-      { input: "[2,3]",          expected_Output: "[3,2]",             is_Hidden: true  },
-      { input: "[0,0]",          expected_Output: "[0,0]",             is_Hidden: true  },
-      { input: "[1,2,3,4,5]",    expected_Output: "[120,60,40,30,24]", is_Hidden: true  },
+      { input: '[1,2,3,4]', expected_Output: '[24,12,8,6]', is_Hidden: false },
+      { input: '[-1,1,0,-3,3]', expected_Output: '[0,0,9,0,0]', is_Hidden: false },
+      { input: '[2,3]', expected_Output: '[3,2]', is_Hidden: true },
+      { input: '[0,0]', expected_Output: '[0,0]', is_Hidden: true },
+      { input: '[1,2,3,4,5]', expected_Output: '[120,60,40,30,24]', is_Hidden: true },
     ],
   },
   {
-    title: "Trapping Rain Water",
+    title: 'Trapping Rain Water',
     description: `Given \`n\` non-negative integers representing an elevation map where width of each bar is 1, compute how much water it can trap after raining.
 
 **Example:**
@@ -105,15 +109,15 @@ Output: 6
     time_limit_ms: 2000,
     memory_limit_kb: 65536,
     testCases: [
-      { input: "[0,1,0,2,1,0,1,3,2,1,2,1]", expected_Output: "6",  is_Hidden: false },
-      { input: "[4,2,0,3,2,5]",              expected_Output: "9",  is_Hidden: false },
-      { input: "[3,0,0,2,0,4]",              expected_Output: "10", is_Hidden: true  },
-      { input: "[1,0,1]",                    expected_Output: "1",  is_Hidden: true  },
-      { input: "[0,0,0]",                    expected_Output: "0",  is_Hidden: true  },
+      { input: '[0,1,0,2,1,0,1,3,2,1,2,1]', expected_Output: '6', is_Hidden: false },
+      { input: '[4,2,0,3,2,5]', expected_Output: '9', is_Hidden: false },
+      { input: '[3,0,0,2,0,4]', expected_Output: '10', is_Hidden: true },
+      { input: '[1,0,1]', expected_Output: '1', is_Hidden: true },
+      { input: '[0,0,0]', expected_Output: '0', is_Hidden: true },
     ],
   },
   {
-    title: "Sliding Window Maximum",
+    title: 'Sliding Window Maximum',
     description: `Given an array \`nums\` and integer \`k\`, return the max value in each sliding window of size k.
 
 **Example:**
@@ -126,11 +130,11 @@ Output: [3,3,5,5,6,7]
     time_limit_ms: 2000,
     memory_limit_kb: 65536,
     testCases: [
-      { input: "[1,3,-1,-3,5,3,6,7]\n3", expected_Output: "[3,3,5,5,6,7]", is_Hidden: false },
-      { input: "[1]\n1",                  expected_Output: "[1]",            is_Hidden: false },
-      { input: "[9,11]\n2",               expected_Output: "[11]",           is_Hidden: true  },
-      { input: "[4,-2]\n2",               expected_Output: "[4]",            is_Hidden: true  },
-      { input: "[2,1,5,3,6,4,8,7]\n4",   expected_Output: "[5,6,6,8,8]",   is_Hidden: true  },
+      { input: '[1,3,-1,-3,5,3,6,7]\n3', expected_Output: '[3,3,5,5,6,7]', is_Hidden: false },
+      { input: '[1]\n1', expected_Output: '[1]', is_Hidden: false },
+      { input: '[9,11]\n2', expected_Output: '[11]', is_Hidden: true },
+      { input: '[4,-2]\n2', expected_Output: '[4]', is_Hidden: true },
+      { input: '[2,1,5,3,6,4,8,7]\n4', expected_Output: '[5,6,6,8,8]', is_Hidden: true },
     ],
   },
 
@@ -138,7 +142,7 @@ Output: [3,3,5,5,6,7]
   // STRINGS
   // ─────────────────────────────────────────
   {
-    title: "Valid Palindrome",
+    title: 'Valid Palindrome',
     description: `A phrase is a palindrome if after converting to lowercase and removing non-alphanumeric characters, it reads the same forward and backward.
 
 **Example:**
@@ -151,15 +155,15 @@ Output: true
     time_limit_ms: 1000,
     memory_limit_kb: 65536,
     testCases: [
-      { input: "A man, a plan, a canal: Panama", expected_Output: "true",  is_Hidden: false },
-      { input: "race a car",                     expected_Output: "false", is_Hidden: false },
-      { input: " ",                              expected_Output: "true",  is_Hidden: true  },
-      { input: "0P",                             expected_Output: "false", is_Hidden: true  },
-      { input: "Was it a car or a cat I saw?",   expected_Output: "true",  is_Hidden: true  },
+      { input: 'A man, a plan, a canal: Panama', expected_Output: 'true', is_Hidden: false },
+      { input: 'race a car', expected_Output: 'false', is_Hidden: false },
+      { input: ' ', expected_Output: 'true', is_Hidden: true },
+      { input: '0P', expected_Output: 'false', is_Hidden: true },
+      { input: 'Was it a car or a cat I saw?', expected_Output: 'true', is_Hidden: true },
     ],
   },
   {
-    title: "Longest Substring Without Repeating Characters",
+    title: 'Longest Substring Without Repeating Characters',
     description: `Given a string \`s\`, find the length of the longest substring without repeating characters.
 
 **Example:**
@@ -172,15 +176,15 @@ Output: 3
     time_limit_ms: 1500,
     memory_limit_kb: 65536,
     testCases: [
-      { input: "abcabcbb", expected_Output: "3", is_Hidden: false },
-      { input: "bbbbb",    expected_Output: "1", is_Hidden: false },
-      { input: "pwwkew",   expected_Output: "3", is_Hidden: true  },
-      { input: "",         expected_Output: "0", is_Hidden: true  },
-      { input: "dvdf",     expected_Output: "3", is_Hidden: true  },
+      { input: 'abcabcbb', expected_Output: '3', is_Hidden: false },
+      { input: 'bbbbb', expected_Output: '1', is_Hidden: false },
+      { input: 'pwwkew', expected_Output: '3', is_Hidden: true },
+      { input: '', expected_Output: '0', is_Hidden: true },
+      { input: 'dvdf', expected_Output: '3', is_Hidden: true },
     ],
   },
   {
-    title: "Minimum Window Substring",
+    title: 'Minimum Window Substring',
     description: `Given strings \`s\` and \`t\`, return the minimum window substring of \`s\` containing all characters of \`t\`. If none exists return "".
 
 **Example:**
@@ -193,15 +197,15 @@ Output: "BANC"
     time_limit_ms: 2000,
     memory_limit_kb: 65536,
     testCases: [
-      { input: "ADOBECODEBANC\nABC", expected_Output: "BANC", is_Hidden: false },
-      { input: "a\na",              expected_Output: "a",    is_Hidden: false },
-      { input: "a\naa",             expected_Output: "",     is_Hidden: true  },
-      { input: "ab\nb",             expected_Output: "b",    is_Hidden: true  },
-      { input: "cabwefgewcwaefgcf\ncae", expected_Output: "cwae", is_Hidden: true },
+      { input: 'ADOBECODEBANC\nABC', expected_Output: 'BANC', is_Hidden: false },
+      { input: 'a\na', expected_Output: 'a', is_Hidden: false },
+      { input: 'a\naa', expected_Output: '', is_Hidden: true },
+      { input: 'ab\nb', expected_Output: 'b', is_Hidden: true },
+      { input: 'cabwefgewcwaefgcf\ncae', expected_Output: 'cwae', is_Hidden: true },
     ],
   },
   {
-    title: "Longest Palindromic Substring",
+    title: 'Longest Palindromic Substring',
     description: `Given a string \`s\`, return the longest palindromic substring.
 
 **Example:**
@@ -215,11 +219,11 @@ Output: "bab"
     time_limit_ms: 2000,
     memory_limit_kb: 65536,
     testCases: [
-      { input: "babad",   expected_Output: "bab",     is_Hidden: false },
-      { input: "cbbd",    expected_Output: "bb",      is_Hidden: false },
-      { input: "a",       expected_Output: "a",       is_Hidden: true  },
-      { input: "racecar", expected_Output: "racecar", is_Hidden: true  },
-      { input: "abacaba", expected_Output: "abacaba", is_Hidden: true  },
+      { input: 'babad', expected_Output: 'bab', is_Hidden: false },
+      { input: 'cbbd', expected_Output: 'bb', is_Hidden: false },
+      { input: 'a', expected_Output: 'a', is_Hidden: true },
+      { input: 'racecar', expected_Output: 'racecar', is_Hidden: true },
+      { input: 'abacaba', expected_Output: 'abacaba', is_Hidden: true },
     ],
   },
 
@@ -227,7 +231,7 @@ Output: "bab"
   // LINKED LIST
   // ─────────────────────────────────────────
   {
-    title: "Reverse Linked List",
+    title: 'Reverse Linked List',
     description: `Given the head of a singly linked list, reverse it and return the reversed list.
 
 **Example:**
@@ -241,15 +245,15 @@ Output: [5,4,3,2,1]
     time_limit_ms: 1000,
     memory_limit_kb: 65536,
     testCases: [
-      { input: "[1,2,3,4,5]", expected_Output: "[5,4,3,2,1]", is_Hidden: false },
-      { input: "[1,2]",       expected_Output: "[2,1]",        is_Hidden: false },
-      { input: "[]",          expected_Output: "[]",           is_Hidden: true  },
-      { input: "[1]",         expected_Output: "[1]",          is_Hidden: true  },
-      { input: "[1,2,3]",     expected_Output: "[3,2,1]",      is_Hidden: true  },
+      { input: '[1,2,3,4,5]', expected_Output: '[5,4,3,2,1]', is_Hidden: false },
+      { input: '[1,2]', expected_Output: '[2,1]', is_Hidden: false },
+      { input: '[]', expected_Output: '[]', is_Hidden: true },
+      { input: '[1]', expected_Output: '[1]', is_Hidden: true },
+      { input: '[1,2,3]', expected_Output: '[3,2,1]', is_Hidden: true },
     ],
   },
   {
-    title: "Linked List Cycle",
+    title: 'Linked List Cycle',
     description: `Given the head of a linked list, determine if it has a cycle. Use Floyd's tortoise and hare algorithm.
 
 **Example:**
@@ -262,15 +266,15 @@ Output: true
     time_limit_ms: 1000,
     memory_limit_kb: 65536,
     testCases: [
-      { input: "[3,2,0,-4]\n1", expected_Output: "true",  is_Hidden: false },
-      { input: "[1,2]\n0",      expected_Output: "true",  is_Hidden: false },
-      { input: "[1]\n-1",       expected_Output: "false", is_Hidden: true  },
-      { input: "[1,2,3]\n-1",   expected_Output: "false", is_Hidden: true  },
-      { input: "[1,2,3,4]\n2",  expected_Output: "true",  is_Hidden: true  },
+      { input: '[3,2,0,-4]\n1', expected_Output: 'true', is_Hidden: false },
+      { input: '[1,2]\n0', expected_Output: 'true', is_Hidden: false },
+      { input: '[1]\n-1', expected_Output: 'false', is_Hidden: true },
+      { input: '[1,2,3]\n-1', expected_Output: 'false', is_Hidden: true },
+      { input: '[1,2,3,4]\n2', expected_Output: 'true', is_Hidden: true },
     ],
   },
   {
-    title: "Merge Two Sorted Lists",
+    title: 'Merge Two Sorted Lists',
     description: `Merge two sorted linked lists and return the merged sorted list.
 
 **Example:**
@@ -283,15 +287,15 @@ Output: [1,1,2,3,4,4]
     time_limit_ms: 1000,
     memory_limit_kb: 65536,
     testCases: [
-      { input: "[1,2,4]\n[1,3,4]", expected_Output: "[1,1,2,3,4,4]", is_Hidden: false },
-      { input: "[]\n[]",           expected_Output: "[]",             is_Hidden: false },
-      { input: "[]\n[0]",          expected_Output: "[0]",            is_Hidden: true  },
-      { input: "[1,3,5]\n[2,4,6]", expected_Output: "[1,2,3,4,5,6]", is_Hidden: true  },
-      { input: "[1]\n[2]",         expected_Output: "[1,2]",          is_Hidden: true  },
+      { input: '[1,2,4]\n[1,3,4]', expected_Output: '[1,1,2,3,4,4]', is_Hidden: false },
+      { input: '[]\n[]', expected_Output: '[]', is_Hidden: false },
+      { input: '[]\n[0]', expected_Output: '[0]', is_Hidden: true },
+      { input: '[1,3,5]\n[2,4,6]', expected_Output: '[1,2,3,4,5,6]', is_Hidden: true },
+      { input: '[1]\n[2]', expected_Output: '[1,2]', is_Hidden: true },
     ],
   },
   {
-    title: "LRU Cache",
+    title: 'LRU Cache',
     description: `Design an LRU Cache with \`get(key)\` and \`put(key, value)\` both in O(1) time. Use a HashMap + Doubly Linked List.
 
 **Example:**
@@ -304,11 +308,32 @@ put(1,1), put(2,2), get(1)→1, put(3,3), get(2)→-1
     time_limit_ms: 2000,
     memory_limit_kb: 65536,
     testCases: [
-      { input: "2\n[[put,1,1],[put,2,2],[get,1],[put,3,3],[get,2],[put,4,4],[get,1],[get,3],[get,4]]", expected_Output: "[null,null,1,null,-1,null,1,3,4]", is_Hidden: false },
-      { input: "1\n[[put,1,1],[get,1],[put,2,2],[get,1],[get,2]]",                                    expected_Output: "[null,1,null,-1,2]",               is_Hidden: false },
-      { input: "2\n[[put,1,1],[put,2,2],[get,1],[put,3,3],[get,1],[get,2]]",                          expected_Output: "[null,null,1,null,1,-1]",           is_Hidden: true  },
-      { input: "3\n[[put,1,1],[put,2,2],[put,3,3],[get,1],[put,4,4],[get,2]]",                        expected_Output: "[null,null,null,1,null,2]",         is_Hidden: true  },
-      { input: "2\n[[put,2,1],[put,1,1],[put,2,3],[put,4,1],[get,1],[get,2]]",                        expected_Output: "[null,null,null,null,-1,3]",        is_Hidden: true  },
+      {
+        input:
+          '2\n[[put,1,1],[put,2,2],[get,1],[put,3,3],[get,2],[put,4,4],[get,1],[get,3],[get,4]]',
+        expected_Output: '[null,null,1,null,-1,null,1,3,4]',
+        is_Hidden: false,
+      },
+      {
+        input: '1\n[[put,1,1],[get,1],[put,2,2],[get,1],[get,2]]',
+        expected_Output: '[null,1,null,-1,2]',
+        is_Hidden: false,
+      },
+      {
+        input: '2\n[[put,1,1],[put,2,2],[get,1],[put,3,3],[get,1],[get,2]]',
+        expected_Output: '[null,null,1,null,1,-1]',
+        is_Hidden: true,
+      },
+      {
+        input: '3\n[[put,1,1],[put,2,2],[put,3,3],[get,1],[put,4,4],[get,2]]',
+        expected_Output: '[null,null,null,1,null,2]',
+        is_Hidden: true,
+      },
+      {
+        input: '2\n[[put,2,1],[put,1,1],[put,2,3],[put,4,1],[get,1],[get,2]]',
+        expected_Output: '[null,null,null,null,-1,3]',
+        is_Hidden: true,
+      },
     ],
   },
 
@@ -316,7 +341,7 @@ put(1,1), put(2,2), get(1)→1, put(3,3), get(2)→-1
   // STACK & QUEUE
   // ─────────────────────────────────────────
   {
-    title: "Valid Parentheses",
+    title: 'Valid Parentheses',
     description: `Given a string containing \`(\`, \`)\`, \`{\`, \`}\`, \`[\`, \`]\`, determine if it is valid. Open brackets must be closed in correct order.
 
 **Example:**
@@ -329,15 +354,15 @@ Output: true
     time_limit_ms: 1000,
     memory_limit_kb: 65536,
     testCases: [
-      { input: "()[]{}",  expected_Output: "true",  is_Hidden: false },
-      { input: "(]",      expected_Output: "false", is_Hidden: false },
-      { input: "{[]}",    expected_Output: "true",  is_Hidden: true  },
-      { input: "([)]",    expected_Output: "false", is_Hidden: true  },
-      { input: "",        expected_Output: "true",  is_Hidden: true  },
+      { input: '()[]{}', expected_Output: 'true', is_Hidden: false },
+      { input: '(]', expected_Output: 'false', is_Hidden: false },
+      { input: '{[]}', expected_Output: 'true', is_Hidden: true },
+      { input: '([)]', expected_Output: 'false', is_Hidden: true },
+      { input: '', expected_Output: 'true', is_Hidden: true },
     ],
   },
   {
-    title: "Daily Temperatures",
+    title: 'Daily Temperatures',
     description: `Given temperatures array, return array where each element is number of days until a warmer temperature. Use a monotonic stack.
 
 **Example:**
@@ -350,15 +375,23 @@ Output: [1,1,4,2,1,1,0,0]
     time_limit_ms: 1500,
     memory_limit_kb: 65536,
     testCases: [
-      { input: "[73,74,75,71,69,72,76,73]", expected_Output: "[1,1,4,2,1,1,0,0]", is_Hidden: false },
-      { input: "[30,40,50,60]",             expected_Output: "[1,1,1,0]",          is_Hidden: false },
-      { input: "[30,60,90]",                expected_Output: "[1,1,0]",            is_Hidden: true  },
-      { input: "[55,55,55]",                expected_Output: "[0,0,0]",            is_Hidden: true  },
-      { input: "[89,62,70,58,47,47,46,76,100,70]", expected_Output: "[8,1,5,4,3,2,1,1,0,0]", is_Hidden: true },
+      {
+        input: '[73,74,75,71,69,72,76,73]',
+        expected_Output: '[1,1,4,2,1,1,0,0]',
+        is_Hidden: false,
+      },
+      { input: '[30,40,50,60]', expected_Output: '[1,1,1,0]', is_Hidden: false },
+      { input: '[30,60,90]', expected_Output: '[1,1,0]', is_Hidden: true },
+      { input: '[55,55,55]', expected_Output: '[0,0,0]', is_Hidden: true },
+      {
+        input: '[89,62,70,58,47,47,46,76,100,70]',
+        expected_Output: '[8,1,5,4,3,2,1,1,0,0]',
+        is_Hidden: true,
+      },
     ],
   },
   {
-    title: "Largest Rectangle in Histogram",
+    title: 'Largest Rectangle in Histogram',
     description: `Given heights array representing histogram bars of width 1, return the area of the largest rectangle.
 
 **Example:**
@@ -371,11 +404,11 @@ Output: 10
     time_limit_ms: 2000,
     memory_limit_kb: 65536,
     testCases: [
-      { input: "[2,1,5,6,2,3]",     expected_Output: "10", is_Hidden: false },
-      { input: "[2,4]",             expected_Output: "4",  is_Hidden: false },
-      { input: "[1,1,1,1,1]",       expected_Output: "5",  is_Hidden: true  },
-      { input: "[5,4,3,2,1]",       expected_Output: "9",  is_Hidden: true  },
-      { input: "[6,7,5,2,4,5,9,3]", expected_Output: "16", is_Hidden: true  },
+      { input: '[2,1,5,6,2,3]', expected_Output: '10', is_Hidden: false },
+      { input: '[2,4]', expected_Output: '4', is_Hidden: false },
+      { input: '[1,1,1,1,1]', expected_Output: '5', is_Hidden: true },
+      { input: '[5,4,3,2,1]', expected_Output: '9', is_Hidden: true },
+      { input: '[6,7,5,2,4,5,9,3]', expected_Output: '16', is_Hidden: true },
     ],
   },
 
@@ -383,7 +416,7 @@ Output: 10
   // TREES
   // ─────────────────────────────────────────
   {
-    title: "Maximum Depth of Binary Tree",
+    title: 'Maximum Depth of Binary Tree',
     description: `Given the root of a binary tree, return its maximum depth — number of nodes from root to farthest leaf.
 
 **Example:**
@@ -396,15 +429,15 @@ Output: 3
     time_limit_ms: 1000,
     memory_limit_kb: 65536,
     testCases: [
-      { input: "[3,9,20,null,null,15,7]", expected_Output: "3", is_Hidden: false },
-      { input: "[1,null,2]",              expected_Output: "2", is_Hidden: false },
-      { input: "[]",                      expected_Output: "0", is_Hidden: true  },
-      { input: "[1]",                     expected_Output: "1", is_Hidden: true  },
-      { input: "[1,2,3,4,5]",            expected_Output: "3", is_Hidden: true  },
+      { input: '[3,9,20,null,null,15,7]', expected_Output: '3', is_Hidden: false },
+      { input: '[1,null,2]', expected_Output: '2', is_Hidden: false },
+      { input: '[]', expected_Output: '0', is_Hidden: true },
+      { input: '[1]', expected_Output: '1', is_Hidden: true },
+      { input: '[1,2,3,4,5]', expected_Output: '3', is_Hidden: true },
     ],
   },
   {
-    title: "Binary Tree Level Order Traversal",
+    title: 'Binary Tree Level Order Traversal',
     description: `Return level order traversal of binary tree node values (left to right, level by level). Use BFS with a queue.
 
 **Example:**
@@ -417,15 +450,23 @@ Output: [[3],[9,20],[15,7]]
     time_limit_ms: 1500,
     memory_limit_kb: 65536,
     testCases: [
-      { input: "[3,9,20,null,null,15,7]", expected_Output: "[[3],[9,20],[15,7]]", is_Hidden: false },
-      { input: "[1]",                     expected_Output: "[[1]]",               is_Hidden: false },
-      { input: "[]",                      expected_Output: "[]",                  is_Hidden: true  },
-      { input: "[1,2,3,4,5]",            expected_Output: "[[1],[2,3],[4,5]]",   is_Hidden: true  },
-      { input: "[0,2,4,1,null,3,-1,5,1,null,6,null,8]", expected_Output: "[[0],[2,4],[1,3,-1],[5,1,6,8]]", is_Hidden: true },
+      {
+        input: '[3,9,20,null,null,15,7]',
+        expected_Output: '[[3],[9,20],[15,7]]',
+        is_Hidden: false,
+      },
+      { input: '[1]', expected_Output: '[[1]]', is_Hidden: false },
+      { input: '[]', expected_Output: '[]', is_Hidden: true },
+      { input: '[1,2,3,4,5]', expected_Output: '[[1],[2,3],[4,5]]', is_Hidden: true },
+      {
+        input: '[0,2,4,1,null,3,-1,5,1,null,6,null,8]',
+        expected_Output: '[[0],[2,4],[1,3,-1],[5,1,6,8]]',
+        is_Hidden: true,
+      },
     ],
   },
   {
-    title: "Validate Binary Search Tree",
+    title: 'Validate Binary Search Tree',
     description: `Given the root of a binary tree, determine if it is a valid BST. Use min/max bounds approach.
 
 **Example:**
@@ -438,15 +479,15 @@ Output: true
     time_limit_ms: 1500,
     memory_limit_kb: 65536,
     testCases: [
-      { input: "[2,1,3]",               expected_Output: "true",  is_Hidden: false },
-      { input: "[5,1,4,null,null,3,6]", expected_Output: "false", is_Hidden: false },
-      { input: "[1]",                   expected_Output: "true",  is_Hidden: true  },
-      { input: "[2,2,2]",               expected_Output: "false", is_Hidden: true  },
-      { input: "[5,4,6,null,null,3,7]", expected_Output: "false", is_Hidden: true  },
+      { input: '[2,1,3]', expected_Output: 'true', is_Hidden: false },
+      { input: '[5,1,4,null,null,3,6]', expected_Output: 'false', is_Hidden: false },
+      { input: '[1]', expected_Output: 'true', is_Hidden: true },
+      { input: '[2,2,2]', expected_Output: 'false', is_Hidden: true },
+      { input: '[5,4,6,null,null,3,7]', expected_Output: 'false', is_Hidden: true },
     ],
   },
   {
-    title: "Binary Tree Maximum Path Sum",
+    title: 'Binary Tree Maximum Path Sum',
     description: `A path is a sequence of connected nodes. Return the maximum path sum of any non-empty path. Path can start and end at any node.
 
 **Example:**
@@ -459,15 +500,19 @@ Output: 42
     time_limit_ms: 2000,
     memory_limit_kb: 65536,
     testCases: [
-      { input: "[-10,9,20,null,null,15,7]", expected_Output: "42", is_Hidden: false },
-      { input: "[1,2,3]",                   expected_Output: "6",  is_Hidden: false },
-      { input: "[-3]",                      expected_Output: "-3", is_Hidden: true  },
-      { input: "[2,-1]",                    expected_Output: "2",  is_Hidden: true  },
-      { input: "[5,4,8,11,null,13,4,7,2,null,null,null,1]", expected_Output: "48", is_Hidden: true },
+      { input: '[-10,9,20,null,null,15,7]', expected_Output: '42', is_Hidden: false },
+      { input: '[1,2,3]', expected_Output: '6', is_Hidden: false },
+      { input: '[-3]', expected_Output: '-3', is_Hidden: true },
+      { input: '[2,-1]', expected_Output: '2', is_Hidden: true },
+      {
+        input: '[5,4,8,11,null,13,4,7,2,null,null,null,1]',
+        expected_Output: '48',
+        is_Hidden: true,
+      },
     ],
   },
   {
-    title: "Serialize and Deserialize Binary Tree",
+    title: 'Serialize and Deserialize Binary Tree',
     description: `Design an algorithm to serialize and deserialize a binary tree. There is no restriction on how your serialization/deserialization algorithm should work.
 
 **Example:**
@@ -481,11 +526,15 @@ deserialize → [1,2,3,null,null,4,5]
     time_limit_ms: 2000,
     memory_limit_kb: 65536,
     testCases: [
-      { input: "[1,2,3,null,null,4,5]", expected_Output: "[1,2,3,null,null,4,5]", is_Hidden: false },
-      { input: "[]",                    expected_Output: "[]",                     is_Hidden: false },
-      { input: "[1]",                   expected_Output: "[1]",                    is_Hidden: true  },
-      { input: "[1,2]",                 expected_Output: "[1,2]",                  is_Hidden: true  },
-      { input: "[1,null,2,null,3]",     expected_Output: "[1,null,2,null,3]",      is_Hidden: true  },
+      {
+        input: '[1,2,3,null,null,4,5]',
+        expected_Output: '[1,2,3,null,null,4,5]',
+        is_Hidden: false,
+      },
+      { input: '[]', expected_Output: '[]', is_Hidden: false },
+      { input: '[1]', expected_Output: '[1]', is_Hidden: true },
+      { input: '[1,2]', expected_Output: '[1,2]', is_Hidden: true },
+      { input: '[1,null,2,null,3]', expected_Output: '[1,null,2,null,3]', is_Hidden: true },
     ],
   },
 
@@ -493,7 +542,7 @@ deserialize → [1,2,3,null,null,4,5]
   // GRAPHS
   // ─────────────────────────────────────────
   {
-    title: "Number of Islands",
+    title: 'Number of Islands',
     description: `Given an m×n grid of '1's (land) and '0's (water), return the number of islands. Use DFS or BFS.
 
 **Example:**
@@ -506,15 +555,27 @@ Output: 2
     time_limit_ms: 1000,
     memory_limit_kb: 65536,
     testCases: [
-      { input: '[["1","1","0"],["0","1","0"],["0","0","1"]]', expected_Output: "2", is_Hidden: false },
-      { input: '[["1","1","1"],["0","1","0"],["1","1","1"]]', expected_Output: "1", is_Hidden: false },
-      { input: '[["0","0","0"]]',                             expected_Output: "0", is_Hidden: true  },
-      { input: '[["1","0","1"],["0","1","0"],["1","0","1"]]', expected_Output: "5", is_Hidden: true  },
-      { input: '[["1","1"],["1","1"]]',                       expected_Output: "1", is_Hidden: true  },
+      {
+        input: '[["1","1","0"],["0","1","0"],["0","0","1"]]',
+        expected_Output: '2',
+        is_Hidden: false,
+      },
+      {
+        input: '[["1","1","1"],["0","1","0"],["1","1","1"]]',
+        expected_Output: '1',
+        is_Hidden: false,
+      },
+      { input: '[["0","0","0"]]', expected_Output: '0', is_Hidden: true },
+      {
+        input: '[["1","0","1"],["0","1","0"],["1","0","1"]]',
+        expected_Output: '5',
+        is_Hidden: true,
+      },
+      { input: '[["1","1"],["1","1"]]', expected_Output: '1', is_Hidden: true },
     ],
   },
   {
-    title: "Course Schedule",
+    title: 'Course Schedule',
     description: `There are numCourses labeled 0 to n-1. Given prerequisites[i]=[a,b] meaning take b before a, return true if you can finish all courses. Detect cycle in directed graph.
 
 **Example:**
@@ -527,15 +588,15 @@ Output: true
     time_limit_ms: 1500,
     memory_limit_kb: 65536,
     testCases: [
-      { input: "2\n[[1,0]]",              expected_Output: "true",  is_Hidden: false },
-      { input: "2\n[[1,0],[0,1]]",        expected_Output: "false", is_Hidden: false },
-      { input: "1\n[]",                   expected_Output: "true",  is_Hidden: true  },
-      { input: "3\n[[0,1],[0,2],[1,2]]",  expected_Output: "true",  is_Hidden: true  },
-      { input: "4\n[[1,0],[2,1],[3,2],[0,3]]", expected_Output: "false", is_Hidden: true },
+      { input: '2\n[[1,0]]', expected_Output: 'true', is_Hidden: false },
+      { input: '2\n[[1,0],[0,1]]', expected_Output: 'false', is_Hidden: false },
+      { input: '1\n[]', expected_Output: 'true', is_Hidden: true },
+      { input: '3\n[[0,1],[0,2],[1,2]]', expected_Output: 'true', is_Hidden: true },
+      { input: '4\n[[1,0],[2,1],[3,2],[0,3]]', expected_Output: 'false', is_Hidden: true },
     ],
   },
   {
-    title: "Word Ladder",
+    title: 'Word Ladder',
     description: `Given beginWord, endWord and a wordList, return the number of words in the shortest transformation sequence. Each step changes exactly one letter and must exist in wordList.
 
 **Example:**
@@ -548,15 +609,23 @@ Output: 5
     time_limit_ms: 2000,
     memory_limit_kb: 65536,
     testCases: [
-      { input: 'hit\ncog\n["hot","dot","dog","lot","log","cog"]', expected_Output: "5", is_Hidden: false },
-      { input: 'hit\ncog\n["hot","dot","dog","lot","log"]',       expected_Output: "0", is_Hidden: false },
-      { input: 'a\nc\n["a","b","c"]',                            expected_Output: "2", is_Hidden: true  },
-      { input: 'hot\ndot\n["hot","dot"]',                        expected_Output: "2", is_Hidden: true  },
-      { input: 'hot\ndog\n["hot","dog"]',                        expected_Output: "0", is_Hidden: true  },
+      {
+        input: 'hit\ncog\n["hot","dot","dog","lot","log","cog"]',
+        expected_Output: '5',
+        is_Hidden: false,
+      },
+      {
+        input: 'hit\ncog\n["hot","dot","dog","lot","log"]',
+        expected_Output: '0',
+        is_Hidden: false,
+      },
+      { input: 'a\nc\n["a","b","c"]', expected_Output: '2', is_Hidden: true },
+      { input: 'hot\ndot\n["hot","dot"]', expected_Output: '2', is_Hidden: true },
+      { input: 'hot\ndog\n["hot","dog"]', expected_Output: '0', is_Hidden: true },
     ],
   },
   {
-    title: "Clone Graph",
+    title: 'Clone Graph',
     description: `Given a reference to a node in a connected undirected graph, return a deep copy of the graph. Use DFS or BFS with a visited HashMap.
 
 **Example:**
@@ -569,11 +638,15 @@ Output: [[2,4],[1,3],[2,4],[1,3]]
     time_limit_ms: 1500,
     memory_limit_kb: 65536,
     testCases: [
-      { input: "[[2,4],[1,3],[2,4],[1,3]]", expected_Output: "[[2,4],[1,3],[2,4],[1,3]]", is_Hidden: false },
-      { input: "[[]]",                       expected_Output: "[[]]",                       is_Hidden: false },
-      { input: "[]",                         expected_Output: "[]",                         is_Hidden: true  },
-      { input: "[[2],[1]]",                  expected_Output: "[[2],[1]]",                  is_Hidden: true  },
-      { input: "[[2,3],[1,3],[1,2]]",        expected_Output: "[[2,3],[1,3],[1,2]]",        is_Hidden: true  },
+      {
+        input: '[[2,4],[1,3],[2,4],[1,3]]',
+        expected_Output: '[[2,4],[1,3],[2,4],[1,3]]',
+        is_Hidden: false,
+      },
+      { input: '[[]]', expected_Output: '[[]]', is_Hidden: false },
+      { input: '[]', expected_Output: '[]', is_Hidden: true },
+      { input: '[[2],[1]]', expected_Output: '[[2],[1]]', is_Hidden: true },
+      { input: '[[2,3],[1,3],[1,2]]', expected_Output: '[[2,3],[1,3],[1,2]]', is_Hidden: true },
     ],
   },
 
@@ -581,7 +654,7 @@ Output: [[2,4],[1,3],[2,4],[1,3]]
   // DYNAMIC PROGRAMMING
   // ─────────────────────────────────────────
   {
-    title: "Climbing Stairs",
+    title: 'Climbing Stairs',
     description: `You can climb 1 or 2 steps at a time. How many distinct ways to reach the top of n stairs? This is essentially Fibonacci.
 
 **Example:**
@@ -594,15 +667,15 @@ Output: 3 (1+1+1, 1+2, 2+1)
     time_limit_ms: 1000,
     memory_limit_kb: 65536,
     testCases: [
-      { input: "2",  expected_Output: "2",  is_Hidden: false },
-      { input: "3",  expected_Output: "3",  is_Hidden: false },
-      { input: "1",  expected_Output: "1",  is_Hidden: true  },
-      { input: "5",  expected_Output: "8",  is_Hidden: true  },
-      { input: "10", expected_Output: "89", is_Hidden: true  },
+      { input: '2', expected_Output: '2', is_Hidden: false },
+      { input: '3', expected_Output: '3', is_Hidden: false },
+      { input: '1', expected_Output: '1', is_Hidden: true },
+      { input: '5', expected_Output: '8', is_Hidden: true },
+      { input: '10', expected_Output: '89', is_Hidden: true },
     ],
   },
   {
-    title: "Coin Change",
+    title: 'Coin Change',
     description: `Given coins of different denominations and an amount, return fewest coins to make up the amount. If not possible return -1.
 
 **Example:**
@@ -615,15 +688,15 @@ Output: 3 (5+5+5) — note greedy fails here
     time_limit_ms: 1500,
     memory_limit_kb: 65536,
     testCases: [
-      { input: "[1,5,11]\n15",  expected_Output: "3",  is_Hidden: false },
-      { input: "[2]\n3",        expected_Output: "-1", is_Hidden: false },
-      { input: "[1]\n0",        expected_Output: "0",  is_Hidden: true  },
-      { input: "[1,2,5]\n11",   expected_Output: "3",  is_Hidden: true  },
-      { input: "[186,419,83,408]\n6249", expected_Output: "20", is_Hidden: true },
+      { input: '[1,5,11]\n15', expected_Output: '3', is_Hidden: false },
+      { input: '[2]\n3', expected_Output: '-1', is_Hidden: false },
+      { input: '[1]\n0', expected_Output: '0', is_Hidden: true },
+      { input: '[1,2,5]\n11', expected_Output: '3', is_Hidden: true },
+      { input: '[186,419,83,408]\n6249', expected_Output: '20', is_Hidden: true },
     ],
   },
   {
-    title: "Longest Common Subsequence",
+    title: 'Longest Common Subsequence',
     description: `Given two strings, return the length of their longest common subsequence. A subsequence maintains relative order but need not be contiguous.
 
 **Example:**
@@ -636,15 +709,15 @@ Output: 3
     time_limit_ms: 1500,
     memory_limit_kb: 65536,
     testCases: [
-      { input: "abcde\nace",   expected_Output: "3", is_Hidden: false },
-      { input: "abc\nabc",     expected_Output: "3", is_Hidden: false },
-      { input: "abc\ndef",     expected_Output: "0", is_Hidden: true  },
-      { input: "oxcpqrsvwf\nshmtulqrypy", expected_Output: "2", is_Hidden: true },
-      { input: "bsbininm\njmjkbkjkv",     expected_Output: "1", is_Hidden: true },
+      { input: 'abcde\nace', expected_Output: '3', is_Hidden: false },
+      { input: 'abc\nabc', expected_Output: '3', is_Hidden: false },
+      { input: 'abc\ndef', expected_Output: '0', is_Hidden: true },
+      { input: 'oxcpqrsvwf\nshmtulqrypy', expected_Output: '2', is_Hidden: true },
+      { input: 'bsbininm\njmjkbkjkv', expected_Output: '1', is_Hidden: true },
     ],
   },
   {
-    title: "Edit Distance",
+    title: 'Edit Distance',
     description: `Given two strings word1 and word2, return the minimum operations (insert, delete, replace) to convert word1 to word2.
 
 **Example:**
@@ -657,15 +730,15 @@ Output: 3
     time_limit_ms: 2000,
     memory_limit_kb: 65536,
     testCases: [
-      { input: "horse\nros",          expected_Output: "3", is_Hidden: false },
-      { input: "intention\nexecution",expected_Output: "5", is_Hidden: false },
-      { input: "\n",                  expected_Output: "0", is_Hidden: true  },
-      { input: "a\n",                 expected_Output: "1", is_Hidden: true  },
-      { input: "zoologicoarchaeologist\nzoologist", expected_Output: "13", is_Hidden: true },
+      { input: 'horse\nros', expected_Output: '3', is_Hidden: false },
+      { input: 'intention\nexecution', expected_Output: '5', is_Hidden: false },
+      { input: '\n', expected_Output: '0', is_Hidden: true },
+      { input: 'a\n', expected_Output: '1', is_Hidden: true },
+      { input: 'zoologicoarchaeologist\nzoologist', expected_Output: '13', is_Hidden: true },
     ],
   },
   {
-    title: "Burst Balloons",
+    title: 'Burst Balloons',
     description: `Given n balloons with nums[i] on each, burst all and collect coins. Bursting balloon i gives nums[i-1]*nums[i]*nums[i+1] coins. Return max coins.
 
 **Example:**
@@ -678,15 +751,15 @@ Output: 167
     time_limit_ms: 2000,
     memory_limit_kb: 65536,
     testCases: [
-      { input: "[3,1,5,8]", expected_Output: "167", is_Hidden: false },
-      { input: "[1,5]",     expected_Output: "10",  is_Hidden: false },
-      { input: "[1]",       expected_Output: "1",   is_Hidden: true  },
-      { input: "[1,2,3,4]", expected_Output: "32",  is_Hidden: true  },
-      { input: "[7,9,8,0,7,1,3,5,5,2,3]", expected_Output: "1654", is_Hidden: true },
+      { input: '[3,1,5,8]', expected_Output: '167', is_Hidden: false },
+      { input: '[1,5]', expected_Output: '10', is_Hidden: false },
+      { input: '[1]', expected_Output: '1', is_Hidden: true },
+      { input: '[1,2,3,4]', expected_Output: '32', is_Hidden: true },
+      { input: '[7,9,8,0,7,1,3,5,5,2,3]', expected_Output: '1654', is_Hidden: true },
     ],
   },
   {
-    title: "House Robber",
+    title: 'House Robber',
     description: `Rob houses along a street. Cannot rob two adjacent houses. Given nums[i] = money in each house, return max you can rob.
 
 **Example:**
@@ -699,11 +772,11 @@ Output: 12
     time_limit_ms: 1000,
     memory_limit_kb: 65536,
     testCases: [
-      { input: "[2,7,9,3,1]", expected_Output: "12", is_Hidden: false },
-      { input: "[1,2,3,1]",   expected_Output: "4",  is_Hidden: false },
-      { input: "[0]",         expected_Output: "0",  is_Hidden: true  },
-      { input: "[5,1,1,5]",   expected_Output: "10", is_Hidden: true  },
-      { input: "[2,1,1,2]",   expected_Output: "4",  is_Hidden: true  },
+      { input: '[2,7,9,3,1]', expected_Output: '12', is_Hidden: false },
+      { input: '[1,2,3,1]', expected_Output: '4', is_Hidden: false },
+      { input: '[0]', expected_Output: '0', is_Hidden: true },
+      { input: '[5,1,1,5]', expected_Output: '10', is_Hidden: true },
+      { input: '[2,1,1,2]', expected_Output: '4', is_Hidden: true },
     ],
   },
 
@@ -711,7 +784,7 @@ Output: 12
   // HASHING
   // ─────────────────────────────────────────
   {
-    title: "Contains Duplicate",
+    title: 'Contains Duplicate',
     description: `Given an integer array, return true if any value appears at least twice, false if every element is distinct.
 
 **Example:**
@@ -724,15 +797,15 @@ Output: true
     time_limit_ms: 1000,
     memory_limit_kb: 65536,
     testCases: [
-      { input: "[1,2,3,1]",   expected_Output: "true",  is_Hidden: false },
-      { input: "[1,2,3,4]",   expected_Output: "false", is_Hidden: false },
-      { input: "[1,1,1,3,3,4,3,2,4,2]", expected_Output: "true", is_Hidden: true },
-      { input: "[]",          expected_Output: "false", is_Hidden: true  },
-      { input: "[1]",         expected_Output: "false", is_Hidden: true  },
+      { input: '[1,2,3,1]', expected_Output: 'true', is_Hidden: false },
+      { input: '[1,2,3,4]', expected_Output: 'false', is_Hidden: false },
+      { input: '[1,1,1,3,3,4,3,2,4,2]', expected_Output: 'true', is_Hidden: true },
+      { input: '[]', expected_Output: 'false', is_Hidden: true },
+      { input: '[1]', expected_Output: 'false', is_Hidden: true },
     ],
   },
   {
-    title: "Longest Consecutive Sequence",
+    title: 'Longest Consecutive Sequence',
     description: `Given an unsorted array, return the length of the longest consecutive elements sequence. Must run in O(n).
 
 **Example:**
@@ -745,15 +818,15 @@ Output: 4 (1,2,3,4)
     time_limit_ms: 1500,
     memory_limit_kb: 65536,
     testCases: [
-      { input: "[100,4,200,1,3,2]",         expected_Output: "4", is_Hidden: false },
-      { input: "[0,3,7,2,5,8,4,6,0,1]",     expected_Output: "9", is_Hidden: false },
-      { input: "[]",                         expected_Output: "0", is_Hidden: true  },
-      { input: "[1,2,0,1]",                  expected_Output: "3", is_Hidden: true  },
-      { input: "[9,1,4,7,3,-1,0,5,8,-1,6]", expected_Output: "7", is_Hidden: true  },
+      { input: '[100,4,200,1,3,2]', expected_Output: '4', is_Hidden: false },
+      { input: '[0,3,7,2,5,8,4,6,0,1]', expected_Output: '9', is_Hidden: false },
+      { input: '[]', expected_Output: '0', is_Hidden: true },
+      { input: '[1,2,0,1]', expected_Output: '3', is_Hidden: true },
+      { input: '[9,1,4,7,3,-1,0,5,8,-1,6]', expected_Output: '7', is_Hidden: true },
     ],
   },
   {
-    title: "Subarray Sum Equals K",
+    title: 'Subarray Sum Equals K',
     description: `Given array nums and integer k, return total number of subarrays whose sum equals k. Use prefix sum + HashMap.
 
 **Example:**
@@ -766,15 +839,15 @@ Output: 2
     time_limit_ms: 1500,
     memory_limit_kb: 65536,
     testCases: [
-      { input: "[1,1,1]\n2",   expected_Output: "2", is_Hidden: false },
-      { input: "[1,2,3]\n3",   expected_Output: "2", is_Hidden: false },
-      { input: "[1]\n0",       expected_Output: "0", is_Hidden: true  },
-      { input: "[-1,-1,1]\n0", expected_Output: "1", is_Hidden: true  },
-      { input: "[1,2,1,2,1]\n3", expected_Output: "4", is_Hidden: true },
+      { input: '[1,1,1]\n2', expected_Output: '2', is_Hidden: false },
+      { input: '[1,2,3]\n3', expected_Output: '2', is_Hidden: false },
+      { input: '[1]\n0', expected_Output: '0', is_Hidden: true },
+      { input: '[-1,-1,1]\n0', expected_Output: '1', is_Hidden: true },
+      { input: '[1,2,1,2,1]\n3', expected_Output: '4', is_Hidden: true },
     ],
   },
   {
-    title: "Top K Frequent Elements",
+    title: 'Top K Frequent Elements',
     description: `Given array nums and integer k, return the k most frequent elements. Must be better than O(n log n) — use bucket sort.
 
 **Example:**
@@ -787,11 +860,11 @@ Output: [1,2]
     time_limit_ms: 2000,
     memory_limit_kb: 65536,
     testCases: [
-      { input: "[1,1,1,2,2,3]\n2",      expected_Output: "[1,2]",   is_Hidden: false },
-      { input: "[1]\n1",                 expected_Output: "[1]",     is_Hidden: false },
-      { input: "[1,2]\n2",               expected_Output: "[1,2]",   is_Hidden: true  },
-      { input: "[4,1,-1,2,-1,2,3]\n2",   expected_Output: "[-1,2]",  is_Hidden: true  },
-      { input: "[5,5,5,3,3,1,1,1,1,1]\n3", expected_Output: "[1,5,3]", is_Hidden: true },
+      { input: '[1,1,1,2,2,3]\n2', expected_Output: '[1,2]', is_Hidden: false },
+      { input: '[1]\n1', expected_Output: '[1]', is_Hidden: false },
+      { input: '[1,2]\n2', expected_Output: '[1,2]', is_Hidden: true },
+      { input: '[4,1,-1,2,-1,2,3]\n2', expected_Output: '[-1,2]', is_Hidden: true },
+      { input: '[5,5,5,3,3,1,1,1,1,1]\n3', expected_Output: '[1,5,3]', is_Hidden: true },
     ],
   },
 
@@ -799,7 +872,7 @@ Output: [1,2]
   // RECURSION & BACKTRACKING
   // ─────────────────────────────────────────
   {
-    title: "Permutations",
+    title: 'Permutations',
     description: `Given an array of distinct integers, return all possible permutations using backtracking.
 
 **Example:**
@@ -812,15 +885,19 @@ Output: [[1,2,3],[1,3,2],[2,1,3],[2,3,1],[3,1,2],[3,2,1]]
     time_limit_ms: 1500,
     memory_limit_kb: 65536,
     testCases: [
-      { input: "[1,2,3]", expected_Output: "[[1,2,3],[1,3,2],[2,1,3],[2,3,1],[3,1,2],[3,2,1]]", is_Hidden: false },
-      { input: "[0,1]",   expected_Output: "[[0,1],[1,0]]",                                      is_Hidden: false },
-      { input: "[1]",     expected_Output: "[[1]]",                                              is_Hidden: true  },
-      { input: "[1,2]",   expected_Output: "[[1,2],[2,1]]",                                      is_Hidden: true  },
-      { input: "[1,2,3,4]", expected_Output: "24 permutations",                                  is_Hidden: true  },
+      {
+        input: '[1,2,3]',
+        expected_Output: '[[1,2,3],[1,3,2],[2,1,3],[2,3,1],[3,1,2],[3,2,1]]',
+        is_Hidden: false,
+      },
+      { input: '[0,1]', expected_Output: '[[0,1],[1,0]]', is_Hidden: false },
+      { input: '[1]', expected_Output: '[[1]]', is_Hidden: true },
+      { input: '[1,2]', expected_Output: '[[1,2],[2,1]]', is_Hidden: true },
+      { input: '[1,2,3,4]', expected_Output: '24 permutations', is_Hidden: true },
     ],
   },
   {
-    title: "Subsets",
+    title: 'Subsets',
     description: `Given an integer array of unique elements, return all possible subsets (the power set) using backtracking.
 
 **Example:**
@@ -833,15 +910,19 @@ Output: [[],[1],[2],[1,2],[3],[1,3],[2,3],[1,2,3]]
     time_limit_ms: 1500,
     memory_limit_kb: 65536,
     testCases: [
-      { input: "[1,2,3]", expected_Output: "[[],[1],[2],[1,2],[3],[1,3],[2,3],[1,2,3]]", is_Hidden: false },
-      { input: "[0]",     expected_Output: "[[],[0]]",                                   is_Hidden: false },
-      { input: "[1,2]",   expected_Output: "[[],[1],[2],[1,2]]",                         is_Hidden: true  },
-      { input: "[]",      expected_Output: "[[]]",                                       is_Hidden: true  },
-      { input: "[1,2,3,4]", expected_Output: "16 subsets",                               is_Hidden: true  },
+      {
+        input: '[1,2,3]',
+        expected_Output: '[[],[1],[2],[1,2],[3],[1,3],[2,3],[1,2,3]]',
+        is_Hidden: false,
+      },
+      { input: '[0]', expected_Output: '[[],[0]]', is_Hidden: false },
+      { input: '[1,2]', expected_Output: '[[],[1],[2],[1,2]]', is_Hidden: true },
+      { input: '[]', expected_Output: '[[]]', is_Hidden: true },
+      { input: '[1,2,3,4]', expected_Output: '16 subsets', is_Hidden: true },
     ],
   },
   {
-    title: "N-Queens",
+    title: 'N-Queens',
     description: `Place n queens on n×n chessboard so no two attack each other. Return all distinct board configurations. Q=queen, .=empty.
 
 **Example:**
@@ -854,15 +935,19 @@ Output: [[".Q..","...Q","Q...","..Q."],["..Q.","Q...","...Q",".Q.."]]
     time_limit_ms: 2000,
     memory_limit_kb: 65536,
     testCases: [
-      { input: "1", expected_Output: '[["Q"]]',                                                       is_Hidden: false },
-      { input: "4", expected_Output: '[[".Q..","...Q","Q...","..Q."],["..Q.","Q...","...Q",".Q.."]]', is_Hidden: false },
-      { input: "2", expected_Output: "[]",                                                            is_Hidden: true  },
-      { input: "3", expected_Output: "[]",                                                            is_Hidden: true  },
-      { input: "5", expected_Output: "10 solutions",                                                  is_Hidden: true  },
+      { input: '1', expected_Output: '[["Q"]]', is_Hidden: false },
+      {
+        input: '4',
+        expected_Output: '[[".Q..","...Q","Q...","..Q."],["..Q.","Q...","...Q",".Q.."]]',
+        is_Hidden: false,
+      },
+      { input: '2', expected_Output: '[]', is_Hidden: true },
+      { input: '3', expected_Output: '[]', is_Hidden: true },
+      { input: '5', expected_Output: '10 solutions', is_Hidden: true },
     ],
   },
   {
-    title: "Regular Expression Matching",
+    title: 'Regular Expression Matching',
     description: `Implement regex matching with '.' matching any single character and '*' matching zero or more of the preceding element.
 
 **Example:**
@@ -875,11 +960,11 @@ Output: true
     time_limit_ms: 2000,
     memory_limit_kb: 65536,
     testCases: [
-      { input: "aa\na",      expected_Output: "false", is_Hidden: false },
-      { input: "aa\na*",     expected_Output: "true",  is_Hidden: false },
-      { input: "ab\n.*",     expected_Output: "true",  is_Hidden: true  },
-      { input: "aab\nc*a*b", expected_Output: "true",  is_Hidden: true  },
-      { input: "mississippi\nmis*is*p*.", expected_Output: "false", is_Hidden: true },
+      { input: 'aa\na', expected_Output: 'false', is_Hidden: false },
+      { input: 'aa\na*', expected_Output: 'true', is_Hidden: false },
+      { input: 'ab\n.*', expected_Output: 'true', is_Hidden: true },
+      { input: 'aab\nc*a*b', expected_Output: 'true', is_Hidden: true },
+      { input: 'mississippi\nmis*is*p*.', expected_Output: 'false', is_Hidden: true },
     ],
   },
 
@@ -887,7 +972,7 @@ Output: true
   // BINARY SEARCH
   // ─────────────────────────────────────────
   {
-    title: "Binary Search",
+    title: 'Binary Search',
     description: `Given a sorted array and a target, return the index of target. If not found return -1. Must run in O(log n).
 
 **Example:**
@@ -900,15 +985,15 @@ Output: 4
     time_limit_ms: 1000,
     memory_limit_kb: 65536,
     testCases: [
-      { input: "[-1,0,3,5,9,12]\n9",  expected_Output: "4",  is_Hidden: false },
-      { input: "[-1,0,3,5,9,12]\n2",  expected_Output: "-1", is_Hidden: false },
-      { input: "[5]\n5",              expected_Output: "0",  is_Hidden: true  },
-      { input: "[1,2,3,4,5]\n1",      expected_Output: "0",  is_Hidden: true  },
-      { input: "[1,2,3,4,5]\n6",      expected_Output: "-1", is_Hidden: true  },
+      { input: '[-1,0,3,5,9,12]\n9', expected_Output: '4', is_Hidden: false },
+      { input: '[-1,0,3,5,9,12]\n2', expected_Output: '-1', is_Hidden: false },
+      { input: '[5]\n5', expected_Output: '0', is_Hidden: true },
+      { input: '[1,2,3,4,5]\n1', expected_Output: '0', is_Hidden: true },
+      { input: '[1,2,3,4,5]\n6', expected_Output: '-1', is_Hidden: true },
     ],
   },
   {
-    title: "Search in Rotated Sorted Array",
+    title: 'Search in Rotated Sorted Array',
     description: `Given a rotated sorted array with no duplicates and a target, return its index or -1 if not found. O(log n) required.
 
 **Example:**
@@ -921,15 +1006,15 @@ Output: 4
     time_limit_ms: 1500,
     memory_limit_kb: 65536,
     testCases: [
-      { input: "[4,5,6,7,0,1,2]\n0", expected_Output: "4",  is_Hidden: false },
-      { input: "[4,5,6,7,0,1,2]\n3", expected_Output: "-1", is_Hidden: false },
-      { input: "[1]\n0",             expected_Output: "-1", is_Hidden: true  },
-      { input: "[3,1]\n1",           expected_Output: "1",  is_Hidden: true  },
-      { input: "[5,1,3]\n3",         expected_Output: "2",  is_Hidden: true  },
+      { input: '[4,5,6,7,0,1,2]\n0', expected_Output: '4', is_Hidden: false },
+      { input: '[4,5,6,7,0,1,2]\n3', expected_Output: '-1', is_Hidden: false },
+      { input: '[1]\n0', expected_Output: '-1', is_Hidden: true },
+      { input: '[3,1]\n1', expected_Output: '1', is_Hidden: true },
+      { input: '[5,1,3]\n3', expected_Output: '2', is_Hidden: true },
     ],
   },
   {
-    title: "Median of Two Sorted Arrays",
+    title: 'Median of Two Sorted Arrays',
     description: `Given two sorted arrays nums1 and nums2 of size m and n, return the median of the two sorted arrays. Must run in O(log(m+n)).
 
 **Example:**
@@ -942,11 +1027,11 @@ Output: 2.00000
     time_limit_ms: 2000,
     memory_limit_kb: 65536,
     testCases: [
-      { input: "[1,3]\n[2]",       expected_Output: "2.00000", is_Hidden: false },
-      { input: "[1,2]\n[3,4]",     expected_Output: "2.50000", is_Hidden: false },
-      { input: "[0,0]\n[0,0]",     expected_Output: "0.00000", is_Hidden: true  },
-      { input: "[]\n[1]",          expected_Output: "1.00000", is_Hidden: true  },
-      { input: "[2]\n[]",          expected_Output: "2.00000", is_Hidden: true  },
+      { input: '[1,3]\n[2]', expected_Output: '2.00000', is_Hidden: false },
+      { input: '[1,2]\n[3,4]', expected_Output: '2.50000', is_Hidden: false },
+      { input: '[0,0]\n[0,0]', expected_Output: '0.00000', is_Hidden: true },
+      { input: '[]\n[1]', expected_Output: '1.00000', is_Hidden: true },
+      { input: '[2]\n[]', expected_Output: '2.00000', is_Hidden: true },
     ],
   },
 
@@ -954,7 +1039,7 @@ Output: 2.00000
   // TWO POINTERS
   // ─────────────────────────────────────────
   {
-    title: "3Sum",
+    title: '3Sum',
     description: `Given array nums, return all unique triplets that sum to zero. Sort + two pointers.
 
 **Example:**
@@ -967,15 +1052,19 @@ Output: [[-1,-1,2],[-1,0,1]]
     time_limit_ms: 1500,
     memory_limit_kb: 65536,
     testCases: [
-      { input: "[-1,0,1,2,-1,-4]", expected_Output: "[[-1,-1,2],[-1,0,1]]", is_Hidden: false },
-      { input: "[0,1,1]",          expected_Output: "[]",                    is_Hidden: false },
-      { input: "[0,0,0]",          expected_Output: "[[0,0,0]]",             is_Hidden: true  },
-      { input: "[-2,0,1,1,2]",     expected_Output: "[[-2,0,2],[-2,1,1]]",  is_Hidden: true  },
-      { input: "[-4,-2,-2,-2,0,1,2,2,2,3,3,4,4,6,6]", expected_Output: "[[-4,-2,6],[-4,0,4],[-4,1,3],[-4,2,2],[-2,-2,4],[-2,0,2]]", is_Hidden: true },
+      { input: '[-1,0,1,2,-1,-4]', expected_Output: '[[-1,-1,2],[-1,0,1]]', is_Hidden: false },
+      { input: '[0,1,1]', expected_Output: '[]', is_Hidden: false },
+      { input: '[0,0,0]', expected_Output: '[[0,0,0]]', is_Hidden: true },
+      { input: '[-2,0,1,1,2]', expected_Output: '[[-2,0,2],[-2,1,1]]', is_Hidden: true },
+      {
+        input: '[-4,-2,-2,-2,0,1,2,2,2,3,3,4,4,6,6]',
+        expected_Output: '[[-4,-2,6],[-4,0,4],[-4,1,3],[-4,2,2],[-2,-2,4],[-2,0,2]]',
+        is_Hidden: true,
+      },
     ],
   },
   {
-    title: "Container With Most Water",
+    title: 'Container With Most Water',
     description: `Given heights array, find two lines that together with x-axis forms a container that holds the most water. Use two pointers.
 
 **Example:**
@@ -988,11 +1077,11 @@ Output: 49
     time_limit_ms: 1500,
     memory_limit_kb: 65536,
     testCases: [
-      { input: "[1,8,6,2,5,4,8,3,7]", expected_Output: "49", is_Hidden: false },
-      { input: "[1,1]",               expected_Output: "1",  is_Hidden: false },
-      { input: "[4,3,2,1,4]",         expected_Output: "16", is_Hidden: true  },
-      { input: "[1,2,1]",             expected_Output: "2",  is_Hidden: true  },
-      { input: "[2,3,4,5,18,17,6]",   expected_Output: "17", is_Hidden: true  },
+      { input: '[1,8,6,2,5,4,8,3,7]', expected_Output: '49', is_Hidden: false },
+      { input: '[1,1]', expected_Output: '1', is_Hidden: false },
+      { input: '[4,3,2,1,4]', expected_Output: '16', is_Hidden: true },
+      { input: '[1,2,1]', expected_Output: '2', is_Hidden: true },
+      { input: '[2,3,4,5,18,17,6]', expected_Output: '17', is_Hidden: true },
     ],
   },
 
@@ -1000,7 +1089,7 @@ Output: 49
   // HEAP / PRIORITY QUEUE
   // ─────────────────────────────────────────
   {
-    title: "Kth Largest Element in Array",
+    title: 'Kth Largest Element in Array',
     description: `Find the kth largest element in an unsorted array. Use a min-heap of size k or quickselect.
 
 **Example:**
@@ -1013,15 +1102,15 @@ Output: 5
     time_limit_ms: 1500,
     memory_limit_kb: 65536,
     testCases: [
-      { input: "[3,2,1,5,6,4]\n2",   expected_Output: "5", is_Hidden: false },
-      { input: "[3,2,3,1,2,4,5,5,6]\n4", expected_Output: "4", is_Hidden: false },
-      { input: "[1]\n1",             expected_Output: "1", is_Hidden: true  },
-      { input: "[7,6,5,4,3,2,1]\n5", expected_Output: "3", is_Hidden: true  },
-      { input: "[-1,-2,-3,-4,-5]\n2",expected_Output: "-2",is_Hidden: true  },
+      { input: '[3,2,1,5,6,4]\n2', expected_Output: '5', is_Hidden: false },
+      { input: '[3,2,3,1,2,4,5,5,6]\n4', expected_Output: '4', is_Hidden: false },
+      { input: '[1]\n1', expected_Output: '1', is_Hidden: true },
+      { input: '[7,6,5,4,3,2,1]\n5', expected_Output: '3', is_Hidden: true },
+      { input: '[-1,-2,-3,-4,-5]\n2', expected_Output: '-2', is_Hidden: true },
     ],
   },
   {
-    title: "Merge K Sorted Lists",
+    title: 'Merge K Sorted Lists',
     description: `Given an array of k sorted linked lists, merge all into one sorted list. Use a min-heap.
 
 **Example:**
@@ -1034,11 +1123,11 @@ Output: [1,1,2,3,4,4,5,6]
     time_limit_ms: 2000,
     memory_limit_kb: 65536,
     testCases: [
-      { input: "[[1,4,5],[1,3,4],[2,6]]", expected_Output: "[1,1,2,3,4,4,5,6]", is_Hidden: false },
-      { input: "[]",                       expected_Output: "[]",                 is_Hidden: false },
-      { input: "[[]]",                     expected_Output: "[]",                 is_Hidden: true  },
-      { input: "[[1],[2],[3]]",            expected_Output: "[1,2,3]",            is_Hidden: true  },
-      { input: "[[1,3],[2,5],[4,6]]",      expected_Output: "[1,2,3,4,5,6]",     is_Hidden: true  },
+      { input: '[[1,4,5],[1,3,4],[2,6]]', expected_Output: '[1,1,2,3,4,4,5,6]', is_Hidden: false },
+      { input: '[]', expected_Output: '[]', is_Hidden: false },
+      { input: '[[]]', expected_Output: '[]', is_Hidden: true },
+      { input: '[[1],[2],[3]]', expected_Output: '[1,2,3]', is_Hidden: true },
+      { input: '[[1,3],[2,5],[4,6]]', expected_Output: '[1,2,3,4,5,6]', is_Hidden: true },
     ],
   },
 
@@ -1046,7 +1135,7 @@ Output: [1,1,2,3,4,4,5,6]
   // TRIE
   // ─────────────────────────────────────────
   {
-    title: "Implement Trie",
+    title: 'Implement Trie',
     description: `Implement a Trie with insert(word), search(word), and startsWith(prefix) operations.
 
 **Example:**
@@ -1059,15 +1148,32 @@ insert("apple"), search("apple")→true, search("app")→false, startsWith("app"
     time_limit_ms: 1500,
     memory_limit_kb: 65536,
     testCases: [
-      { input: '[[insert,"apple"],[search,"apple"],[search,"app"],[startsWith,"app"],[insert,"app"],[search,"app"]]', expected_Output: "[null,true,false,true,null,true]", is_Hidden: false },
-      { input: '[[insert,"a"],[search,"a"]]',                                                                         expected_Output: "[null,true]",                    is_Hidden: false },
-      { input: '[[insert,"abc"],[search,"ab"],[startsWith,"ab"]]',                                                    expected_Output: "[null,false,true]",               is_Hidden: true  },
-      { input: '[[insert,"car"],[insert,"card"],[search,"card"],[search,"care"]]',                                    expected_Output: "[null,null,true,false]",           is_Hidden: true  },
-      { input: '[[insert,"hello"],[startsWith,"hell"],[startsWith,"world"]]',                                         expected_Output: "[null,true,false]",               is_Hidden: true  },
+      {
+        input:
+          '[[insert,"apple"],[search,"apple"],[search,"app"],[startsWith,"app"],[insert,"app"],[search,"app"]]',
+        expected_Output: '[null,true,false,true,null,true]',
+        is_Hidden: false,
+      },
+      { input: '[[insert,"a"],[search,"a"]]', expected_Output: '[null,true]', is_Hidden: false },
+      {
+        input: '[[insert,"abc"],[search,"ab"],[startsWith,"ab"]]',
+        expected_Output: '[null,false,true]',
+        is_Hidden: true,
+      },
+      {
+        input: '[[insert,"car"],[insert,"card"],[search,"card"],[search,"care"]]',
+        expected_Output: '[null,null,true,false]',
+        is_Hidden: true,
+      },
+      {
+        input: '[[insert,"hello"],[startsWith,"hell"],[startsWith,"world"]]',
+        expected_Output: '[null,true,false]',
+        is_Hidden: true,
+      },
     ],
   },
   {
-    title: "Word Search II",
+    title: 'Word Search II',
     description: `Given an m×n board of characters and a list of words, return all words that can be found in the board. Use Trie + DFS backtracking.
 
 **Example:**
@@ -1080,11 +1186,25 @@ Output: ["eat","oath"]
     time_limit_ms: 2000,
     memory_limit_kb: 65536,
     testCases: [
-      { input: '[["o","a","a","n"],["e","t","a","e"],["i","h","k","r"],["i","f","l","v"]]\n["oath","pea","eat","rain"]', expected_Output: '["eat","oath"]', is_Hidden: false },
-      { input: '[["a","b"],["c","d"]]\n["abdc","abcd"]',                                                                 expected_Output: '["abcd"]',       is_Hidden: false },
-      { input: '[["a"]]\n["a"]',                                                                                         expected_Output: '["a"]',           is_Hidden: true  },
-      { input: '[["a","a"]]\n["aaa"]',                                                                                   expected_Output: '[]',              is_Hidden: true  },
-      { input: '[["o","a","b","n"],["o","t","a","e"],["a","h","k","r"],["a","f","l","v"]]\n["oa","oaa"]',                expected_Output: '["oa","oaa"]',    is_Hidden: true  },
+      {
+        input:
+          '[["o","a","a","n"],["e","t","a","e"],["i","h","k","r"],["i","f","l","v"]]\n["oath","pea","eat","rain"]',
+        expected_Output: '["eat","oath"]',
+        is_Hidden: false,
+      },
+      {
+        input: '[["a","b"],["c","d"]]\n["abdc","abcd"]',
+        expected_Output: '["abcd"]',
+        is_Hidden: false,
+      },
+      { input: '[["a"]]\n["a"]', expected_Output: '["a"]', is_Hidden: true },
+      { input: '[["a","a"]]\n["aaa"]', expected_Output: '[]', is_Hidden: true },
+      {
+        input:
+          '[["o","a","b","n"],["o","t","a","e"],["a","h","k","r"],["a","f","l","v"]]\n["oa","oaa"]',
+        expected_Output: '["oa","oaa"]',
+        is_Hidden: true,
+      },
     ],
   },
 
@@ -1092,7 +1212,7 @@ Output: ["eat","oath"]
   // BIT MANIPULATION
   // ─────────────────────────────────────────
   {
-    title: "Single Number",
+    title: 'Single Number',
     description: `Given a non-empty array where every element appears twice except one, find that single one. Must use O(1) extra space.
 
 **Example:**
@@ -1105,15 +1225,15 @@ Output: 4
     time_limit_ms: 1000,
     memory_limit_kb: 65536,
     testCases: [
-      { input: "[2,2,1]",     expected_Output: "1", is_Hidden: false },
-      { input: "[4,1,2,1,2]", expected_Output: "4", is_Hidden: false },
-      { input: "[1]",         expected_Output: "1", is_Hidden: true  },
-      { input: "[0,1,0]",     expected_Output: "1", is_Hidden: true  },
-      { input: "[17,12,17]",  expected_Output: "12",is_Hidden: true  },
+      { input: '[2,2,1]', expected_Output: '1', is_Hidden: false },
+      { input: '[4,1,2,1,2]', expected_Output: '4', is_Hidden: false },
+      { input: '[1]', expected_Output: '1', is_Hidden: true },
+      { input: '[0,1,0]', expected_Output: '1', is_Hidden: true },
+      { input: '[17,12,17]', expected_Output: '12', is_Hidden: true },
     ],
   },
   {
-    title: "Counting Bits",
+    title: 'Counting Bits',
     description: `Given an integer n, return an array ans of length n+1 where ans[i] is the number of 1s in the binary representation of i.
 
 **Example:**
@@ -1126,15 +1246,15 @@ Output: [0,1,1,2,1,2]
     time_limit_ms: 1000,
     memory_limit_kb: 65536,
     testCases: [
-      { input: "2", expected_Output: "[0,1,1]",         is_Hidden: false },
-      { input: "5", expected_Output: "[0,1,1,2,1,2]",   is_Hidden: false },
-      { input: "0", expected_Output: "[0]",              is_Hidden: true  },
-      { input: "1", expected_Output: "[0,1]",            is_Hidden: true  },
-      { input: "8", expected_Output: "[0,1,1,2,1,2,2,3,1]", is_Hidden: true },
+      { input: '2', expected_Output: '[0,1,1]', is_Hidden: false },
+      { input: '5', expected_Output: '[0,1,1,2,1,2]', is_Hidden: false },
+      { input: '0', expected_Output: '[0]', is_Hidden: true },
+      { input: '1', expected_Output: '[0,1]', is_Hidden: true },
+      { input: '8', expected_Output: '[0,1,1,2,1,2,2,3,1]', is_Hidden: true },
     ],
   },
   {
-    title: "Reverse Bits",
+    title: 'Reverse Bits',
     description: `Reverse bits of a given 32-bit unsigned integer.
 
 **Example:**
@@ -1147,24 +1267,28 @@ Output: 00111001011110000010100101000000 = 964176192
     time_limit_ms: 1500,
     memory_limit_kb: 65536,
     testCases: [
-      { input: "00000010100101000001111010011100", expected_Output: "964176192",  is_Hidden: false },
-      { input: "11111111111111111111111111111101", expected_Output: "3221225471", is_Hidden: false },
-      { input: "00000000000000000000000000000000", expected_Output: "0",          is_Hidden: true  },
-      { input: "11111111111111111111111111111111", expected_Output: "4294967295", is_Hidden: true  },
-      { input: "10000000000000000000000000000001", expected_Output: "2147483649", is_Hidden: true  },
+      { input: '00000010100101000001111010011100', expected_Output: '964176192', is_Hidden: false },
+      {
+        input: '11111111111111111111111111111101',
+        expected_Output: '3221225471',
+        is_Hidden: false,
+      },
+      { input: '00000000000000000000000000000000', expected_Output: '0', is_Hidden: true },
+      { input: '11111111111111111111111111111111', expected_Output: '4294967295', is_Hidden: true },
+      { input: '10000000000000000000000000000001', expected_Output: '2147483649', is_Hidden: true },
     ],
   },
-];
+]
 
 // ─────────────────────────────────────────
 // SEED FUNCTION
 // ─────────────────────────────────────────
 async function seed() {
-  console.log("🌱 Seeding 50 problems...\n");
+  console.log('🌱 Seeding 50 problems...\n')
 
-  let count = 0;
+  let count = 0
   for (const p of problems) {
-    const { testCases, ...problemData } = p;
+    const { testCases, ...problemData } = p
 
     const created = await prisma.problem.create({
       data: {
@@ -1177,32 +1301,32 @@ async function seed() {
           })),
         },
       },
-    });
+    })
 
-    count++;
-    console.log(`✅ [${count}/50] [${created.diffculty.toUpperCase()}] ${created.title}`);
+    count++
+    console.log(`✅ [${count}/50] [${created.diffculty.toUpperCase()}] ${created.title}`)
   }
 
-  console.log(`\n🎉 Done! Seeded ${count} problems with test cases.`);
+  console.log(`\n🎉 Done! Seeded ${count} problems with test cases.`)
   console.log(`
 📊 Breakdown:
-   Easy   → ${problems.filter(p => p.diffculty === Diffculty.easy).length} problems
-   Medium → ${problems.filter(p => p.diffculty === Diffculty.medium).length} problems
-   Hard   → ${problems.filter(p => p.diffculty === Diffculty.hard).length} problems
+   Easy   → ${problems.filter((p) => p.diffculty === Diffculty.easy).length} problems
+   Medium → ${problems.filter((p) => p.diffculty === Diffculty.medium).length} problems
+   Hard   → ${problems.filter((p) => p.diffculty === Diffculty.hard).length} problems
 
 📚 Topics covered:
    Arrays, Strings, Linked List, Stack & Queue,
    Trees, Graphs, Dynamic Programming, Hashing,
    Recursion, Binary Search, Two Pointers,
    Heap, Trie, Bit Manipulation
-  `);
+  `)
 }
 
 seed()
   .catch((err) => {
-    console.error("❌ Seed failed:", err);
-    process.exit(1);
+    console.error('❌ Seed failed:', err)
+    process.exit(1)
   })
   .finally(async () => {
-    await prisma.$disconnect();
-  });
+    await prisma.$disconnect()
+  })

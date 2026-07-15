@@ -1,0 +1,43 @@
+# Dependencies
+node_modules
+
+# Next.js
+.next
+out
+build
+
+# Prisma
+prisma/migrations
+
+# Environment files
+.env
+.env.local
+.env.development.local
+.env.production.local
+.env.test.local
+
+# Logs
+*.log
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+pnpm-debug.log*
+
+# Coverage
+coverage
+
+# Generated files
+dist
+*.min.js
+
+# Lock files
+package-lock.json
+yarn.lock
+pnpm-lock.yaml
+
+# VS Code
+.vscode
+
+# OS files
+.DS_Store
+Thumbs.db

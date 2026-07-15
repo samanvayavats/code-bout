@@ -3,7 +3,7 @@ import SignUpPage from '@/src/components/ui/sign-up-page'
 const page = () => {
   return (
     <div>
-      <SignUpPage type = {true}/>
+      <SignUpPage type={true} />
     </div>
   )
 }

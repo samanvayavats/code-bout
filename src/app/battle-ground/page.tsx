@@ -8,15 +8,11 @@ const Problem = {
   diffculty: 'string',
   time_limit_ms: 1,
   memory_limit_kb: 2,
-  TestCases: [
-    { input: '1', expected_Output: '2', is_Hidden: false },
-  ],
+  TestCases: [{ input: '1', expected_Output: '2', is_Hidden: false }],
 }
 
 const page = () => {
-  return (
-    <BattleGround matchId={'1'} userId={'2'} problem={Problem} />
-  )
+  return <BattleGround matchId={'1'} userId={'2'} problem={Problem} />
 }
 
 export default page

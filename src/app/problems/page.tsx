@@ -3,8 +3,8 @@ import ProblemsPage from '@/src/components/ui/problems-page'
 const page = () => {
   return (
     <div>
-        {/* <ProblemBox/> */}
-        <ProblemsPage/>
+      {/* <ProblemBox/> */}
+      <ProblemsPage />
     </div>
   )
 }
