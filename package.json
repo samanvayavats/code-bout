@@ -16,7 +16,8 @@
     "db:generate": "prisma generate",
     "db:push": "prisma db push",
     "db:migrate": "prisma migrate dev",
-    "db:seed": "prisma db seed"
+    "db:seed": "prisma db seed",
+    "prepare": "husky"
   },
   "dependencies": {
     "@prisma/adapter-pg": "^7.8.0",
@@ -43,6 +44,7 @@
     "concurrently": "^9.2.1",
     "eslint": "^9",
     "eslint-config-next": "16.1.6",
+    "husky": "^9.1.7",
     "postcss": "^8.5.16",
     "prettier": "^3.9.5",
     "prisma": "^7.8.0",
