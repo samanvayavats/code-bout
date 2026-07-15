@@ -26,6 +26,7 @@ model Problem {
   id              String        @id @default(uuid())
   title           String
   description     String
+  topic           String
   diffculty       Diffculty
   time_limit_ms   Int
   memory_limit_kb Int
