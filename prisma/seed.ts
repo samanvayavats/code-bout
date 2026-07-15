@@ -16,6 +16,7 @@ Output: [0,1]
 - 2 <= nums.length <= 10^4
 - -10^9 <= nums[i] <= 10^9`,
     diffculty: Diffculty.easy,
+    topic: 'Arrays',
     time_limit_ms: 1000,
     memory_limit_kb: 65536,
     testCases: [
@@ -38,6 +39,7 @@ Output: 6
 - 1 <= nums.length <= 10^5
 - -10^4 <= nums[i] <= 10^4`,
     diffculty: Diffculty.easy,
+    topic: 'Arrays',
     time_limit_ms: 1000,
     memory_limit_kb: 65536,
     testCases: [
@@ -59,6 +61,7 @@ Output: [[1,6],[8,10],[15,18]]
 **Constraints:**
 - 1 <= intervals.length <= 10^4`,
     diffculty: Diffculty.medium,
+    topic: 'Arrays',
     time_limit_ms: 1500,
     memory_limit_kb: 65536,
     testCases: [
@@ -84,6 +87,7 @@ Output: [24,12,8,6]
 **Constraints:**
 - 2 <= nums.length <= 10^5`,
     diffculty: Diffculty.medium,
+    topic: 'Arrays',
     time_limit_ms: 1500,
     memory_limit_kb: 65536,
     testCases: [
@@ -106,6 +110,7 @@ Output: 6
 - n == height.length
 - 0 <= height[i] <= 10^4`,
     diffculty: Diffculty.hard,
+    topic: 'Arrays',
     time_limit_ms: 2000,
     memory_limit_kb: 65536,
     testCases: [
@@ -127,6 +132,7 @@ Output: [3,3,5,5,6,7]
 **Constraints:**
 - Must run in O(n) using a deque`,
     diffculty: Diffculty.hard,
+    topic: 'Arrays',
     time_limit_ms: 2000,
     memory_limit_kb: 65536,
     testCases: [
@@ -152,6 +158,7 @@ Output: true
 **Constraints:**
 - 1 <= s.length <= 2 * 10^5`,
     diffculty: Diffculty.easy,
+    topic: 'Strings',
     time_limit_ms: 1000,
     memory_limit_kb: 65536,
     testCases: [
@@ -173,6 +180,7 @@ Output: 3
 **Constraints:**
 - 0 <= s.length <= 5 * 10^4`,
     diffculty: Diffculty.medium,
+    topic: 'Strings',
     time_limit_ms: 1500,
     memory_limit_kb: 65536,
     testCases: [
@@ -194,6 +202,7 @@ Output: "BANC"
 **Constraints:**
 - Must run in O(m+n)`,
     diffculty: Diffculty.hard,
+    topic: 'Strings',
     time_limit_ms: 2000,
     memory_limit_kb: 65536,
     testCases: [
@@ -216,6 +225,7 @@ Output: "bab"
 - 1 <= s.length <= 1000
 - Use expand around center approach O(n^2)`,
     diffculty: Diffculty.hard,
+    topic: 'Strings',
     time_limit_ms: 2000,
     memory_limit_kb: 65536,
     testCases: [
@@ -241,6 +251,7 @@ Output: [5,4,3,2,1]
 **Constraints:**
 - 0 <= number of nodes <= 5000
 - Solve both iteratively and recursively`,
+    topic: 'Linked List',
     diffculty: Diffculty.easy,
     time_limit_ms: 1000,
     memory_limit_kb: 65536,
@@ -263,6 +274,7 @@ Output: true
 **Constraints:**
 - Must run in O(1) space`,
     diffculty: Diffculty.easy,
+    topic: 'Linked List',
     time_limit_ms: 1000,
     memory_limit_kb: 65536,
     testCases: [
@@ -284,6 +296,7 @@ Output: [1,1,2,3,4,4]
 **Constraints:**
 - 0 <= number of nodes <= 50`,
     diffculty: Diffculty.easy,
+    topic: 'Linked List',
     time_limit_ms: 1000,
     memory_limit_kb: 65536,
     testCases: [
@@ -305,6 +318,7 @@ put(1,1), put(2,2), get(1)→1, put(3,3), get(2)→-1
 **Constraints:**
 - 1 <= capacity <= 3000`,
     diffculty: Diffculty.hard,
+    topic: 'Linked List',
     time_limit_ms: 2000,
     memory_limit_kb: 65536,
     testCases: [
@@ -351,6 +365,7 @@ Output: true
 **Constraints:**
 - 1 <= s.length <= 10^4`,
     diffculty: Diffculty.easy,
+    topic: 'Stack & Queue',
     time_limit_ms: 1000,
     memory_limit_kb: 65536,
     testCases: [
@@ -372,6 +387,7 @@ Output: [1,1,4,2,1,1,0,0]
 **Constraints:**
 - Must run in O(n)`,
     diffculty: Diffculty.medium,
+    topic: 'Stack & Queue',
     time_limit_ms: 1500,
     memory_limit_kb: 65536,
     testCases: [
@@ -401,6 +417,7 @@ Output: 10
 **Constraints:**
 - Use a stack-based O(n) approach`,
     diffculty: Diffculty.hard,
+    topic: 'Stack & Queue',
     time_limit_ms: 2000,
     memory_limit_kb: 65536,
     testCases: [
@@ -426,6 +443,7 @@ Output: 3
 **Constraints:**
 - Solve both recursively and iteratively (BFS)`,
     diffculty: Diffculty.easy,
+    topic: 'Trees',
     time_limit_ms: 1000,
     memory_limit_kb: 65536,
     testCases: [
@@ -448,6 +466,7 @@ Output: [[3],[9,20],[15,7]]
 - 0 <= nodes <= 2000`,
     diffculty: Diffculty.medium,
     time_limit_ms: 1500,
+    topic: 'Trees',
     memory_limit_kb: 65536,
     testCases: [
       {
@@ -476,6 +495,7 @@ Output: true
 **Constraints:**
 - -2^31 <= node.val <= 2^31 - 1`,
     diffculty: Diffculty.medium,
+    topic: 'Trees',
     time_limit_ms: 1500,
     memory_limit_kb: 65536,
     testCases: [
@@ -497,6 +517,7 @@ Output: 42
 **Constraints:**
 - -1000 <= node.val <= 1000`,
     diffculty: Diffculty.hard,
+    topic: 'Trees',
     time_limit_ms: 2000,
     memory_limit_kb: 65536,
     testCases: [
@@ -523,6 +544,7 @@ deserialize → [1,2,3,null,null,4,5]
 **Constraints:**
 - 0 <= nodes <= 10^4`,
     diffculty: Diffculty.hard,
+    topic: 'Trees',
     time_limit_ms: 2000,
     memory_limit_kb: 65536,
     testCases: [
@@ -552,6 +574,7 @@ Output: 2
 **Constraints:**
 - m, n >= 1`,
     diffculty: Diffculty.easy,
+    topic: 'Graphs',
     time_limit_ms: 1000,
     memory_limit_kb: 65536,
     testCases: [
@@ -585,6 +608,7 @@ Output: true
 **Constraints:**
 - Use topological sort (Kahn's or DFS)`,
     diffculty: Diffculty.medium,
+    topic: 'Graphs',
     time_limit_ms: 1500,
     memory_limit_kb: 65536,
     testCases: [
@@ -606,6 +630,7 @@ Output: 5
 **Constraints:**
 - Use BFS for shortest path`,
     diffculty: Diffculty.hard,
+    topic: 'Graphs',
     time_limit_ms: 2000,
     memory_limit_kb: 65536,
     testCases: [
@@ -635,6 +660,7 @@ Output: [[2,4],[1,3],[2,4],[1,3]]
 **Constraints:**
 - Use HashMap<Node, Node> to track cloned nodes`,
     diffculty: Diffculty.medium,
+    topic: 'Graphs',
     time_limit_ms: 1500,
     memory_limit_kb: 65536,
     testCases: [
@@ -664,6 +690,7 @@ Output: 3 (1+1+1, 1+2, 2+1)
 **Constraints:**
 - 1 <= n <= 45`,
     diffculty: Diffculty.easy,
+    topic: 'Dynamic Programming',
     time_limit_ms: 1000,
     memory_limit_kb: 65536,
     testCases: [
@@ -685,6 +712,7 @@ Output: 3 (5+5+5) — note greedy fails here
 **Constraints:**
 - Must use bottom-up DP O(amount * coins)`,
     diffculty: Diffculty.medium,
+    topic: 'Dynamic Programming',
     time_limit_ms: 1500,
     memory_limit_kb: 65536,
     testCases: [
@@ -706,6 +734,7 @@ Output: 3
 **Constraints:**
 - Use 2D DP table O(m*n)`,
     diffculty: Diffculty.medium,
+    topic: 'Dynamic Programming',
     time_limit_ms: 1500,
     memory_limit_kb: 65536,
     testCases: [
@@ -727,6 +756,7 @@ Output: 3
 **Constraints:**
 - Classic DP problem O(m*n)`,
     diffculty: Diffculty.hard,
+    topic: 'Dynamic Programming',
     time_limit_ms: 2000,
     memory_limit_kb: 65536,
     testCases: [
@@ -748,6 +778,7 @@ Output: 167
 **Constraints:**
 - Use interval DP O(n^3)`,
     diffculty: Diffculty.hard,
+    topic: 'Dynamic Programming',
     time_limit_ms: 2000,
     memory_limit_kb: 65536,
     testCases: [
@@ -769,6 +800,7 @@ Output: 12
 **Constraints:**
 - O(n) time, O(1) space`,
     diffculty: Diffculty.easy,
+    topic: 'Dynamic Programming',
     time_limit_ms: 1000,
     memory_limit_kb: 65536,
     testCases: [
@@ -794,6 +826,7 @@ Output: true
 **Constraints:**
 - O(n) using HashSet`,
     diffculty: Diffculty.easy,
+    topic: 'Hashing',
     time_limit_ms: 1000,
     memory_limit_kb: 65536,
     testCases: [
@@ -815,6 +848,7 @@ Output: 4 (1,2,3,4)
 **Constraints:**
 - Use HashSet for O(1) lookups`,
     diffculty: Diffculty.medium,
+    topic: 'Hashing',
     time_limit_ms: 1500,
     memory_limit_kb: 65536,
     testCases: [
@@ -836,6 +870,7 @@ Output: 2
 **Constraints:**
 - O(n) using prefix sum`,
     diffculty: Diffculty.medium,
+    topic: 'Hashing',
     time_limit_ms: 1500,
     memory_limit_kb: 65536,
     testCases: [
@@ -857,6 +892,7 @@ Output: [1,2]
 **Constraints:**
 - Use HashMap + bucket sort O(n)`,
     diffculty: Diffculty.hard,
+    topic: 'Hashing',
     time_limit_ms: 2000,
     memory_limit_kb: 65536,
     testCases: [
@@ -882,6 +918,7 @@ Output: [[1,2,3],[1,3,2],[2,1,3],[2,3,1],[3,1,2],[3,2,1]]
 **Constraints:**
 - 1 <= nums.length <= 6`,
     diffculty: Diffculty.medium,
+    topic: 'Recursion',
     time_limit_ms: 1500,
     memory_limit_kb: 65536,
     testCases: [
@@ -907,6 +944,7 @@ Output: [[],[1],[2],[1,2],[3],[1,3],[2,3],[1,2,3]]
 **Constraints:**
 - 1 <= nums.length <= 10`,
     diffculty: Diffculty.medium,
+    topic: 'Recursion',
     time_limit_ms: 1500,
     memory_limit_kb: 65536,
     testCases: [
@@ -932,6 +970,7 @@ Output: [[".Q..","...Q","Q...","..Q."],["..Q.","Q...","...Q",".Q.."]]
 **Constraints:**
 - 1 <= n <= 9`,
     diffculty: Diffculty.hard,
+    topic: 'Recursion',
     time_limit_ms: 2000,
     memory_limit_kb: 65536,
     testCases: [
@@ -957,6 +996,7 @@ Output: true
 **Constraints:**
 - Use recursion with memoization`,
     diffculty: Diffculty.hard,
+    topic: 'Recursion',
     time_limit_ms: 2000,
     memory_limit_kb: 65536,
     testCases: [
@@ -982,6 +1022,7 @@ Output: 4
 **Constraints:**
 - No duplicates in array`,
     diffculty: Diffculty.easy,
+    topic: 'Binary Search',
     time_limit_ms: 1000,
     memory_limit_kb: 65536,
     testCases: [
@@ -1003,6 +1044,7 @@ Output: 4
 **Constraints:**
 - Must run in O(log n)`,
     diffculty: Diffculty.medium,
+    topic: 'Binary Search',
     time_limit_ms: 1500,
     memory_limit_kb: 65536,
     testCases: [
@@ -1024,6 +1066,7 @@ Output: 2.00000
 **Constraints:**
 - O(log(min(m,n))) using binary search on partition`,
     diffculty: Diffculty.hard,
+    topic: 'Binary Search',
     time_limit_ms: 2000,
     memory_limit_kb: 65536,
     testCases: [
@@ -1049,6 +1092,7 @@ Output: [[-1,-1,2],[-1,0,1]]
 **Constraints:**
 - No duplicate triplets in output`,
     diffculty: Diffculty.medium,
+    topic: 'Two Pointers',
     time_limit_ms: 1500,
     memory_limit_kb: 65536,
     testCases: [
@@ -1074,6 +1118,7 @@ Output: 49
 **Constraints:**
 - O(n) two pointer approach`,
     diffculty: Diffculty.medium,
+    topic: 'Two Pointers',
     time_limit_ms: 1500,
     memory_limit_kb: 65536,
     testCases: [
@@ -1099,6 +1144,7 @@ Output: 5
 **Constraints:**
 - O(n log k) using min-heap`,
     diffculty: Diffculty.medium,
+    topic: 'Heap',
     time_limit_ms: 1500,
     memory_limit_kb: 65536,
     testCases: [
@@ -1120,6 +1166,7 @@ Output: [1,1,2,3,4,4,5,6]
 **Constraints:**
 - O(n log k) using priority queue`,
     diffculty: Diffculty.hard,
+    topic: 'Heap',
     time_limit_ms: 2000,
     memory_limit_kb: 65536,
     testCases: [
@@ -1145,6 +1192,7 @@ insert("apple"), search("apple")→true, search("app")→false, startsWith("app"
 - 1 <= word.length <= 2000
 - O(m) per operation where m = word length`,
     diffculty: Diffculty.medium,
+    topic: 'Trie',
     time_limit_ms: 1500,
     memory_limit_kb: 65536,
     testCases: [
@@ -1183,6 +1231,7 @@ Output: ["eat","oath"]
 **Constraints:**
 - Use Trie for efficient prefix matching`,
     diffculty: Diffculty.hard,
+    topic: 'Trie',
     time_limit_ms: 2000,
     memory_limit_kb: 65536,
     testCases: [
@@ -1222,6 +1271,7 @@ Output: 4
 **Constraints:**
 - Use XOR: a^a=0, a^0=a`,
     diffculty: Diffculty.easy,
+    topic: 'Bit Manipulation',
     time_limit_ms: 1000,
     memory_limit_kb: 65536,
     testCases: [
@@ -1243,6 +1293,7 @@ Output: [0,1,1,2,1,2]
 **Constraints:**
 - O(n) DP: ans[i] = ans[i >> 1] + (i & 1)`,
     diffculty: Diffculty.easy,
+    topic: 'Bit Manipulation',
     time_limit_ms: 1000,
     memory_limit_kb: 65536,
     testCases: [
@@ -1264,6 +1315,7 @@ Output: 00111001011110000010100101000000 = 964176192
 **Constraints:**
 - Use bit manipulation, shift operators`,
     diffculty: Diffculty.medium,
+    topic: 'Bit Manipulation',
     time_limit_ms: 1500,
     memory_limit_kb: 65536,
     testCases: [
