@@ -1,103 +1,23 @@
 'use client'
-import { useState } from 'react'
+import { useState, useEffect } from 'react'
 import RedButton from './red-button'
+import axios from 'axios'
+import Link from 'next/link'
+import { useSession } from 'next-auth/react'
 // ── types ──
 type Difficulty = 'all' | 'easy' | 'medium' | 'hard'
-type Problem = {
+interface Problem {
   id: string
   title: string
   diffculty: 'easy' | 'medium' | 'hard'
   topic: string
   time_limit_ms: number
+  memory_limit_kb: number
   solvedCount?: number
   acceptanceRate?: number
 }
 
-import Link from 'next/link'
-// ── mock data (replace with real API fetch) ──
-const MOCK_PROBLEMS: Problem[] = Array.from({ length: 54 }, (_, i) => ({
-  id: `${i + 1}`,
-  title:
-    [
-      'Two Sum',
-      'Maximum Subarray',
-      'Merge Intervals',
-      'Product of Array Except Self',
-      'Trapping Rain Water',
-      'Sliding Window Maximum',
-      'Valid Palindrome',
-      'Longest Substring Without Repeating Characters',
-      'Minimum Window Substring',
-      'Longest Palindromic Substring',
-      'Reverse Linked List',
-      'Linked List Cycle',
-      'Merge Two Sorted Lists',
-      'LRU Cache',
-      'Valid Parentheses',
-      'Daily Temperatures',
-      'Largest Rectangle in Histogram',
-      'Maximum Depth of Binary Tree',
-      'Binary Tree Level Order Traversal',
-      'Validate Binary Search Tree',
-      'Binary Tree Maximum Path Sum',
-      'Serialize and Deserialize Binary Tree',
-      'Number of Islands',
-      'Course Schedule',
-      'Word Ladder',
-      'Clone Graph',
-      'Climbing Stairs',
-      'Coin Change',
-      'Longest Common Subsequence',
-      'Edit Distance',
-      'Burst Balloons',
-      'House Robber',
-      'Contains Duplicate',
-      'Longest Consecutive Sequence',
-      'Subarray Sum Equals K',
-      'Top K Frequent Elements',
-      'Permutations',
-      'Subsets',
-      'N-Queens',
-      'Regular Expression Matching',
-      'Binary Search',
-      'Search in Rotated Sorted Array',
-      'Median of Two Sorted Arrays',
-      '3Sum',
-      'Container With Most Water',
-      'Kth Largest Element in Array',
-      'Merge K Sorted Lists',
-      'Implement Trie',
-      'Word Search II',
-      'Single Number',
-      'Counting Bits',
-      'Reverse Bits',
-      'Alien Dictionary',
-      'Flood Fill',
-    ][i] ?? `Problem ${i + 1}`,
-  diffculty: (['easy', 'medium', 'hard'] as const)[i % 3],
-  topic: [
-    'Arrays',
-    'Strings',
-    'Linked List',
-    'Stack & Queue',
-    'Trees',
-    'Graphs',
-    'Dynamic Programming',
-    'Hashing',
-    'Recursion',
-    'Binary Search',
-    'Two Pointers',
-    'Heap',
-    'Trie',
-    'Bit Manipulation',
-  ][i % 14],
-  time_limit_ms: [1000, 1500, 2000][i % 3],
-  solvedCount: Math.floor(Math.random() * 5000) + 200,
-  acceptanceRate: Math.floor(Math.random() * 60) + 20,
-}))
-
-const TOPICS = [
-  'All Topics',
+TOPIC: [
   'Arrays',
   'Strings',
   'Linked List',
@@ -124,13 +44,41 @@ const diffColor = (d: string) =>
   })[d] ?? ''
 
 export default function ProblemsPage() {
+  const { data: session, status } = useSession()
+
+  const [problems, setproblems] = useState<Problem[]>([])
+
+  useEffect(() => {
+    let ismounted = true
+
+    const fetchPorblem = async () => {
+      try {
+        const result = await axios.get(
+          `${process.env.NEXT_PUBLIC_BACKEND_URL}/api/problem/all-problems`
+        )
+        if (ismounted) {
+          setproblems(result.data.problems)
+        }
+      } catch (error) {
+        console.log('error at the time of fetching the data ', error)
+      }
+    }
+
+    fetchPorblem()
+
+    console.log('problems ', problems)
+    return () => {
+      ismounted = false
+    }
+  }, [])
+
   const [difficulty, setDifficulty] = useState<Difficulty>('all')
   const [topic, setTopic] = useState('All Topics')
   const [search, setSearch] = useState('')
   const [page, setPage] = useState(1)
 
-  // ── filter ──
-  const filtered = MOCK_PROBLEMS.filter((p) => {
+  // // ── filter ──
+  const filtered = problems.filter((p) => {
     const matchDiff = difficulty === 'all' || p.diffculty === difficulty
     const matchTopic = topic === 'All Topics' || p.topic === topic
     const matchSearch = p.title.toLowerCase().includes(search.toLowerCase())
@@ -145,7 +93,7 @@ export default function ProblemsPage() {
     setPage(1)
   }
 
-  // ── pagination range ──
+  // // ── pagination range ──
   const getPages = () => {
     if (totalPages <= 5) return Array.from({ length: totalPages }, (_, i) => i + 1)
     if (page <= 3) return [1, 2, 3, 4, '...', totalPages]
@@ -153,6 +101,31 @@ export default function ProblemsPage() {
       return [1, '...', totalPages - 3, totalPages - 2, totalPages - 1, totalPages]
     return [1, '...', page - 1, page, page + 1, '...', totalPages]
   }
+
+  const TOPIC = [
+    'Arrays',
+    'Strings',
+    'Linked List',
+    'Stack & Queue',
+    'Trees',
+    'Graphs',
+    'Dynamic Programming',
+    'Hashing',
+    'Recursion',
+    'Binary Search',
+    'Two Pointers',
+    'Heap',
+    'Trie',
+    'Bit Manipulation',
+  ]
+
+  // if (status === "loading") {
+  //   return <p>Loading authentication state...</p>;
+  // }
+
+  // if (status === "unauthenticated") {
+  //   return <p>You are not signed in.</p>;
+  // }
 
   return (
     <main className='bg-[#0A0A0F] text-[#F0EFF4] min-h-screen font-sans'>
@@ -208,7 +181,7 @@ export default function ProblemsPage() {
             onChange={(e) => handleFilter(() => setTopic(e.target.value))}
             className='bg-[#111118] border border-[#1E1E2E] rounded-lg px-3 py-2.5 text-sm text-[#F0EFF4] focus:outline-none focus:border-[#E63946] transition-colors font-mono'
           >
-            {TOPICS.map((t) => (
+            {TOPIC.map((t) => (
               <option key={t}>{t}</option>
             ))}
           </select>
