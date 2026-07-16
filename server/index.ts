@@ -44,14 +44,6 @@ wss.on('connection', (ws: ExtendedWebSocket) => {
       // store in redis too
       const players = matches.get(matchName)
       if (players?.length === 2) {
-        // both players joined → store match in redis
-        // matchFound(
-        //   players[0].user.id!,
-        //   players[1].user.id!,
-        //   matchName,
-        //   message.problemId
-        // )
-
         // notify both players match is ready
         players.forEach((client) => {
           client.send(
