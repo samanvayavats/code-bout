@@ -10,17 +10,21 @@ import { setTimeout as delay } from 'timers/promises'
 import prisma from '@/src/lib/prisma'
 import { getServerSession } from 'next-auth/next'
 import { authOptions } from '@/src/lib/auth'
+
 // route for creating the match
 export async function POST(request: NextRequest) {
   const session = await getServerSession(authOptions)
+
   if (!session) {
-    console.log('not authenticated ')
+    return NextResponse.json({ message: 'Unauthorized' }, { status: 401 })
   }
 
+  const userId = session.user.id
   const body = await request.formData()
+  console.log('the body from the backend is ', body)
   const problemId = body.get('problemId') as string
   const title = body.get('title') as string
-  const userId = body.get('userId') as string
+  // const userId = body.get('userId') as string
 
   // first try to find match immediately
   let result = await addInTheQueue(userId, problemId)
