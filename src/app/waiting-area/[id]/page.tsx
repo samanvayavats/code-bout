@@ -5,7 +5,6 @@ const page = async ({ params }: { params: Promise<{ id: string }> }) => {
 
   return (
     <div>
-      {id}
       <WaitingPage problemId={id} />
     </div>
   )

@@ -104,10 +104,12 @@ export default function WaitingPage({
           setmatchStatus('matched')
           clearInterval(timerRef.current!)
 
-          // redirect to battle after 2s
+          // redirect to battle after 2s  slug->matchid/userid/problemId
           setTimeout(() => {
-            router.push(`${process.env.NEXT_PUBLIC_BACKEND_URL}/battle-ground/${res.data.match.id}`)
-          }, 6)
+            router.push(
+              `${process.env.NEXT_PUBLIC_BACKEND_URL}/battle-ground/${res.data.match.id}/${session.user.id}/${res.data.match.problem_Id}`
+            )
+          }, 2000)
         } else {
           setmatchStatus('timeout')
         }
