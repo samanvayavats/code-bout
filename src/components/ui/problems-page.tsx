@@ -17,23 +17,6 @@ interface Problem {
   acceptanceRate?: number
 }
 
-TOPIC: [
-  'Arrays',
-  'Strings',
-  'Linked List',
-  'Stack & Queue',
-  'Trees',
-  'Graphs',
-  'Dynamic Programming',
-  'Hashing',
-  'Recursion',
-  'Binary Search',
-  'Two Pointers',
-  'Heap',
-  'Trie',
-  'Bit Manipulation',
-]
-
 const PER_PAGE = 10
 
 const diffColor = (d: string) =>
@@ -250,7 +233,7 @@ export default function ProblemsPage() {
                 </div>
 
                 {/* join arena */}
-                <Link href={'/waiting-area'}>
+                <Link href={`/waiting-area/${p.id}`}>
                   <div className='col-span-1 flex items-center justify-end'>
                     <RedButton>1v1</RedButton>
                   </div>

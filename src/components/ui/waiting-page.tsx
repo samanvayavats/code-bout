@@ -1,27 +1,59 @@
 'use client'
 import { useEffect, useState, useRef } from 'react'
 import { useRouter } from 'next/navigation'
+import axios from 'axios'
+import { useSession } from 'next-auth/react'
 
-type Status = 'searching' | 'matched' | 'timeout'
+type matchStatus = 'searching' | 'matched' | 'timeout'
+interface Problem {
+  id: string
+  title: string
+  diffculty: 'easy' | 'medium' | 'hard'
+  topic: string
+  time_limit_ms: number
+  memory_limit_kb: number
+  solvedCount?: number
+  acceptanceRate?: number
+}
 
 export default function WaitingPage({
   problemId,
-  problemTitle,
-  difficulty,
-  userId,
+  // problemTitle,
+  // difficulty,
+  // userId,
 }: {
   problemId: string
-  problemTitle: string
-  difficulty: string
-  userId: string
+  // problemTitle: string
+  // difficulty: string
+  // userId: string
 }) {
+  const { data: session, status } = useSession()
+
   const router = useRouter()
-  const [status, setStatus] = useState<Status>('searching')
+  const [problems, setproblems] = useState<Problem>()
+  const [matchStatus, setmatchStatus] = useState<matchStatus>('searching')
   const [timeLeft, setTimeLeft] = useState(60)
   const [dots, setDots] = useState('.')
   const [opponent, setOpponent] = useState<string | null>(null)
   const [matchId, setMatchId] = useState<string | null>(null)
   const timerRef = useRef<NodeJS.Timeout | null>(null)
+
+  // fetching the problem
+  useEffect(() => {
+    let isMounted = true
+
+    const fetchTheProlem = async () => {
+      const result = await axios.get(
+        `${process.env.NEXT_PUBLIC_BACKEND_URL}/api/problem/get-problem?problemId=${problemId}`
+      )
+      if (isMounted) setproblems(result.data.problem)
+    }
+
+    fetchTheProlem()
+    return () => {
+      isMounted = false
+    }
+  }, [])
 
   // ── animated dots ──
   useEffect(() => {
@@ -32,63 +64,66 @@ export default function WaitingPage({
   }, [])
 
   // ── countdown ──
+
   useEffect(() => {
-    if (status !== 'searching') return
+    if (matchStatus !== 'searching') return
     timerRef.current = setInterval(() => {
       setTimeLeft((t) => {
         if (t <= 1) {
           clearInterval(timerRef.current!)
-          setStatus('timeout')
+          setmatchStatus('timeout')
           return 0
         }
         return t - 1
       })
     }, 1000)
     return () => clearInterval(timerRef.current!)
-  }, [status])
+  }, [matchStatus])
 
   // ── call match API ──
   useEffect(() => {
+    if (status !== 'authenticated') return
+    if (!problems) return
+
     const findMatch = async () => {
       try {
         const form = new FormData()
-        form.append('userId', userId)
-        form.append('problemId', problemId)
-        form.append('title', problemTitle)
 
-        const res = await fetch('/api/user/searching-for-match', {
-          method: 'POST',
-          body: form,
-        })
+        form.append('userId', session.user.id)
+        form.append('problemId', problems.id)
+        form.append('title', problems.title)
 
-        const data = await res.json()
+        const res = await axios.post(
+          `${process.env.NEXT_PUBLIC_BACKEND_URL}/api/user/searching-for-match`,
+          form
+        )
 
-        if (res.ok && data.match) {
-          setOpponent(data.match.playerTwo ?? 'Opponent')
-          setMatchId(data.match.id)
-          setStatus('matched')
+        if (res && res.data.match) {
+          setOpponent(res.data.match.playerTwo ?? 'Opponent')
+          setMatchId(res.data.match.id)
+          setmatchStatus('matched')
           clearInterval(timerRef.current!)
 
           // redirect to battle after 2s
           setTimeout(() => {
-            router.push(`/battle-ground/${data.match.id}`)
-          }, 2000)
+            router.push(`${process.env.NEXT_PUBLIC_BACKEND_URL}/battle-ground/${res.data.match.id}`)
+          }, 6)
         } else {
-          setStatus('timeout')
+          setmatchStatus('timeout')
         }
       } catch (err) {
         console.error(err)
-        setStatus('timeout')
+        setmatchStatus('timeout')
       }
     }
 
     findMatch()
-  }, [])
+  }, [status, session, problems])
 
   const diffColor =
-    difficulty === 'easy'
+    problems?.diffculty === 'easy'
       ? 'text-[#2ECC71] bg-[#2ECC71]/10'
-      : difficulty === 'medium'
+      : problems?.diffculty === 'medium'
         ? 'text-[#F4D03F] bg-[#F4D03F]/10'
         : 'text-[#E63946] bg-[#E63946]/10'
 
@@ -108,13 +143,13 @@ export default function WaitingPage({
           <span
             className={`font-mono text-[10px] font-semibold px-2 py-1 rounded-md uppercase tracking-wide ${diffColor}`}
           >
-            {difficulty}
+            {problems?.diffculty}
           </span>
         </div>
 
         <div className='p-8 flex flex-col items-center text-center'>
           {/* ── SEARCHING STATE ── */}
-          {status === 'searching' && (
+          {matchStatus === 'searching' && (
             <>
               {/* circular timer */}
               <div className='relative mb-8'>
@@ -157,7 +192,7 @@ export default function WaitingPage({
                 <p className='font-mono text-[10px] uppercase tracking-widest text-[#6B6B80] mb-2'>
                   Selected Problem
                 </p>
-                <p className='text-sm font-semibold'>{problemTitle}</p>
+                <p className='text-sm font-semibold'>{problems?.title}</p>
                 <p className='font-mono text-xs text-[#6B6B80] mt-1'>{problemId}</p>
               </div>
 
@@ -199,21 +234,23 @@ export default function WaitingPage({
           )}
 
           {/* ── MATCHED STATE ── */}
-          {status === 'matched' && (
+          {matchStatus === 'matched' && (
             <>
               <div className='w-16 h-16 rounded-full bg-[#2ECC71]/20 border border-[#2ECC71]/30 flex items-center justify-center mb-6'>
                 <span className='text-2xl'>⚔️</span>
               </div>
 
               <h2 className='text-2xl font-bold tracking-tight mb-2'>Match Found!</h2>
-              <p className='text-sm text-[#6B6B80] mb-8'>Get ready — battle starts in 2 seconds</p>
+              <p className='text-sm text-[#6B6B80] mb-8'>
+                Get ready — battle starts in few seconds
+              </p>
 
               {/* problem */}
               <div className='w-full bg-[#0A0A0F] border border-[#1E1E2E] rounded-xl p-4 text-left mb-6'>
                 <p className='font-mono text-[10px] uppercase tracking-widest text-[#6B6B80] mb-2'>
                   Problem
                 </p>
-                <p className='text-sm font-semibold'>{problemTitle}</p>
+                <p className='text-sm font-semibold'>{problems?.title}</p>
               </div>
 
               {/* players */}
@@ -257,7 +294,7 @@ export default function WaitingPage({
           )}
 
           {/* ── TIMEOUT STATE ── */}
-          {status === 'timeout' && (
+          {matchStatus === 'timeout' && (
             <>
               <div className='w-16 h-16 rounded-full bg-[#E63946]/10 border border-[#E63946]/20 flex items-center justify-center mb-6'>
                 <span className='text-2xl'>⏱️</span>
@@ -271,7 +308,7 @@ export default function WaitingPage({
               <div className='flex flex-col gap-3 w-full'>
                 <button
                   onClick={() => {
-                    setStatus('searching')
+                    setmatchStatus('searching')
                     setTimeLeft(60)
                     setDots('.')
                   }}
@@ -292,7 +329,7 @@ export default function WaitingPage({
       </div>
 
       {/* bottom hint */}
-      {status === 'searching' && (
+      {matchStatus === 'searching' && (
         <p className='mt-6 font-mono text-[11px] text-[#6B6B80] text-center max-w-sm'>
           Matching you with someone on the same problem and difficulty. If no match in 60s, criteria
           will relax.
