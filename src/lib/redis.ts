@@ -14,8 +14,10 @@ const connectRedis = async () => {
   console.log('✅ Redis connected')
 }
 
-const addInTheQueue = async (userId: string, problemId: string) => {
+const addInTheQueue = async (userId: string, problemId: string, title: string) => {
   if (client.isOpen == false) await connectRedis()
+
+  const matchName = `${problemId}-${title}-${Math.random()}`
 
   // get everyone currently waiting
   const allWaiting = await client.lRange('queue', 0, -1)
@@ -38,12 +40,14 @@ const addInTheQueue = async (userId: string, problemId: string) => {
       JSON.stringify({
         status: 'matched',
         opponent: { userId },
+        matchName,
       })
     )
 
     return {
       status: 'matched',
       opponent,
+      matchName,
     }
   }
 
