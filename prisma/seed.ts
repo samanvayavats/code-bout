@@ -19,7 +19,7 @@ Output: [0,1]
     topic: 'Arrays',
     time_limit_ms: 1000,
     memory_limit_kb: 65536,
-    starter_code: `function solution(nums, target) {\n\n}`,
+    starter_code: `function solution(nums, target) {{CODE}}`,
     testCases: [
       { input: '[2,7,11,15]\n9', expected_Output: '[0,1]', is_Hidden: false },
       { input: '[3,2,4]\n6', expected_Output: '[1,2]', is_Hidden: false },
@@ -43,7 +43,7 @@ Output: 6
     topic: 'Arrays',
     time_limit_ms: 1000,
     memory_limit_kb: 65536,
-    starter_code: `function solution(nums) {\n\n}`,
+    starter_code: `function solution(nums) {{CODE}}`,
     testCases: [
       { input: '[-2,1,-3,4,-1,2,1,-5,4]', expected_Output: '6', is_Hidden: false },
       { input: '[1]', expected_Output: '1', is_Hidden: false },
@@ -66,7 +66,7 @@ Output: [[1,6],[8,10],[15,18]]
     topic: 'Arrays',
     time_limit_ms: 1500,
     memory_limit_kb: 65536,
-    starter_code: `function solution(intervals) {\n\n}`,
+    starter_code: `function solution(intervals) {{CODE}}`,
     testCases: [
       {
         input: '[[1,3],[2,6],[8,10],[15,18]]',
@@ -93,7 +93,7 @@ Output: [24,12,8,6]
     topic: 'Arrays',
     time_limit_ms: 1500,
     memory_limit_kb: 65536,
-    starter_code: `function solution(nums) {\n\n}`,
+    starter_code: `function solution(nums) {{CODE}}`,
     testCases: [
       { input: '[1,2,3,4]', expected_Output: '[24,12,8,6]', is_Hidden: false },
       { input: '[-1,1,0,-3,3]', expected_Output: '[0,0,9,0,0]', is_Hidden: false },
@@ -117,7 +117,7 @@ Output: 6
     topic: 'Arrays',
     time_limit_ms: 2000,
     memory_limit_kb: 65536,
-    starter_code: `function solution(height) {\n\n}`,
+    starter_code: `function solution(height) {{CODE}}`,
     testCases: [
       { input: '[0,1,0,2,1,0,1,3,2,1,2,1]', expected_Output: '6', is_Hidden: false },
       { input: '[4,2,0,3,2,5]', expected_Output: '9', is_Hidden: false },
@@ -140,7 +140,7 @@ Output: [3,3,5,5,6,7]
     topic: 'Arrays',
     time_limit_ms: 2000,
     memory_limit_kb: 65536,
-    starter_code: `function solution(nums, k) {\n\n}`,
+    starter_code: `function solution(nums, k) {{CODE}}`,
     testCases: [
       { input: '[1,3,-1,-3,5,3,6,7]\n3', expected_Output: '[3,3,5,5,6,7]', is_Hidden: false },
       { input: '[1]\n1', expected_Output: '[1]', is_Hidden: false },
@@ -167,7 +167,7 @@ Output: true
     topic: 'Strings',
     time_limit_ms: 1000,
     memory_limit_kb: 65536,
-    starter_code: `function solution(s) {\n\n}`,
+    starter_code: `function solution(s) {{CODE}}`,
     testCases: [
       { input: 'A man, a plan, a canal: Panama', expected_Output: 'true', is_Hidden: false },
       { input: 'race a car', expected_Output: 'false', is_Hidden: false },
@@ -190,7 +190,7 @@ Output: 3
     topic: 'Strings',
     time_limit_ms: 1500,
     memory_limit_kb: 65536,
-    starter_code: `function solution(s) {\n\n}`,
+    starter_code: `function solution(s) {{CODE}}`,
     testCases: [
       { input: 'abcabcbb', expected_Output: '3', is_Hidden: false },
       { input: 'bbbbb', expected_Output: '1', is_Hidden: false },
@@ -213,7 +213,7 @@ Output: "BANC"
     topic: 'Strings',
     time_limit_ms: 2000,
     memory_limit_kb: 65536,
-    starter_code: `function solution(s, t) {\n\n}`,
+    starter_code: `function solution(s, t) {{CODE}}`,
     testCases: [
       { input: 'ADOBECODEBANC\nABC', expected_Output: 'BANC', is_Hidden: false },
       { input: 'a\na', expected_Output: 'a', is_Hidden: false },
@@ -237,7 +237,7 @@ Output: "bab"
     topic: 'Strings',
     time_limit_ms: 2000,
     memory_limit_kb: 65536,
-    starter_code: `function solution(s) {\n\n}`,
+    starter_code: `function solution(s) {{CODE}}`,
     testCases: [
       { input: 'babad', expected_Output: 'bab', is_Hidden: false },
       { input: 'cbbd', expected_Output: 'bb', is_Hidden: false },
@@ -265,7 +265,7 @@ Output: [5,4,3,2,1]
     difficulty: Difficulty.easy,
     time_limit_ms: 1000,
     memory_limit_kb: 65536,
-    starter_code: `function solution(head) {\n\n}`,
+    starter_code: `function solution(head) {{CODE}}`,
     testCases: [
       { input: '[1,2,3,4,5]', expected_Output: '[5,4,3,2,1]', is_Hidden: false },
       { input: '[1,2]', expected_Output: '[2,1]', is_Hidden: false },
@@ -288,7 +288,7 @@ Output: true
     topic: 'Linked List',
     time_limit_ms: 1000,
     memory_limit_kb: 65536,
-    starter_code: `function solution(head) {\n\n}`,
+    starter_code: `function solution(head) {{CODE}}`,
     testCases: [
       { input: '[3,2,0,-4]\n1', expected_Output: 'true', is_Hidden: false },
       { input: '[1,2]\n0', expected_Output: 'true', is_Hidden: false },
@@ -311,7 +311,7 @@ Output: [1,1,2,3,4,4]
     topic: 'Linked List',
     time_limit_ms: 1000,
     memory_limit_kb: 65536,
-    starter_code: `function solution(list1, list2) {\n\n}`,
+    starter_code: `function solution(list1, list2) {{CODE}}`,
     testCases: [
       { input: '[1,2,4]\n[1,3,4]', expected_Output: '[1,1,2,3,4,4]', is_Hidden: false },
       { input: '[]\n[]', expected_Output: '[]', is_Hidden: false },
@@ -334,7 +334,7 @@ put(1,1), put(2,2), get(1)→1, put(3,3), get(2)→-1
     topic: 'Linked List',
     time_limit_ms: 2000,
     memory_limit_kb: 65536,
-    starter_code: `function solution(capacity) {\n\n}`,
+    starter_code: `function solution(capacity) {{CODE}}`,
     testCases: [
       {
         input:
@@ -382,7 +382,7 @@ Output: true
     topic: 'Stack & Queue',
     time_limit_ms: 1000,
     memory_limit_kb: 65536,
-    starter_code: `function solution(s) {\n\n}`,
+    starter_code: `function solution(s) {{CODE}}`,
     testCases: [
       { input: '()[]{}', expected_Output: 'true', is_Hidden: false },
       { input: '(]', expected_Output: 'false', is_Hidden: false },
@@ -405,7 +405,7 @@ Output: [1,1,4,2,1,1,0,0]
     topic: 'Stack & Queue',
     time_limit_ms: 1500,
     memory_limit_kb: 65536,
-    starter_code: `function solution(temperatures) {\n\n}`,
+    starter_code: `function solution(temperatures) {{CODE}}`,
     testCases: [
       {
         input: '[73,74,75,71,69,72,76,73]',
@@ -436,7 +436,7 @@ Output: 10
     topic: 'Stack & Queue',
     time_limit_ms: 2000,
     memory_limit_kb: 65536,
-    starter_code: `function solution(heights) {\n\n}`,
+    starter_code: `function solution(heights) {{CODE}}`,
     testCases: [
       { input: '[2,1,5,6,2,3]', expected_Output: '10', is_Hidden: false },
       { input: '[2,4]', expected_Output: '4', is_Hidden: false },
@@ -463,7 +463,7 @@ Output: 3
     topic: 'Trees',
     time_limit_ms: 1000,
     memory_limit_kb: 65536,
-    starter_code: `function solution(root) {\n\n}`,
+    starter_code: `function solution(root) {{CODE}}`,
     testCases: [
       { input: '[3,9,20,null,null,15,7]', expected_Output: '3', is_Hidden: false },
       { input: '[1,null,2]', expected_Output: '2', is_Hidden: false },
@@ -486,7 +486,7 @@ Output: [[3],[9,20],[15,7]]
     time_limit_ms: 1500,
     topic: 'Trees',
     memory_limit_kb: 65536,
-    starter_code: `function solution(root) {\n\n}`,
+    starter_code: `function solution(root) {{CODE}}`,
     testCases: [
       {
         input: '[3,9,20,null,null,15,7]',
@@ -517,7 +517,7 @@ Output: true
     topic: 'Trees',
     time_limit_ms: 1500,
     memory_limit_kb: 65536,
-    starter_code: `function solution(root) {\n\n}`,
+    starter_code: `function solution(root) {{CODE}}`,
     testCases: [
       { input: '[2,1,3]', expected_Output: 'true', is_Hidden: false },
       { input: '[5,1,4,null,null,3,6]', expected_Output: 'false', is_Hidden: false },
@@ -540,7 +540,7 @@ Output: 42
     topic: 'Trees',
     time_limit_ms: 2000,
     memory_limit_kb: 65536,
-    starter_code: `function solution(root) {\n\n}`,
+    starter_code: `function solution(root) {{CODE}}`,
     testCases: [
       { input: '[-10,9,20,null,null,15,7]', expected_Output: '42', is_Hidden: false },
       { input: '[1,2,3]', expected_Output: '6', is_Hidden: false },
@@ -568,7 +568,7 @@ deserialize → [1,2,3,null,null,4,5]
     topic: 'Trees',
     time_limit_ms: 2000,
     memory_limit_kb: 65536,
-    starter_code: `function solution(root) {\n\n}`,
+    starter_code: `function solution(root) {{CODE}}`,
     testCases: [
       {
         input: '[1,2,3,null,null,4,5]',
@@ -599,7 +599,7 @@ Output: 2
     topic: 'Graphs',
     time_limit_ms: 1000,
     memory_limit_kb: 65536,
-    starter_code: `function solution(grid) {\n\n}`,
+    starter_code: `function solution(grid) {{CODE}}`,
     testCases: [
       {
         input: '[["1","1","0"],["0","1","0"],["0","0","1"]]',
@@ -634,7 +634,7 @@ Output: true
     topic: 'Graphs',
     time_limit_ms: 1500,
     memory_limit_kb: 65536,
-    starter_code: `function solution(numCourses, prerequisites) {\n\n}`,
+    starter_code: `function solution(numCourses, prerequisites) {{CODE}}`,
     testCases: [
       { input: '2\n[[1,0]]', expected_Output: 'true', is_Hidden: false },
       { input: '2\n[[1,0],[0,1]]', expected_Output: 'false', is_Hidden: false },
@@ -657,7 +657,7 @@ Output: 5
     topic: 'Graphs',
     time_limit_ms: 2000,
     memory_limit_kb: 65536,
-    starter_code: `function solution(beginWord, endWord, wordList) {\n\n}`,
+    starter_code: `function solution(beginWord, endWord, wordList) {{CODE}}`,
     testCases: [
       {
         input: 'hit\ncog\n["hot","dot","dog","lot","log","cog"]',
@@ -688,7 +688,7 @@ Output: [[2,4],[1,3],[2,4],[1,3]]
     topic: 'Graphs',
     time_limit_ms: 1500,
     memory_limit_kb: 65536,
-    starter_code: `function solution(node) {\n\n}`,
+    starter_code: `function solution(node) {{CODE}}`,
     testCases: [
       {
         input: '[[2,4],[1,3],[2,4],[1,3]]',
@@ -719,7 +719,7 @@ Output: 3 (1+1+1, 1+2, 2+1)
     topic: 'Dynamic Programming',
     time_limit_ms: 1000,
     memory_limit_kb: 65536,
-    starter_code: `function solution(n) {\n\n}`,
+    starter_code: `function solution(n) {{CODE}}`,
     testCases: [
       { input: '2', expected_Output: '2', is_Hidden: false },
       { input: '3', expected_Output: '3', is_Hidden: false },
@@ -742,7 +742,7 @@ Output: 3 (5+5+5) — note greedy fails here
     topic: 'Dynamic Programming',
     time_limit_ms: 1500,
     memory_limit_kb: 65536,
-    starter_code: `function solution(coins, amount) {\n\n}`,
+    starter_code: `function solution(coins, amount) {{CODE}}`,
     testCases: [
       { input: '[1,5,11]\n15', expected_Output: '3', is_Hidden: false },
       { input: '[2]\n3', expected_Output: '-1', is_Hidden: false },
@@ -765,7 +765,7 @@ Output: 3
     topic: 'Dynamic Programming',
     time_limit_ms: 1500,
     memory_limit_kb: 65536,
-    starter_code: `function solution(text1, text2) {\n\n}`,
+    starter_code: `function solution(text1, text2) {{CODE}}`,
     testCases: [
       { input: 'abcde\nace', expected_Output: '3', is_Hidden: false },
       { input: 'abc\nabc', expected_Output: '3', is_Hidden: false },
@@ -788,7 +788,7 @@ Output: 3
     topic: 'Dynamic Programming',
     time_limit_ms: 2000,
     memory_limit_kb: 65536,
-    starter_code: `function solution(word1, word2) {\n\n}`,
+    starter_code: `function solution(word1, word2) {{CODE}}`,
     testCases: [
       { input: 'horse\nros', expected_Output: '3', is_Hidden: false },
       { input: 'intention\nexecution', expected_Output: '5', is_Hidden: false },
@@ -811,7 +811,7 @@ Output: 167
     topic: 'Dynamic Programming',
     time_limit_ms: 2000,
     memory_limit_kb: 65536,
-    starter_code: `function solution(nums) {\n\n}`,
+    starter_code: `function solution(nums) {{CODE}}`,
     testCases: [
       { input: '[3,1,5,8]', expected_Output: '167', is_Hidden: false },
       { input: '[1,5]', expected_Output: '10', is_Hidden: false },
@@ -834,7 +834,7 @@ Output: 12
     topic: 'Dynamic Programming',
     time_limit_ms: 1000,
     memory_limit_kb: 65536,
-    starter_code: `function solution(nums) {\n\n}`,
+    starter_code: `function solution(nums) {{CODE}}`,
     testCases: [
       { input: '[2,7,9,3,1]', expected_Output: '12', is_Hidden: false },
       { input: '[1,2,3,1]', expected_Output: '4', is_Hidden: false },
@@ -861,7 +861,7 @@ Output: true
     topic: 'Hashing',
     time_limit_ms: 1000,
     memory_limit_kb: 65536,
-    starter_code: `function solution(nums) {\n\n}`,
+    starter_code: `function solution(nums) {{CODE}}`,
     testCases: [
       { input: '[1,2,3,1]', expected_Output: 'true', is_Hidden: false },
       { input: '[1,2,3,4]', expected_Output: 'false', is_Hidden: false },
@@ -884,7 +884,7 @@ Output: 4 (1,2,3,4)
     topic: 'Hashing',
     time_limit_ms: 1500,
     memory_limit_kb: 65536,
-    starter_code: `function solution(nums) {\n\n}`,
+    starter_code: `function solution(nums) {{CODE}}`,
     testCases: [
       { input: '[100,4,200,1,3,2]', expected_Output: '4', is_Hidden: false },
       { input: '[0,3,7,2,5,8,4,6,0,1]', expected_Output: '9', is_Hidden: false },
@@ -907,7 +907,7 @@ Output: 2
     topic: 'Hashing',
     time_limit_ms: 1500,
     memory_limit_kb: 65536,
-    starter_code: `function solution(nums, k) {\n\n}`,
+    starter_code: `function solution(nums, k) {{CODE}}`,
     testCases: [
       { input: '[1,1,1]\n2', expected_Output: '2', is_Hidden: false },
       { input: '[1,2,3]\n3', expected_Output: '2', is_Hidden: false },
@@ -930,7 +930,7 @@ Output: [1,2]
     topic: 'Hashing',
     time_limit_ms: 2000,
     memory_limit_kb: 65536,
-    starter_code: `function solution(nums, k) {\n\n}`,
+    starter_code: `function solution(nums, k) {{CODE}}`,
     testCases: [
       { input: '[1,1,1,2,2,3]\n2', expected_Output: '[1,2]', is_Hidden: false },
       { input: '[1]\n1', expected_Output: '[1]', is_Hidden: false },
@@ -957,7 +957,7 @@ Output: [[1,2,3],[1,3,2],[2,1,3],[2,3,1],[3,1,2],[3,2,1]]
     topic: 'Recursion',
     time_limit_ms: 1500,
     memory_limit_kb: 65536,
-    starter_code: `function solution(nums) {\n\n}`,
+    starter_code: `function solution(nums) {{CODE}}`,
     testCases: [
       {
         input: '[1,2,3]',
@@ -984,7 +984,7 @@ Output: [[],[1],[2],[1,2],[3],[1,3],[2,3],[1,2,3]]
     topic: 'Recursion',
     time_limit_ms: 1500,
     memory_limit_kb: 65536,
-    starter_code: `function solution(nums) {\n\n}`,
+    starter_code: `function solution(nums) {{CODE}}`,
     testCases: [
       {
         input: '[1,2,3]',
@@ -1011,7 +1011,7 @@ Output: [[".Q..","...Q","Q...","..Q."],["..Q.","Q...","...Q",".Q.."]]
     topic: 'Recursion',
     time_limit_ms: 2000,
     memory_limit_kb: 65536,
-    starter_code: `function solution(n) {\n\n}`,
+    starter_code: `function solution(n) {{CODE}}`,
     testCases: [
       { input: '1', expected_Output: '[["Q"]]', is_Hidden: false },
       {
@@ -1038,7 +1038,7 @@ Output: true
     topic: 'Recursion',
     time_limit_ms: 2000,
     memory_limit_kb: 65536,
-    starter_code: `function solution(s, p) {\n\n}`,
+    starter_code: `function solution(s, p) {{CODE}}`,
     testCases: [
       { input: 'aa\na', expected_Output: 'false', is_Hidden: false },
       { input: 'aa\na*', expected_Output: 'true', is_Hidden: false },
@@ -1065,7 +1065,7 @@ Output: 4
     topic: 'Binary Search',
     time_limit_ms: 1000,
     memory_limit_kb: 65536,
-    starter_code: `function solution(nums, target) {\n\n}`,
+    starter_code: `function solution(nums, target) {{CODE}}`,
     testCases: [
       { input: '[-1,0,3,5,9,12]\n9', expected_Output: '4', is_Hidden: false },
       { input: '[-1,0,3,5,9,12]\n2', expected_Output: '-1', is_Hidden: false },
@@ -1088,7 +1088,7 @@ Output: 4
     topic: 'Binary Search',
     time_limit_ms: 1500,
     memory_limit_kb: 65536,
-    starter_code: `function solution(nums, target) {\n\n}`,
+    starter_code: `function solution(nums, target) {{CODE}}`,
     testCases: [
       { input: '[4,5,6,7,0,1,2]\n0', expected_Output: '4', is_Hidden: false },
       { input: '[4,5,6,7,0,1,2]\n3', expected_Output: '-1', is_Hidden: false },
@@ -1111,7 +1111,7 @@ Output: 2.00000
     topic: 'Binary Search',
     time_limit_ms: 2000,
     memory_limit_kb: 65536,
-    starter_code: `function solution(nums1, nums2) {\n\n}`,
+    starter_code: `function solution(nums1, nums2) {{CODE}}`,
     testCases: [
       { input: '[1,3]\n[2]', expected_Output: '2.00000', is_Hidden: false },
       { input: '[1,2]\n[3,4]', expected_Output: '2.50000', is_Hidden: false },
@@ -1138,7 +1138,7 @@ Output: [[-1,-1,2],[-1,0,1]]
     topic: 'Two Pointers',
     time_limit_ms: 1500,
     memory_limit_kb: 65536,
-    starter_code: `function solution(nums) {\n\n}`,
+    starter_code: `function solution(nums) {{CODE}}`,
     testCases: [
       { input: '[-1,0,1,2,-1,-4]', expected_Output: '[[-1,-1,2],[-1,0,1]]', is_Hidden: false },
       { input: '[0,1,1]', expected_Output: '[]', is_Hidden: false },
@@ -1165,7 +1165,7 @@ Output: 49
     topic: 'Two Pointers',
     time_limit_ms: 1500,
     memory_limit_kb: 65536,
-    starter_code: `function solution(height) {\n\n}`,
+    starter_code: `function solution(height) {{CODE}}`,
     testCases: [
       { input: '[1,8,6,2,5,4,8,3,7]', expected_Output: '49', is_Hidden: false },
       { input: '[1,1]', expected_Output: '1', is_Hidden: false },
@@ -1192,7 +1192,7 @@ Output: 5
     topic: 'Heap',
     time_limit_ms: 1500,
     memory_limit_kb: 65536,
-    starter_code: `function solution(nums, k) {\n\n}`,
+    starter_code: `function solution(nums, k) {{CODE}}`,
     testCases: [
       { input: '[3,2,1,5,6,4]\n2', expected_Output: '5', is_Hidden: false },
       { input: '[3,2,3,1,2,4,5,5,6]\n4', expected_Output: '4', is_Hidden: false },
@@ -1215,7 +1215,7 @@ Output: [1,1,2,3,4,4,5,6]
     topic: 'Heap',
     time_limit_ms: 2000,
     memory_limit_kb: 65536,
-    starter_code: `function solution(lists) {\n\n}`,
+    starter_code: `function solution(lists) {{CODE}}`,
     testCases: [
       { input: '[[1,4,5],[1,3,4],[2,6]]', expected_Output: '[1,1,2,3,4,4,5,6]', is_Hidden: false },
       { input: '[]', expected_Output: '[]', is_Hidden: false },
@@ -1242,7 +1242,7 @@ insert("apple"), search("apple")→true, search("app")→false, startsWith("app"
     topic: 'Trie',
     time_limit_ms: 1500,
     memory_limit_kb: 65536,
-    starter_code: `function solution() {\n\n}`,
+    starter_code: `function solution() {{CODE}}`,
     testCases: [
       {
         input:
@@ -1282,7 +1282,7 @@ Output: ["eat","oath"]
     topic: 'Trie',
     time_limit_ms: 2000,
     memory_limit_kb: 65536,
-    starter_code: `function solution(board, words) {\n\n}`,
+    starter_code: `function solution(board, words) {{CODE}}`,
     testCases: [
       {
         input:
@@ -1323,7 +1323,7 @@ Output: 4
     topic: 'Bit Manipulation',
     time_limit_ms: 1000,
     memory_limit_kb: 65536,
-    starter_code: `function solution(nums) {\n\n}`,
+    starter_code: `function solution(nums) {{CODE}}`,
     testCases: [
       { input: '[2,2,1]', expected_Output: '1', is_Hidden: false },
       { input: '[4,1,2,1,2]', expected_Output: '4', is_Hidden: false },
@@ -1346,7 +1346,7 @@ Output: [0,1,1,2,1,2]
     topic: 'Bit Manipulation',
     time_limit_ms: 1000,
     memory_limit_kb: 65536,
-    starter_code: `function solution(n) {\n\n}`,
+    starter_code: `function solution(n) {{CODE}}`,
     testCases: [
       { input: '2', expected_Output: '[0,1,1]', is_Hidden: false },
       { input: '5', expected_Output: '[0,1,1,2,1,2]', is_Hidden: false },
@@ -1369,7 +1369,7 @@ Output: 00111001011110000010100101000000 = 964176192
     topic: 'Bit Manipulation',
     time_limit_ms: 1500,
     memory_limit_kb: 65536,
-    starter_code: `function solution(n) {\n\n}`,
+    starter_code: `function solution(n) {{CODE}}`,
     testCases: [
       { input: '00000010100101000001111010011100', expected_Output: '964176192', is_Hidden: false },
       {
