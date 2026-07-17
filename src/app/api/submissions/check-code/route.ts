@@ -1,24 +1,6 @@
 import { NextRequest, NextResponse } from 'next/server'
 import prisma from '@/src/lib/prisma'
-import { LANGUAGES, runCodeAgainstAllTestCases } from '@/src/lib/judge'
-
-const extractFunctionName = (code: string) => {
-  const patterns = [
-    /function\s+([a-zA-Z_$][a-zA-Z0-9_$]*)\s*\(/,
-    /const\s+([a-zA-Z_$][a-zA-Z0-9_$]*)\s*=\s*\(/,
-    /const\s+([a-zA-Z_$][a-zA-Z0-9_$]*)\s*=\s*function/,
-  ]
-
-  for (const pattern of patterns) {
-    const match = code.match(pattern)
-
-    if (match) {
-      return match[1]
-    }
-  }
-
-  return null
-}
+import { LANGUAGES, buildSolution, runCodeAgainstAllTestCases } from '@/src/lib/judge'
 
 export async function POST(request: NextRequest) {
   try {
@@ -52,27 +34,12 @@ export async function POST(request: NextRequest) {
       )
     }
 
-    const functionName = extractFunctionName(code)
-
-    if (!functionName) {
-      return NextResponse.json(
-        {
-          message: 'Could not extract function name from submitted code',
-        },
-        {
-          status: 400,
-        }
-      )
-    }
-
-    console.log('Detected Function:', functionName)
-
     const problem = await prisma.problem.findUnique({
       where: {
         id: problemId,
       },
       select: {
-        title: true,
+        starter_code: true,
         TestCases: true,
       },
     })
@@ -88,16 +55,11 @@ export async function POST(request: NextRequest) {
       )
     }
 
+    const sourceCode = buildSolution(problem.starter_code, code)
+
     const visibleTestCases = problem.TestCases.filter((tc) => !tc.is_Hidden) ?? []
 
-    // console.log('Visible Test Cases:', visibleTestCases)
-
-    const result = await runCodeAgainstAllTestCases(
-      code,
-      languageId,
-      functionName,
-      visibleTestCases
-    )
+    const result = await runCodeAgainstAllTestCases(sourceCode, languageId, visibleTestCases)
 
     return NextResponse.json(
       {

@@ -38,35 +38,37 @@ const getResult = async (token: string) => {
   return response.json()
 }
 
-const generateWrapper = (userCode: string, input: string, functionName: string) => {
+export const buildSolution = (starterCode: string, userCode: string) => {
+  return starterCode.replace('{CODE}', userCode)
+}
+
+const generateWrapper = (sourceCode: string, input: string) => {
   const args = input
     .split('\n')
     .map((line) => line.trim())
     .filter(Boolean)
 
-  console.log('args : ', ...args)
   return `
-${userCode}
+${sourceCode}
 
 const args = [
 ${args.join(',')}
 ];
 
-const result = ${functionName}(...args);
+const result = solution(...args);
 
 console.log(JSON.stringify(result));
 `
 }
 
 const runCode = async (
-  userCode: string,
+  sourceCode: string,
   languageId: number,
   input: string,
-  expectedOutput: string,
-  functionName: string
+  expectedOutput: string
 ) => {
-  const wrappedCode = generateWrapper(userCode, input, functionName)
-  console.log('wrappedCode ', wrappedCode)
+  const wrappedCode = generateWrapper(sourceCode, input)
+
   const token = await submitCode(wrappedCode, languageId, expectedOutput)
 
   while (true) {
@@ -89,9 +91,8 @@ const runCode = async (
 }
 
 const runCodeAgainstAllTestCases = async (
-  userCode: string,
+  sourceCode: string,
   languageId: number,
-  functionName: string,
   testCases: {
     input: string
     expected_Output: string
@@ -100,7 +101,7 @@ const runCodeAgainstAllTestCases = async (
 ) => {
   const results = await Promise.all(
     testCases.map(async (tc) => {
-      const result = await runCode(userCode, languageId, tc.input, tc.expected_Output, functionName)
+      const result = await runCode(sourceCode, languageId, tc.input, tc.expected_Output)
 
       return {
         input: tc.input,
@@ -122,4 +123,4 @@ const runCodeAgainstAllTestCases = async (
   }
 }
 
-export { runCode, runCodeAgainstAllTestCases, getResult, submitCode }
+export { submitCode, getResult, runCode, runCodeAgainstAllTestCases }
