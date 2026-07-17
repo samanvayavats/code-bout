@@ -14,7 +14,7 @@ model User {
   password           String
   eloRating          Int           @default(1200)
   wins               Int           @default(0)
-  looses             Int           @default(0)
+  losses             Int           @default(0)
   LeaderBoard        LeaderBoard[]
   user_To_Player_One Matches[]     @relation("player_One")
   user_To_Player_Two Matches[]     @relation("player_Two")
@@ -27,9 +27,10 @@ model Problem {
   title           String
   description     String
   topic           String
-  diffculty       Diffculty
+  difficulty       Difficulty
   time_limit_ms   Int
   memory_limit_kb Int
+  starter_code    String
   TestCases       TestCases[]
   Matches         Matches[]
   submissions     submissions[]
@@ -87,7 +88,7 @@ model LeaderBoard {
   leader      User   @relation(fields: [user_Id], references: [id])
 }
 
-enum Diffculty {
+enum Difficulty {
   easy
   medium
   hard

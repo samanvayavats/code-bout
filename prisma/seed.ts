@@ -1,4 +1,4 @@
-import { prisma, Diffculty } from '@/src/lib/prisma'
+import { prisma, Difficulty } from '@/src/lib/prisma'
 
 const problems = [
   // ─────────────────────────────────────────
@@ -15,10 +15,11 @@ Output: [0,1]
 **Constraints:**
 - 2 <= nums.length <= 10^4
 - -10^9 <= nums[i] <= 10^9`,
-    diffculty: Diffculty.easy,
+    difficulty: Difficulty.easy,
     topic: 'Arrays',
     time_limit_ms: 1000,
     memory_limit_kb: 65536,
+    starter_code: `function solution(nums, target) {\n\n}`,
     testCases: [
       { input: '[2,7,11,15]\n9', expected_Output: '[0,1]', is_Hidden: false },
       { input: '[3,2,4]\n6', expected_Output: '[1,2]', is_Hidden: false },
@@ -38,10 +39,11 @@ Output: 6
 **Constraints:**
 - 1 <= nums.length <= 10^5
 - -10^4 <= nums[i] <= 10^4`,
-    diffculty: Diffculty.easy,
+    difficulty: Difficulty.easy,
     topic: 'Arrays',
     time_limit_ms: 1000,
     memory_limit_kb: 65536,
+    starter_code: `function solution(nums) {\n\n}`,
     testCases: [
       { input: '[-2,1,-3,4,-1,2,1,-5,4]', expected_Output: '6', is_Hidden: false },
       { input: '[1]', expected_Output: '1', is_Hidden: false },
@@ -60,10 +62,11 @@ Output: [[1,6],[8,10],[15,18]]
 
 **Constraints:**
 - 1 <= intervals.length <= 10^4`,
-    diffculty: Diffculty.medium,
+    difficulty: Difficulty.medium,
     topic: 'Arrays',
     time_limit_ms: 1500,
     memory_limit_kb: 65536,
+    starter_code: `function solution(intervals) {\n\n}`,
     testCases: [
       {
         input: '[[1,3],[2,6],[8,10],[15,18]]',
@@ -86,10 +89,11 @@ Output: [24,12,8,6]
 
 **Constraints:**
 - 2 <= nums.length <= 10^5`,
-    diffculty: Diffculty.medium,
+    difficulty: Difficulty.medium,
     topic: 'Arrays',
     time_limit_ms: 1500,
     memory_limit_kb: 65536,
+    starter_code: `function solution(nums) {\n\n}`,
     testCases: [
       { input: '[1,2,3,4]', expected_Output: '[24,12,8,6]', is_Hidden: false },
       { input: '[-1,1,0,-3,3]', expected_Output: '[0,0,9,0,0]', is_Hidden: false },
@@ -109,10 +113,11 @@ Output: 6
 **Constraints:**
 - n == height.length
 - 0 <= height[i] <= 10^4`,
-    diffculty: Diffculty.hard,
+    difficulty: Difficulty.hard,
     topic: 'Arrays',
     time_limit_ms: 2000,
     memory_limit_kb: 65536,
+    starter_code: `function solution(height) {\n\n}`,
     testCases: [
       { input: '[0,1,0,2,1,0,1,3,2,1,2,1]', expected_Output: '6', is_Hidden: false },
       { input: '[4,2,0,3,2,5]', expected_Output: '9', is_Hidden: false },
@@ -131,10 +136,11 @@ Output: [3,3,5,5,6,7]
 
 **Constraints:**
 - Must run in O(n) using a deque`,
-    diffculty: Diffculty.hard,
+    difficulty: Difficulty.hard,
     topic: 'Arrays',
     time_limit_ms: 2000,
     memory_limit_kb: 65536,
+    starter_code: `function solution(nums, k) {\n\n}`,
     testCases: [
       { input: '[1,3,-1,-3,5,3,6,7]\n3', expected_Output: '[3,3,5,5,6,7]', is_Hidden: false },
       { input: '[1]\n1', expected_Output: '[1]', is_Hidden: false },
@@ -157,10 +163,11 @@ Output: true
 
 **Constraints:**
 - 1 <= s.length <= 2 * 10^5`,
-    diffculty: Diffculty.easy,
+    difficulty: Difficulty.easy,
     topic: 'Strings',
     time_limit_ms: 1000,
     memory_limit_kb: 65536,
+    starter_code: `function solution(s) {\n\n}`,
     testCases: [
       { input: 'A man, a plan, a canal: Panama', expected_Output: 'true', is_Hidden: false },
       { input: 'race a car', expected_Output: 'false', is_Hidden: false },
@@ -179,10 +186,11 @@ Output: 3
 
 **Constraints:**
 - 0 <= s.length <= 5 * 10^4`,
-    diffculty: Diffculty.medium,
+    difficulty: Difficulty.medium,
     topic: 'Strings',
     time_limit_ms: 1500,
     memory_limit_kb: 65536,
+    starter_code: `function solution(s) {\n\n}`,
     testCases: [
       { input: 'abcabcbb', expected_Output: '3', is_Hidden: false },
       { input: 'bbbbb', expected_Output: '1', is_Hidden: false },
@@ -201,10 +209,11 @@ Output: "BANC"
 
 **Constraints:**
 - Must run in O(m+n)`,
-    diffculty: Diffculty.hard,
+    difficulty: Difficulty.hard,
     topic: 'Strings',
     time_limit_ms: 2000,
     memory_limit_kb: 65536,
+    starter_code: `function solution(s, t) {\n\n}`,
     testCases: [
       { input: 'ADOBECODEBANC\nABC', expected_Output: 'BANC', is_Hidden: false },
       { input: 'a\na', expected_Output: 'a', is_Hidden: false },
@@ -224,10 +233,11 @@ Output: "bab"
 **Constraints:**
 - 1 <= s.length <= 1000
 - Use expand around center approach O(n^2)`,
-    diffculty: Diffculty.hard,
+    difficulty: Difficulty.hard,
     topic: 'Strings',
     time_limit_ms: 2000,
     memory_limit_kb: 65536,
+    starter_code: `function solution(s) {\n\n}`,
     testCases: [
       { input: 'babad', expected_Output: 'bab', is_Hidden: false },
       { input: 'cbbd', expected_Output: 'bb', is_Hidden: false },
@@ -252,9 +262,10 @@ Output: [5,4,3,2,1]
 - 0 <= number of nodes <= 5000
 - Solve both iteratively and recursively`,
     topic: 'Linked List',
-    diffculty: Diffculty.easy,
+    difficulty: Difficulty.easy,
     time_limit_ms: 1000,
     memory_limit_kb: 65536,
+    starter_code: `function solution(head) {\n\n}`,
     testCases: [
       { input: '[1,2,3,4,5]', expected_Output: '[5,4,3,2,1]', is_Hidden: false },
       { input: '[1,2]', expected_Output: '[2,1]', is_Hidden: false },
@@ -273,10 +284,11 @@ Output: true
 
 **Constraints:**
 - Must run in O(1) space`,
-    diffculty: Diffculty.easy,
+    difficulty: Difficulty.easy,
     topic: 'Linked List',
     time_limit_ms: 1000,
     memory_limit_kb: 65536,
+    starter_code: `function solution(head) {\n\n}`,
     testCases: [
       { input: '[3,2,0,-4]\n1', expected_Output: 'true', is_Hidden: false },
       { input: '[1,2]\n0', expected_Output: 'true', is_Hidden: false },
@@ -295,10 +307,11 @@ Output: [1,1,2,3,4,4]
 
 **Constraints:**
 - 0 <= number of nodes <= 50`,
-    diffculty: Diffculty.easy,
+    difficulty: Difficulty.easy,
     topic: 'Linked List',
     time_limit_ms: 1000,
     memory_limit_kb: 65536,
+    starter_code: `function solution(list1, list2) {\n\n}`,
     testCases: [
       { input: '[1,2,4]\n[1,3,4]', expected_Output: '[1,1,2,3,4,4]', is_Hidden: false },
       { input: '[]\n[]', expected_Output: '[]', is_Hidden: false },
@@ -317,10 +330,11 @@ put(1,1), put(2,2), get(1)→1, put(3,3), get(2)→-1
 
 **Constraints:**
 - 1 <= capacity <= 3000`,
-    diffculty: Diffculty.hard,
+    difficulty: Difficulty.hard,
     topic: 'Linked List',
     time_limit_ms: 2000,
     memory_limit_kb: 65536,
+    starter_code: `function solution(capacity) {\n\n}`,
     testCases: [
       {
         input:
@@ -364,10 +378,11 @@ Output: true
 
 **Constraints:**
 - 1 <= s.length <= 10^4`,
-    diffculty: Diffculty.easy,
+    difficulty: Difficulty.easy,
     topic: 'Stack & Queue',
     time_limit_ms: 1000,
     memory_limit_kb: 65536,
+    starter_code: `function solution(s) {\n\n}`,
     testCases: [
       { input: '()[]{}', expected_Output: 'true', is_Hidden: false },
       { input: '(]', expected_Output: 'false', is_Hidden: false },
@@ -386,10 +401,11 @@ Output: [1,1,4,2,1,1,0,0]
 
 **Constraints:**
 - Must run in O(n)`,
-    diffculty: Diffculty.medium,
+    difficulty: Difficulty.medium,
     topic: 'Stack & Queue',
     time_limit_ms: 1500,
     memory_limit_kb: 65536,
+    starter_code: `function solution(temperatures) {\n\n}`,
     testCases: [
       {
         input: '[73,74,75,71,69,72,76,73]',
@@ -416,10 +432,11 @@ Output: 10
 
 **Constraints:**
 - Use a stack-based O(n) approach`,
-    diffculty: Diffculty.hard,
+    difficulty: Difficulty.hard,
     topic: 'Stack & Queue',
     time_limit_ms: 2000,
     memory_limit_kb: 65536,
+    starter_code: `function solution(heights) {\n\n}`,
     testCases: [
       { input: '[2,1,5,6,2,3]', expected_Output: '10', is_Hidden: false },
       { input: '[2,4]', expected_Output: '4', is_Hidden: false },
@@ -442,10 +459,11 @@ Output: 3
 
 **Constraints:**
 - Solve both recursively and iteratively (BFS)`,
-    diffculty: Diffculty.easy,
+    difficulty: Difficulty.easy,
     topic: 'Trees',
     time_limit_ms: 1000,
     memory_limit_kb: 65536,
+    starter_code: `function solution(root) {\n\n}`,
     testCases: [
       { input: '[3,9,20,null,null,15,7]', expected_Output: '3', is_Hidden: false },
       { input: '[1,null,2]', expected_Output: '2', is_Hidden: false },
@@ -464,10 +482,11 @@ Output: [[3],[9,20],[15,7]]
 
 **Constraints:**
 - 0 <= nodes <= 2000`,
-    diffculty: Diffculty.medium,
+    difficulty: Difficulty.medium,
     time_limit_ms: 1500,
     topic: 'Trees',
     memory_limit_kb: 65536,
+    starter_code: `function solution(root) {\n\n}`,
     testCases: [
       {
         input: '[3,9,20,null,null,15,7]',
@@ -494,10 +513,11 @@ Output: true
 
 **Constraints:**
 - -2^31 <= node.val <= 2^31 - 1`,
-    diffculty: Diffculty.medium,
+    difficulty: Difficulty.medium,
     topic: 'Trees',
     time_limit_ms: 1500,
     memory_limit_kb: 65536,
+    starter_code: `function solution(root) {\n\n}`,
     testCases: [
       { input: '[2,1,3]', expected_Output: 'true', is_Hidden: false },
       { input: '[5,1,4,null,null,3,6]', expected_Output: 'false', is_Hidden: false },
@@ -516,10 +536,11 @@ Output: 42
 
 **Constraints:**
 - -1000 <= node.val <= 1000`,
-    diffculty: Diffculty.hard,
+    difficulty: Difficulty.hard,
     topic: 'Trees',
     time_limit_ms: 2000,
     memory_limit_kb: 65536,
+    starter_code: `function solution(root) {\n\n}`,
     testCases: [
       { input: '[-10,9,20,null,null,15,7]', expected_Output: '42', is_Hidden: false },
       { input: '[1,2,3]', expected_Output: '6', is_Hidden: false },
@@ -543,10 +564,11 @@ deserialize → [1,2,3,null,null,4,5]
 
 **Constraints:**
 - 0 <= nodes <= 10^4`,
-    diffculty: Diffculty.hard,
+    difficulty: Difficulty.hard,
     topic: 'Trees',
     time_limit_ms: 2000,
     memory_limit_kb: 65536,
+    starter_code: `function solution(root) {\n\n}`,
     testCases: [
       {
         input: '[1,2,3,null,null,4,5]',
@@ -573,10 +595,11 @@ Output: 2
 
 **Constraints:**
 - m, n >= 1`,
-    diffculty: Diffculty.easy,
+    difficulty: Difficulty.easy,
     topic: 'Graphs',
     time_limit_ms: 1000,
     memory_limit_kb: 65536,
+    starter_code: `function solution(grid) {\n\n}`,
     testCases: [
       {
         input: '[["1","1","0"],["0","1","0"],["0","0","1"]]',
@@ -607,10 +630,11 @@ Output: true
 
 **Constraints:**
 - Use topological sort (Kahn's or DFS)`,
-    diffculty: Diffculty.medium,
+    difficulty: Difficulty.medium,
     topic: 'Graphs',
     time_limit_ms: 1500,
     memory_limit_kb: 65536,
+    starter_code: `function solution(numCourses, prerequisites) {\n\n}`,
     testCases: [
       { input: '2\n[[1,0]]', expected_Output: 'true', is_Hidden: false },
       { input: '2\n[[1,0],[0,1]]', expected_Output: 'false', is_Hidden: false },
@@ -629,10 +653,11 @@ Output: 5
 
 **Constraints:**
 - Use BFS for shortest path`,
-    diffculty: Diffculty.hard,
+    difficulty: Difficulty.hard,
     topic: 'Graphs',
     time_limit_ms: 2000,
     memory_limit_kb: 65536,
+    starter_code: `function solution(beginWord, endWord, wordList) {\n\n}`,
     testCases: [
       {
         input: 'hit\ncog\n["hot","dot","dog","lot","log","cog"]',
@@ -659,10 +684,11 @@ Output: [[2,4],[1,3],[2,4],[1,3]]
 
 **Constraints:**
 - Use HashMap<Node, Node> to track cloned nodes`,
-    diffculty: Diffculty.medium,
+    difficulty: Difficulty.medium,
     topic: 'Graphs',
     time_limit_ms: 1500,
     memory_limit_kb: 65536,
+    starter_code: `function solution(node) {\n\n}`,
     testCases: [
       {
         input: '[[2,4],[1,3],[2,4],[1,3]]',
@@ -689,10 +715,11 @@ Output: 3 (1+1+1, 1+2, 2+1)
 
 **Constraints:**
 - 1 <= n <= 45`,
-    diffculty: Diffculty.easy,
+    difficulty: Difficulty.easy,
     topic: 'Dynamic Programming',
     time_limit_ms: 1000,
     memory_limit_kb: 65536,
+    starter_code: `function solution(n) {\n\n}`,
     testCases: [
       { input: '2', expected_Output: '2', is_Hidden: false },
       { input: '3', expected_Output: '3', is_Hidden: false },
@@ -711,10 +738,11 @@ Output: 3 (5+5+5) — note greedy fails here
 
 **Constraints:**
 - Must use bottom-up DP O(amount * coins)`,
-    diffculty: Diffculty.medium,
+    difficulty: Difficulty.medium,
     topic: 'Dynamic Programming',
     time_limit_ms: 1500,
     memory_limit_kb: 65536,
+    starter_code: `function solution(coins, amount) {\n\n}`,
     testCases: [
       { input: '[1,5,11]\n15', expected_Output: '3', is_Hidden: false },
       { input: '[2]\n3', expected_Output: '-1', is_Hidden: false },
@@ -733,10 +761,11 @@ Output: 3
 
 **Constraints:**
 - Use 2D DP table O(m*n)`,
-    diffculty: Diffculty.medium,
+    difficulty: Difficulty.medium,
     topic: 'Dynamic Programming',
     time_limit_ms: 1500,
     memory_limit_kb: 65536,
+    starter_code: `function solution(text1, text2) {\n\n}`,
     testCases: [
       { input: 'abcde\nace', expected_Output: '3', is_Hidden: false },
       { input: 'abc\nabc', expected_Output: '3', is_Hidden: false },
@@ -755,10 +784,11 @@ Output: 3
 
 **Constraints:**
 - Classic DP problem O(m*n)`,
-    diffculty: Diffculty.hard,
+    difficulty: Difficulty.hard,
     topic: 'Dynamic Programming',
     time_limit_ms: 2000,
     memory_limit_kb: 65536,
+    starter_code: `function solution(word1, word2) {\n\n}`,
     testCases: [
       { input: 'horse\nros', expected_Output: '3', is_Hidden: false },
       { input: 'intention\nexecution', expected_Output: '5', is_Hidden: false },
@@ -777,10 +807,11 @@ Output: 167
 
 **Constraints:**
 - Use interval DP O(n^3)`,
-    diffculty: Diffculty.hard,
+    difficulty: Difficulty.hard,
     topic: 'Dynamic Programming',
     time_limit_ms: 2000,
     memory_limit_kb: 65536,
+    starter_code: `function solution(nums) {\n\n}`,
     testCases: [
       { input: '[3,1,5,8]', expected_Output: '167', is_Hidden: false },
       { input: '[1,5]', expected_Output: '10', is_Hidden: false },
@@ -799,10 +830,11 @@ Output: 12
 
 **Constraints:**
 - O(n) time, O(1) space`,
-    diffculty: Diffculty.easy,
+    difficulty: Difficulty.easy,
     topic: 'Dynamic Programming',
     time_limit_ms: 1000,
     memory_limit_kb: 65536,
+    starter_code: `function solution(nums) {\n\n}`,
     testCases: [
       { input: '[2,7,9,3,1]', expected_Output: '12', is_Hidden: false },
       { input: '[1,2,3,1]', expected_Output: '4', is_Hidden: false },
@@ -825,10 +857,11 @@ Output: true
 
 **Constraints:**
 - O(n) using HashSet`,
-    diffculty: Diffculty.easy,
+    difficulty: Difficulty.easy,
     topic: 'Hashing',
     time_limit_ms: 1000,
     memory_limit_kb: 65536,
+    starter_code: `function solution(nums) {\n\n}`,
     testCases: [
       { input: '[1,2,3,1]', expected_Output: 'true', is_Hidden: false },
       { input: '[1,2,3,4]', expected_Output: 'false', is_Hidden: false },
@@ -847,10 +880,11 @@ Output: 4 (1,2,3,4)
 
 **Constraints:**
 - Use HashSet for O(1) lookups`,
-    diffculty: Diffculty.medium,
+    difficulty: Difficulty.medium,
     topic: 'Hashing',
     time_limit_ms: 1500,
     memory_limit_kb: 65536,
+    starter_code: `function solution(nums) {\n\n}`,
     testCases: [
       { input: '[100,4,200,1,3,2]', expected_Output: '4', is_Hidden: false },
       { input: '[0,3,7,2,5,8,4,6,0,1]', expected_Output: '9', is_Hidden: false },
@@ -869,10 +903,11 @@ Output: 2
 
 **Constraints:**
 - O(n) using prefix sum`,
-    diffculty: Diffculty.medium,
+    difficulty: Difficulty.medium,
     topic: 'Hashing',
     time_limit_ms: 1500,
     memory_limit_kb: 65536,
+    starter_code: `function solution(nums, k) {\n\n}`,
     testCases: [
       { input: '[1,1,1]\n2', expected_Output: '2', is_Hidden: false },
       { input: '[1,2,3]\n3', expected_Output: '2', is_Hidden: false },
@@ -891,10 +926,11 @@ Output: [1,2]
 
 **Constraints:**
 - Use HashMap + bucket sort O(n)`,
-    diffculty: Diffculty.hard,
+    difficulty: Difficulty.hard,
     topic: 'Hashing',
     time_limit_ms: 2000,
     memory_limit_kb: 65536,
+    starter_code: `function solution(nums, k) {\n\n}`,
     testCases: [
       { input: '[1,1,1,2,2,3]\n2', expected_Output: '[1,2]', is_Hidden: false },
       { input: '[1]\n1', expected_Output: '[1]', is_Hidden: false },
@@ -917,10 +953,11 @@ Output: [[1,2,3],[1,3,2],[2,1,3],[2,3,1],[3,1,2],[3,2,1]]
 
 **Constraints:**
 - 1 <= nums.length <= 6`,
-    diffculty: Diffculty.medium,
+    difficulty: Difficulty.medium,
     topic: 'Recursion',
     time_limit_ms: 1500,
     memory_limit_kb: 65536,
+    starter_code: `function solution(nums) {\n\n}`,
     testCases: [
       {
         input: '[1,2,3]',
@@ -943,10 +980,11 @@ Output: [[],[1],[2],[1,2],[3],[1,3],[2,3],[1,2,3]]
 
 **Constraints:**
 - 1 <= nums.length <= 10`,
-    diffculty: Diffculty.medium,
+    difficulty: Difficulty.medium,
     topic: 'Recursion',
     time_limit_ms: 1500,
     memory_limit_kb: 65536,
+    starter_code: `function solution(nums) {\n\n}`,
     testCases: [
       {
         input: '[1,2,3]',
@@ -969,10 +1007,11 @@ Output: [[".Q..","...Q","Q...","..Q."],["..Q.","Q...","...Q",".Q.."]]
 
 **Constraints:**
 - 1 <= n <= 9`,
-    diffculty: Diffculty.hard,
+    difficulty: Difficulty.hard,
     topic: 'Recursion',
     time_limit_ms: 2000,
     memory_limit_kb: 65536,
+    starter_code: `function solution(n) {\n\n}`,
     testCases: [
       { input: '1', expected_Output: '[["Q"]]', is_Hidden: false },
       {
@@ -995,10 +1034,11 @@ Output: true
 
 **Constraints:**
 - Use recursion with memoization`,
-    diffculty: Diffculty.hard,
+    difficulty: Difficulty.hard,
     topic: 'Recursion',
     time_limit_ms: 2000,
     memory_limit_kb: 65536,
+    starter_code: `function solution(s, p) {\n\n}`,
     testCases: [
       { input: 'aa\na', expected_Output: 'false', is_Hidden: false },
       { input: 'aa\na*', expected_Output: 'true', is_Hidden: false },
@@ -1021,10 +1061,11 @@ Output: 4
 
 **Constraints:**
 - No duplicates in array`,
-    diffculty: Diffculty.easy,
+    difficulty: Difficulty.easy,
     topic: 'Binary Search',
     time_limit_ms: 1000,
     memory_limit_kb: 65536,
+    starter_code: `function solution(nums, target) {\n\n}`,
     testCases: [
       { input: '[-1,0,3,5,9,12]\n9', expected_Output: '4', is_Hidden: false },
       { input: '[-1,0,3,5,9,12]\n2', expected_Output: '-1', is_Hidden: false },
@@ -1043,10 +1084,11 @@ Output: 4
 
 **Constraints:**
 - Must run in O(log n)`,
-    diffculty: Diffculty.medium,
+    difficulty: Difficulty.medium,
     topic: 'Binary Search',
     time_limit_ms: 1500,
     memory_limit_kb: 65536,
+    starter_code: `function solution(nums, target) {\n\n}`,
     testCases: [
       { input: '[4,5,6,7,0,1,2]\n0', expected_Output: '4', is_Hidden: false },
       { input: '[4,5,6,7,0,1,2]\n3', expected_Output: '-1', is_Hidden: false },
@@ -1065,10 +1107,11 @@ Output: 2.00000
 
 **Constraints:**
 - O(log(min(m,n))) using binary search on partition`,
-    diffculty: Diffculty.hard,
+    difficulty: Difficulty.hard,
     topic: 'Binary Search',
     time_limit_ms: 2000,
     memory_limit_kb: 65536,
+    starter_code: `function solution(nums1, nums2) {\n\n}`,
     testCases: [
       { input: '[1,3]\n[2]', expected_Output: '2.00000', is_Hidden: false },
       { input: '[1,2]\n[3,4]', expected_Output: '2.50000', is_Hidden: false },
@@ -1091,10 +1134,11 @@ Output: [[-1,-1,2],[-1,0,1]]
 
 **Constraints:**
 - No duplicate triplets in output`,
-    diffculty: Diffculty.medium,
+    difficulty: Difficulty.medium,
     topic: 'Two Pointers',
     time_limit_ms: 1500,
     memory_limit_kb: 65536,
+    starter_code: `function solution(nums) {\n\n}`,
     testCases: [
       { input: '[-1,0,1,2,-1,-4]', expected_Output: '[[-1,-1,2],[-1,0,1]]', is_Hidden: false },
       { input: '[0,1,1]', expected_Output: '[]', is_Hidden: false },
@@ -1117,10 +1161,11 @@ Output: 49
 
 **Constraints:**
 - O(n) two pointer approach`,
-    diffculty: Diffculty.medium,
+    difficulty: Difficulty.medium,
     topic: 'Two Pointers',
     time_limit_ms: 1500,
     memory_limit_kb: 65536,
+    starter_code: `function solution(height) {\n\n}`,
     testCases: [
       { input: '[1,8,6,2,5,4,8,3,7]', expected_Output: '49', is_Hidden: false },
       { input: '[1,1]', expected_Output: '1', is_Hidden: false },
@@ -1143,10 +1188,11 @@ Output: 5
 
 **Constraints:**
 - O(n log k) using min-heap`,
-    diffculty: Diffculty.medium,
+    difficulty: Difficulty.medium,
     topic: 'Heap',
     time_limit_ms: 1500,
     memory_limit_kb: 65536,
+    starter_code: `function solution(nums, k) {\n\n}`,
     testCases: [
       { input: '[3,2,1,5,6,4]\n2', expected_Output: '5', is_Hidden: false },
       { input: '[3,2,3,1,2,4,5,5,6]\n4', expected_Output: '4', is_Hidden: false },
@@ -1165,10 +1211,11 @@ Output: [1,1,2,3,4,4,5,6]
 
 **Constraints:**
 - O(n log k) using priority queue`,
-    diffculty: Diffculty.hard,
+    difficulty: Difficulty.hard,
     topic: 'Heap',
     time_limit_ms: 2000,
     memory_limit_kb: 65536,
+    starter_code: `function solution(lists) {\n\n}`,
     testCases: [
       { input: '[[1,4,5],[1,3,4],[2,6]]', expected_Output: '[1,1,2,3,4,4,5,6]', is_Hidden: false },
       { input: '[]', expected_Output: '[]', is_Hidden: false },
@@ -1191,10 +1238,11 @@ insert("apple"), search("apple")→true, search("app")→false, startsWith("app"
 **Constraints:**
 - 1 <= word.length <= 2000
 - O(m) per operation where m = word length`,
-    diffculty: Diffculty.medium,
+    difficulty: Difficulty.medium,
     topic: 'Trie',
     time_limit_ms: 1500,
     memory_limit_kb: 65536,
+    starter_code: `function solution() {\n\n}`,
     testCases: [
       {
         input:
@@ -1230,10 +1278,11 @@ Output: ["eat","oath"]
 
 **Constraints:**
 - Use Trie for efficient prefix matching`,
-    diffculty: Diffculty.hard,
+    difficulty: Difficulty.hard,
     topic: 'Trie',
     time_limit_ms: 2000,
     memory_limit_kb: 65536,
+    starter_code: `function solution(board, words) {\n\n}`,
     testCases: [
       {
         input:
@@ -1270,10 +1319,11 @@ Output: 4
 
 **Constraints:**
 - Use XOR: a^a=0, a^0=a`,
-    diffculty: Diffculty.easy,
+    difficulty: Difficulty.easy,
     topic: 'Bit Manipulation',
     time_limit_ms: 1000,
     memory_limit_kb: 65536,
+    starter_code: `function solution(nums) {\n\n}`,
     testCases: [
       { input: '[2,2,1]', expected_Output: '1', is_Hidden: false },
       { input: '[4,1,2,1,2]', expected_Output: '4', is_Hidden: false },
@@ -1292,10 +1342,11 @@ Output: [0,1,1,2,1,2]
 
 **Constraints:**
 - O(n) DP: ans[i] = ans[i >> 1] + (i & 1)`,
-    diffculty: Diffculty.easy,
+    difficulty: Difficulty.easy,
     topic: 'Bit Manipulation',
     time_limit_ms: 1000,
     memory_limit_kb: 65536,
+    starter_code: `function solution(n) {\n\n}`,
     testCases: [
       { input: '2', expected_Output: '[0,1,1]', is_Hidden: false },
       { input: '5', expected_Output: '[0,1,1,2,1,2]', is_Hidden: false },
@@ -1314,10 +1365,11 @@ Output: 00111001011110000010100101000000 = 964176192
 
 **Constraints:**
 - Use bit manipulation, shift operators`,
-    diffculty: Diffculty.medium,
+    difficulty: Difficulty.medium,
     topic: 'Bit Manipulation',
     time_limit_ms: 1500,
     memory_limit_kb: 65536,
+    starter_code: `function solution(n) {\n\n}`,
     testCases: [
       { input: '00000010100101000001111010011100', expected_Output: '964176192', is_Hidden: false },
       {
@@ -1356,15 +1408,15 @@ async function seed() {
     })
 
     count++
-    console.log(`✅ [${count}/50] [${created.diffculty.toUpperCase()}] ${created.title}`)
+    console.log(`✅ [${count}/50] [${created.difficulty.toUpperCase()}] ${created.title}`)
   }
 
   console.log(`\n🎉 Done! Seeded ${count} problems with test cases.`)
   console.log(`
 📊 Breakdown:
-   Easy   → ${problems.filter((p) => p.diffculty === Diffculty.easy).length} problems
-   Medium → ${problems.filter((p) => p.diffculty === Diffculty.medium).length} problems
-   Hard   → ${problems.filter((p) => p.diffculty === Diffculty.hard).length} problems
+   Easy   → ${problems.filter((p) => p.difficulty === Difficulty.easy).length} problems
+   Medium → ${problems.filter((p) => p.difficulty === Difficulty.medium).length} problems
+   Hard   → ${problems.filter((p) => p.difficulty === Difficulty.hard).length} problems
 
 📚 Topics covered:
    Arrays, Strings, Linked List, Stack & Queue,

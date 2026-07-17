@@ -1,5 +1,5 @@
 import 'dotenv/config'
-import { PrismaClient, Diffculty } from '../generated/prisma/client'
+import { PrismaClient, Difficulty } from '../generated/prisma/client'
 import { PrismaPg } from '@prisma/adapter-pg'
 
 const rawDatabaseUrl = process.env.DATABASE_URL
@@ -14,5 +14,5 @@ const adapter = new PrismaPg({
 
 const prisma = new PrismaClient({ adapter })
 
-export { prisma, Diffculty }
+export { prisma, Difficulty }
 export default prisma
