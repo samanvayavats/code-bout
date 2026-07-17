@@ -15,19 +15,19 @@ import { authOptions } from '@/src/lib/auth'
 export async function POST(request: NextRequest) {
   const session = await getServerSession(authOptions)
 
-  if (!session) {
-    return NextResponse.json({ message: 'Unauthorized' }, { status: 401 })
-  }
+  // if (!session) {
+  //   return NextResponse.json({ message: 'Unauthorized' }, { status: 401 })
+  // }
 
-  const userId = session.user.id
+  // const userId = session.user.id
   const body = await request.formData()
   console.log('the body from the backend is ', body)
   const problemId = body.get('problemId') as string
   const title = body.get('title') as string
-  // const userId = body.get('userId') as string
+  const userId = body.get('userId') as string
 
   // first try to find match immediately
-  let result = await addInTheQueue(userId, problemId)
+  let result = await addInTheQueue(userId, problemId, title.replace(' ', ''))
 
   // if waiting → poll every 3s for 60s to see if someone matched us
   if (result.status === 'waiting') {
@@ -43,7 +43,7 @@ export async function POST(request: NextRequest) {
       }
 
       // also try matching again (new players may have joined)
-      result = await addInTheQueue(userId, problemId)
+      result = await addInTheQueue(userId, problemId, title)
       if (result.status === 'matched') break
     }
   }
@@ -52,29 +52,47 @@ export async function POST(request: NextRequest) {
   await removeFromTheQueue(userId, problemId)
 
   if (result.status === 'matched') {
-    const matchName = `${title}-${10 * Math.random()}`
     // const match = await matchFound(userId , result.opponent?.userId , matchName ,problemId)
     // todo: what we can do this matchfound thinkgy that means a queue architecure but for now its fine
-    // todo : also we can check if the match is created dont need to save it again but for now its fine
-    const match = await prisma.matches.create({
-      data: {
-        matchName: `$match-${userId}-${result.opponent?.userId}`,
-        player_Id_One: userId,
-        player_Id_Two: result.opponent?.userId,
-        problem_Id: problemId,
+    let match
+
+    const firstCheckIfMatchIscreatedOrNot = await prisma.matches.findFirst({
+      where: {
+        matchName: result.matchName || '',
       },
     })
+
+    console.log('we want that only single match should be created', firstCheckIfMatchIscreatedOrNot)
+
+    if (!firstCheckIfMatchIscreatedOrNot) {
+      match = await prisma.matches.create({
+        data: {
+          matchName: result.matchName || '',
+          player_Id_One: userId,
+          player_Id_Two: result.opponent?.userId,
+          problem_Id: problemId,
+        },
+      })
+    }
 
     // const deleteMatch = await deleteTheMatchFound(matchName)
     // console.log("deleteMatch : " , deleteMatch)
 
-    return NextResponse.json(
-      {
-        message: 'match found',
-        match,
-      },
-      { status: 201 }
-    )
+    return firstCheckIfMatchIscreatedOrNot
+      ? NextResponse.json(
+          {
+            message: 'match found',
+            match: firstCheckIfMatchIscreatedOrNot,
+          },
+          { status: 201 }
+        )
+      : NextResponse.json(
+          {
+            message: 'match found',
+            match,
+          },
+          { status: 201 }
+        )
   }
 
   return NextResponse.json(
