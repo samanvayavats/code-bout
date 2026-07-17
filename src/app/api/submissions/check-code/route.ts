@@ -90,7 +90,7 @@ export async function POST(request: NextRequest) {
 
     const visibleTestCases = problem.TestCases.filter((tc) => !tc.is_Hidden) ?? []
 
-    console.log('Visible Test Cases:', visibleTestCases)
+    // console.log('Visible Test Cases:', visibleTestCases)
 
     const result = await runCodeAgainstAllTestCases(
       code,

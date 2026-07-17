@@ -8,7 +8,7 @@ type matchStatus = 'searching' | 'matched' | 'timeout'
 interface Problem {
   id: string
   title: string
-  diffculty: 'easy' | 'medium' | 'hard'
+  difficulty: 'easy' | 'medium' | 'hard'
   topic: string
   time_limit_ms: number
   memory_limit_kb: number
@@ -123,9 +123,9 @@ export default function WaitingPage({
   }, [status, session, problems])
 
   const diffColor =
-    problems?.diffculty === 'easy'
+    problems?.difficulty === 'easy'
       ? 'text-[#2ECC71] bg-[#2ECC71]/10'
-      : problems?.diffculty === 'medium'
+      : problems?.difficulty === 'medium'
         ? 'text-[#F4D03F] bg-[#F4D03F]/10'
         : 'text-[#E63946] bg-[#E63946]/10'
 
@@ -145,7 +145,7 @@ export default function WaitingPage({
           <span
             className={`font-mono text-[10px] font-semibold px-2 py-1 rounded-md uppercase tracking-wide ${diffColor}`}
           >
-            {problems?.diffculty}
+            {problems?.difficulty}
           </span>
         </div>
 

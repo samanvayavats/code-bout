@@ -9,7 +9,7 @@ type Difficulty = 'all' | 'easy' | 'medium' | 'hard'
 interface Problem {
   id: string
   title: string
-  diffculty: 'easy' | 'medium' | 'hard'
+  difficulty: 'easy' | 'medium' | 'hard'
   topic: string
   time_limit_ms: number
   memory_limit_kb: number
@@ -62,7 +62,7 @@ export default function ProblemsPage() {
 
   // // ── filter ──
   const filtered = problems.filter((p) => {
-    const matchDiff = difficulty === 'all' || p.diffculty === difficulty
+    const matchDiff = difficulty === 'all' || p.difficulty === difficulty
     const matchTopic = topic === 'All Topics' || p.topic === topic
     const matchSearch = p.title.toLowerCase().includes(search.toLowerCase())
     return matchDiff && matchTopic && matchSearch
@@ -216,9 +216,9 @@ export default function ProblemsPage() {
                 {/* difficulty */}
                 <div className='col-span-2 flex items-center'>
                   <span
-                    className={`font-mono text-[10px] font-semibold px-2 py-1 rounded-md uppercase tracking-wide ${diffColor(p.diffculty)}`}
+                    className={`font-mono text-[10px] font-semibold px-2 py-1 rounded-md uppercase tracking-wide ${diffColor(p.difficulty)}`}
                   >
-                    {p.diffculty}
+                    {p.difficulty}
                   </span>
                 </div>
 

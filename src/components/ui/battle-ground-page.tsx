@@ -1,6 +1,7 @@
 'use client'
 import { useEffect, useState, useRef } from 'react'
 import { useRouter } from 'next/navigation'
+import axios from 'axios'
 
 // ── types ──
 type Verdict =
@@ -17,10 +18,10 @@ type Problem = {
   id: string
   title: string
   description: string
-  diffculty: string
+  difficulty: string
   time_limit_ms: number
   memory_limit_kb: number
-  TestCases: { input: string; expected_Output: string; is_Hidden: boolean }[]
+  TestCases: { id: string; input: string; expected_Output: string; is_Hidden: boolean }[]
 }
 
 const LANGUAGES = ['javascript']
@@ -46,13 +47,15 @@ const verdictColor = (v: string) =>
 export default function BattleGround({
   matchId,
   userId,
-  problem,
+  problemId,
 }: {
   matchId: string
   userId: string
-  problem: Problem
+  problemId: string
 }) {
   const router = useRouter()
+  //problem state
+  const [problems, setproblems] = useState<Problem>()
 
   // ── editor state ──
   const [code, setCode] = useState(STARTER_CODE['javascript'])
@@ -75,6 +78,28 @@ export default function BattleGround({
 
   // ── websocket ──
   const wsRef = useRef<WebSocket | null>(null)
+  // fetching the particular problem with TestCases
+
+  useEffect(() => {
+    let isMounted = true
+
+    const fetchProblemWithTestcase = async () => {
+      try {
+        const result = await axios.get(
+          `${process.env.NEXT_PUBLIC_BACKEND_URL}/api/problem/get-problem?problemId=${problemId}`
+        )
+        if (isMounted) setproblems(result.data.problem)
+      } catch (error) {
+        console.log('error at time of fetching the problems ', error)
+      }
+    }
+
+    fetchProblemWithTestcase()
+
+    return () => {
+      isMounted = false
+    }
+  }, [])
 
   // ── countdown ──
   useEffect(() => {
@@ -139,6 +164,8 @@ export default function BattleGround({
 
   // ── run code (visible test cases only) ──
   const handleRun = async () => {
+    if (!problems) return
+
     setIsRunning(true)
     setRunResults(null)
     setActiveTab('results')
@@ -146,9 +173,12 @@ export default function BattleGround({
       const form = new FormData()
       form.append('code', code)
       form.append('language', language)
-      form.append('problemId', problem.id)
+      form.append('problemId', problems.id)
 
-      const res = await fetch('/api/submissions/check-code', { method: 'POST', body: form })
+      const res = await fetch(`${process.env.NEXT_PUBLIC_BACKEND_URL}/api/submissions/check-code`, {
+        method: 'POST',
+        body: form,
+      })
       const data = await res.json()
       setRunResults(data.result?.testResults ?? [])
     } catch (e) {
@@ -160,13 +190,14 @@ export default function BattleGround({
 
   // ── submit code (all test cases) ──
   const handleSubmit = async () => {
+    if (!problems) return
     if (submitted) return
     setIsSubmitting(true)
     try {
       const form = new FormData()
       form.append('code', code)
       form.append('language', language)
-      form.append('problemId', problem.id)
+      form.append('problemId', problems.id)
       form.append('matchId', matchId)
       form.append('userId', userId)
 
@@ -198,6 +229,8 @@ export default function BattleGround({
   const timerColor =
     timeLeft < 300 ? 'text-[#E63946]' : timeLeft < 600 ? 'text-[#F4D03F]' : 'text-[#F0EFF4]'
 
+  if (!problems) return <div> Something went wrong </div>
+
   return (
     <main className='bg-[#0A0A0F] text-[#F0EFF4] h-screen flex flex-col overflow-hidden font-sans'>
       {/* ── TOP BAR ── */}
@@ -208,11 +241,11 @@ export default function BattleGround({
             Code<span className='text-[#E63946]'>Duel</span>
           </span>
           <div className='w-px h-4 bg-[#1E1E2E]' />
-          <span className='text-sm font-medium'>{problem.title}</span>
+          <span className='text-sm font-medium'>{problems.title}</span>
           <span
-            className={`font-mono text-[10px] font-semibold px-2 py-0.5 rounded-md uppercase tracking-wide ${diffColor(problem.diffculty)}`}
+            className={`font-mono text-[10px] font-semibold px-2 py-0.5 rounded-md uppercase tracking-wide ${diffColor(problems.difficulty)}`}
           >
-            {problem.diffculty}
+            {problems.difficulty}
           </span>
         </div>
 
@@ -271,25 +304,25 @@ export default function BattleGround({
             {activeTab === 'problem' && (
               <div className='space-y-5'>
                 <div>
-                  <h2 className='text-base font-bold mb-1'>{problem.title}</h2>
+                  <h2 className='text-base font-bold mb-1'>{problems.title}</h2>
                   <div className='flex gap-2 items-center'>
                     <span
-                      className={`font-mono text-[10px] font-semibold px-2 py-0.5 rounded-md uppercase ${diffColor(problem.diffculty)}`}
+                      className={`font-mono text-[10px] font-semibold px-2 py-0.5 rounded-md uppercase ${diffColor(problems.difficulty)}`}
                     >
-                      {problem.diffculty}
+                      {problems.difficulty}
                     </span>
                     <span className='font-mono text-[10px] text-[#6B6B80]'>
-                      {problem.time_limit_ms}ms limit
+                      {problems.time_limit_ms}ms limit
                     </span>
                     <span className='font-mono text-[10px] text-[#6B6B80]'>
-                      {problem.memory_limit_kb}KB memory
+                      {problems.memory_limit_kb}KB memory
                     </span>
                   </div>
                 </div>
 
                 {/* description */}
                 <div className='text-sm text-[#B0B0C0] leading-relaxed whitespace-pre-wrap'>
-                  {problem.description}
+                  {problems.description}
                 </div>
 
                 {/* visible test cases */}
@@ -297,7 +330,7 @@ export default function BattleGround({
                   <p className='font-mono text-[10px] uppercase tracking-widest text-[#6B6B80] mb-3'>
                     Examples
                   </p>
-                  {problem.TestCases.filter((tc) => !tc.is_Hidden).map((tc, i) => (
+                  {problems.TestCases.filter((tc) => !tc.is_Hidden).map((tc, i) => (
                     <div
                       key={i}
                       className='mb-3 bg-[#0A0A0F] border border-[#1E1E2E] rounded-lg p-3'
