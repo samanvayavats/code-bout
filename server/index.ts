@@ -1,4 +1,5 @@
 import { WebSocketServer, WebSocket } from 'ws'
+
 // import { matchFound } from "@/src/lib/redis"
 
 const wss = new WebSocketServer({ port: 8000 })
@@ -32,29 +33,41 @@ wss.on('connection', (ws: ExtendedWebSocket) => {
 
     // 2. both players join a match room
     else if (message.type === 'match-found') {
-      const matchName = message.matchName // ← fix
-
+      const matchName = message.matchName
+      // checking if the match is there no need to create that again
       if (!matches.has(matchName)) {
         matches.set(matchName, [])
       }
 
-      matches.get(matchName)?.push(ws)
+      // getting the match and pushing the player if the player is not there in the match
+      const creatingMatch = matches.get(matchName)
+      if (creatingMatch) {
+        const alreadyJoined = ws.user.id
+          ? creatingMatch.some((client) => client.user.id === ws.user.id)
+          : false
+
+        if (!alreadyJoined) {
+          creatingMatch.push(ws)
+        }
+      }
       console.log(`player joined match: ${matchName}`)
 
-      // store in redis too
       const players = matches.get(matchName)
+      console.log(`player joined match the size is : ${players?.length}`)
       if (players?.length === 2) {
         // notify both players match is ready
         players.forEach((client) => {
           client.send(
             JSON.stringify({
               type: 'match-started',
-              matchName,
               problemId: message.problemId,
+              players: players,
             })
           )
         })
       }
+    } else if (message.type == 'user-submit') {
+      const userId = message.userId
     }
 
     // 3. broadcast problem to both players
