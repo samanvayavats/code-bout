@@ -71,6 +71,7 @@ model submissions {
   code         String
   verdict      String
   language     String
+  actual       String
   exec_time_ms Int                          
   memory_kb    Int                          
   is_final     Boolean  @default(false)     
