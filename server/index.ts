@@ -1,4 +1,5 @@
 import { WebSocketServer, WebSocket } from 'ws'
+import { json } from 'zod'
 
 // import { matchFound } from "@/src/lib/redis"
 
@@ -41,7 +42,7 @@ wss.on('connection', (ws: ExtendedWebSocket) => {
 
       // getting the match and pushing the player if the player is not there in the match
       const creatingMatch = matches.get(matchName)
-      if (creatingMatch) {
+      if (creatingMatch && creatingMatch.length <= 2) {
         const alreadyJoined = ws.user.id
           ? creatingMatch.some((client) => client.user.id === ws.user.id)
           : false
@@ -68,6 +69,23 @@ wss.on('connection', (ws: ExtendedWebSocket) => {
       }
     } else if (message.type == 'user-submit') {
       const userId = message.userId
+      const matchId = message.matchId
+
+      const players = matches.get(matchId)
+      if (!players) {
+        ws.send(JSON.stringify({ type: 'error', message: 'match not found' }))
+        return
+      }
+
+      players.map((client) => {
+        client.send(
+          JSON.stringify({
+            type: 'player-submit',
+            userId: userId,
+            message: `player with id ${userId} sumbitted the cide `,
+          })
+        )
+      })
     }
 
     // 3. broadcast problem to both players
