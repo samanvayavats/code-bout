@@ -1,4 +1,4 @@
-export const computeReuslts = (submission: any[]) => {
+export const createAverageScores = (submission: any[]) => {
   // logic for the winner
   let average_exec_time_ms = 0
   let average_memory_kb = 0
