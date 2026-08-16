@@ -21,7 +21,7 @@ export async function POST(request: NextRequest) {
 
   // const userId = session.user.id
   const body = await request.formData()
-  console.log('the body from the backend is ', body)
+  // console.log('the body from the backend is ', body)
   const problemId = body.get('problemId') as string
   const title = body.get('title') as string
   const userId = body.get('userId') as string
@@ -62,7 +62,7 @@ export async function POST(request: NextRequest) {
       },
     })
 
-    console.log('we want that only single match should be created', firstCheckIfMatchIscreatedOrNot)
+    // console.log('we want that only single match should be created', firstCheckIfMatchIscreatedOrNot)
 
     if (!firstCheckIfMatchIscreatedOrNot) {
       match = await prisma.matches.create({
