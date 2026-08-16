@@ -4,7 +4,7 @@ export const createAverageScores = (submission: any[]) => {
   let average_memory_kb = 0
   let average_Verdict = 0
   let submissions = 0
-
+  let pointCount = 0
   submission.forEach((e) => {
     if (e?.verdict === 'Accepted') {
       average_Verdict += 100
@@ -25,6 +25,7 @@ export const createAverageScores = (submission: any[]) => {
     average_memory_kb: average_memory_kb / submissions,
     submission_Time,
     user_Id,
+    pointCount,
   }
 }
 
@@ -45,4 +46,54 @@ export const getIndividualSubmission = (
   })
 
   return { player_one_submission, player_two_submission }
+}
+
+type User = {
+  average_Verdict: string
+  average_exec_time_ms: number
+  average_memory_kb: number
+  submission_Time: Date | any
+  user_Id: string
+  pointCount: number
+}
+
+export const getWinner = async (userOne: User, userTwo: User) => {
+  if (userOne.average_Verdict < userTwo.average_Verdict) {
+    userOne.pointCount += 1
+  } else {
+    userTwo.pointCount += 1
+  }
+
+  if (userOne.average_exec_time_ms < userTwo.average_exec_time_ms) {
+    userOne.pointCount += 1
+  } else {
+    userTwo.pointCount += 1
+  }
+
+  if (userOne.average_memory_kb < userTwo.average_memory_kb) {
+    userOne.pointCount += 1
+  } else {
+    userTwo.pointCount += 1
+  }
+
+  if (userOne.pointCount == userTwo.pointCount) {
+    if (userOne.submission_Time < userTwo.submission_Time) {
+      userOne.pointCount += 1
+    } else {
+      userTwo.pointCount += 1
+    }
+  }
+
+  let winner_Id
+  let loser_Id
+
+  if (userOne.pointCount > userOne.pointCount) {
+    winner_Id = userOne.user_Id
+    loser_Id = userTwo.user_Id
+  } else {
+    winner_Id = userTwo.user_Id
+    loser_Id = userOne.user_Id
+  }
+
+  return [userOne, userTwo, { winner_Id: winner_Id }, { loser_Id: loser_Id }]
 }
