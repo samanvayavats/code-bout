@@ -5,13 +5,14 @@ export const createAverageScores = (submission: any[]) => {
   let average_Verdict = 0
   let submissions = 0
   let pointCount = 0
+  let code = ''
   submission.forEach((e) => {
     if (e?.verdict === 'Accepted') {
       average_Verdict += 100
     } else {
       average_Verdict += 0
     }
-
+    code = e?.code
     average_exec_time_ms += e?.exec_time_ms
     average_memory_kb += e?.memory_kb
     submissions++
@@ -26,6 +27,7 @@ export const createAverageScores = (submission: any[]) => {
     submission_Time,
     user_Id,
     pointCount,
+    code,
   }
 }
 
@@ -95,5 +97,5 @@ export const getWinner = async (userOne: User, userTwo: User) => {
     loser_Id = userOne.user_Id
   }
 
-  return [userOne, userTwo, { winner_Id: winner_Id }, { loser_Id: loser_Id }]
+  return [userOne, userTwo, winner_Id, loser_Id]
 }
