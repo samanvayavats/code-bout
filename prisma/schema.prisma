@@ -20,6 +20,9 @@ model User {
   user_To_Player_Two Matches[]     @relation("player_Two")
   winner             Matches[]     @relation("winner")
   submissions        submissions[]
+  Results            Results[]     @relation("participant")
+  winnerFromResults  Results[]     @relation("winner")
+  loser              Results[]     @relation("loser")
 }
 
 model Problem {
@@ -27,7 +30,7 @@ model Problem {
   title           String
   description     String
   topic           String
-  difficulty       Difficulty
+  difficulty      Difficulty
   time_limit_ms   Int
   memory_limit_kb Int
   starter_code    String
@@ -37,11 +40,11 @@ model Problem {
 }
 
 model TestCases {
-  id              String  @id @default(uuid())
-  input           String
-  expected_Output String
-  is_Hidden       Boolean
-  problem_Id      String
+  id                String  @id @default(uuid())
+  input             String
+  expected_Output   String
+  is_Hidden         Boolean
+  problem_Id        String
   problem_Test_Case Problem @relation(fields: [problem_Id], references: [id])
 }
 
@@ -50,17 +53,37 @@ model Matches {
   matchName     String
   player_Id_One String
   player_Id_Two String
-  winner_Id     String?                      
+  winner_Id     String?
   problem_Id    String
-  started_At    DateTime  @default(now())    
-  ended_At      DateTime?                    
+  started_At    DateTime  @default(now())
+  ended_At      DateTime?
 
   submissions submissions[]
+  Results     Results[]     @relation("matchResult")
+  player_One  User?         @relation("player_One", fields: [player_Id_One], references: [id])
+  player_Two  User?         @relation("player_Two", fields: [player_Id_Two], references: [id])
+  winner      User?         @relation("winner", fields: [winner_Id], references: [id]) // ← User?
+  problem     Problem       @relation(fields: [problem_Id], references: [id])
+}
 
-  player_One User?   @relation("player_One", fields: [player_Id_One], references: [id])
-  player_Two User?   @relation("player_Two", fields: [player_Id_Two], references: [id])
-  winner     User?   @relation("winner", fields: [winner_Id], references: [id])   // ← User?
-  problem    Problem @relation(fields: [problem_Id], references: [id])
+model Results {
+  id                   String   @id @default(uuid())
+  user_Id              String
+  winner_Id            String
+  loser_Id             String
+  match_Id             String
+  average_Verdict      Int
+  average_exec_time_ms Decimal
+  average_memory_kb    Decimal
+  submission_Time      String
+  pointCount           Int
+  code                 Int
+  created_At           DateTime
+
+  participant User    @relation("participant", fields: [user_Id], references: [id])
+  winner      User    @relation("winner", fields: [winner_Id], references: [id])
+  loser       User    @relation("loser", fields: [loser_Id], references: [id])
+  matchResult Matches @relation("matchResult", fields: [match_Id], references: [id])
 }
 
 model submissions {
@@ -72,10 +95,10 @@ model submissions {
   verdict      String
   language     String
   actual       String
-  exec_time_ms Int                          
-  memory_kb    Int                          
-  is_final     Boolean  @default(false)     
-  submitted_at DateTime @default(now())     
+  exec_time_ms Int
+  memory_kb    Int
+  is_final     Boolean  @default(false)
+  submitted_at DateTime @default(now())
 
   matchSubmission   Matches @relation(fields: [match_Id], references: [id])
   userSubmission    User    @relation(fields: [user_Id], references: [id])
@@ -85,7 +108,7 @@ model submissions {
 model LeaderBoard {
   id          String @id @default(uuid())
   user_Id     String
-  elo_ranking Int                          
+  elo_ranking Int
   leader      User   @relation(fields: [user_Id], references: [id])
 }
 
