@@ -56,7 +56,7 @@ model Matches {
   winner_Id     String?
   problem_Id    String
   started_At    DateTime  @default(now())
-  ended_At      DateTime?
+  ended_At      DateTime? 
 
   submissions submissions[]
   Results     Results[]     @relation("matchResult")
@@ -77,8 +77,8 @@ model Results {
   average_memory_kb    Decimal
   submission_Time      String
   pointCount           Int
-  code                 Int
-  created_At           DateTime
+  code                 String
+  created_At           DateTime  @default(now())
 
   participant User    @relation("participant", fields: [user_Id], references: [id])
   winner      User    @relation("winner", fields: [winner_Id], references: [id])
