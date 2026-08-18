@@ -111,7 +111,7 @@ const BattleGround = ({
       const result = await axios.get(
         `${process.env.NEXT_PUBLIC_BACKEND_URL}/api/problem/get-problem?problemId=${problemId}`
       )
-      console.log('problem data  :  ', result.data)
+      // console.log('problem data  :  ', result.data)
 
       if (isMounted) {
         setproblems(result.data.problem)
@@ -154,11 +154,11 @@ const BattleGround = ({
 
     ws.onmessage = (e) => {
       const msg = JSON.parse(e.data)
-      console.log('hello : ', msg)
+      // console.log('hello : ', msg)
 
       if (msg.type === 'match-started') {
         // ensure we read the correct field
-        console.log('the length of players : ', msg.players?.length)
+        // console.log('the length of players : ', msg.players?.length)
         if (Array.isArray(msg.players) && msg.players.length === 2) setbothJoined(true)
       }
     }
@@ -230,7 +230,7 @@ const BattleGround = ({
       settestResult(result.data.result.testResults)
       setSubmitVerdict(result.data.verdict)
     } catch (error) {
-      console.log('error at the time running the code ')
+      // console.log('error at the time running the code ')
     } finally {
       setIsRunning(false)
     }
@@ -263,7 +263,7 @@ const BattleGround = ({
 
       toast.success('code submitted successfully , pls wait for results')
     } catch (error) {
-      console.log('the error at the time of submitting the code')
+      // console.log('the error at the time of submitting the code')
     }
   }
 
@@ -271,7 +271,7 @@ const BattleGround = ({
     const ws = websocketRef.current
     if (!ws) return
 
-    console.log('do we reaching the handler ----------------------')
+    // console.log('do we reaching the handler ----------------------')
 
     const handler = (e: any) => {
       const msg = JSON.parse(e?.data ?? e)
@@ -284,7 +284,7 @@ const BattleGround = ({
     ws.addEventListener('message', handler)
 
     if (opponentDone && userDone) {
-      router.push(`/result/${matchId}`)
+      router.push(`/results/${matchId}`)
       ws.send(
         JSON.stringify({
           type: 'match-completed',
@@ -299,7 +299,6 @@ const BattleGround = ({
   }, [opponentDone, userDone, userId, matchId, router])
 
   if (!problems) return <div>Loading...</div>
-
   return bothJoined ? (
     <main className='h-screen bg-[#07070A] flex flex-col'>
       {/* ========================= HEADER ========================= */}
