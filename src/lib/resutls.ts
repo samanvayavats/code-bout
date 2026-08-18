@@ -60,7 +60,10 @@ type User = {
 }
 
 export const getWinner = async (userOne: User, userTwo: User) => {
-  if (userOne.average_Verdict < userTwo.average_Verdict) {
+  if (userOne.average_Verdict == userTwo.average_Verdict) {
+    userOne.pointCount += 1
+    userTwo.pointCount += 1
+  } else if (userOne.average_Verdict > userTwo.average_Verdict) {
     userOne.pointCount += 1
   } else {
     userTwo.pointCount += 1
@@ -79,7 +82,10 @@ export const getWinner = async (userOne: User, userTwo: User) => {
   }
 
   if (userOne.pointCount == userTwo.pointCount) {
-    if (userOne.submission_Time < userTwo.submission_Time) {
+    const dateOne = new Date(userOne.submission_Time)
+    const dateTwo = new Date(userTwo.submission_Time)
+
+    if (dateOne < dateTwo) {
       userOne.pointCount += 1
     } else {
       userTwo.pointCount += 1
