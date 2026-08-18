@@ -1,8 +1,13 @@
-import React from 'react'
+import ResultsPage from '@/src/components/ui/results-page'
 
 const page = async ({ params }: { params: Promise<{ id: string }> }) => {
   const { id } = await params
-  return <div>id</div>
+
+  return (
+    <>
+      <ResultsPage matchId={id} />
+    </>
+  )
 }
 
 export default page
