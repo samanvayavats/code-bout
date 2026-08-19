@@ -112,10 +112,9 @@ export async function POST(request: NextRequest) {
     const winner_Id: string | any = answer[2]
     const loser_Id: string | any = answer[3]
 
-    // 8. Create results + update match atomically
+    // Create results + update the wins and loss +update match atomically
 
     await prisma.$transaction(async (tx) => {
-      // Update winner in match
       await tx.matches.update({
         where: {
           id: matchId,
