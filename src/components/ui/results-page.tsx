@@ -9,7 +9,7 @@ type Result = {
   id: string
   user_Id: string
   winner_Id: string
-  loser_Id: string
+  losser_Id: string
   match_Id: string
   average_Verdict: number
   average_exec_time_ms: string
@@ -55,8 +55,8 @@ export default function ResultsPage({ matchId }: { matchId: string }) {
   const opponentResult = results.find((r) => r.user_Id !== currentUserId)
 
   const iWon = myResult?.winner_Id === currentUserId
-  const iLost = myResult?.loser_Id === currentUserId
-  const isDraw = myResult?.winner_Id === myResult?.loser_Id
+  const iLost = myResult?.losser_Id === currentUserId
+  const isDraw = myResult?.winner_Id === myResult?.losser_Id
 
   // ── loading ──
   if (loading) {
