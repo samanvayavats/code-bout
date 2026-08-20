@@ -19,6 +19,7 @@ model User {
   user_To_Player_One Matches[]     @relation("player_One")
   user_To_Player_Two Matches[]     @relation("player_Two")
   winner             Matches[]     @relation("winner")
+  losserFromMatches  Matches[]     @relation("losser")
   submissions        submissions[]
   Results            Results[]     @relation("participant")
   winnerFromResults  Results[]     @relation("winner")
@@ -54,6 +55,7 @@ model Matches {
   player_Id_One String
   player_Id_Two String
   winner_Id     String?
+  losser_Id      String?
   problem_Id    String
   started_At    DateTime  @default(now())
   ended_At      DateTime? 
@@ -63,6 +65,7 @@ model Matches {
   player_One  User?         @relation("player_One", fields: [player_Id_One], references: [id])
   player_Two  User?         @relation("player_Two", fields: [player_Id_Two], references: [id])
   winner      User?         @relation("winner", fields: [winner_Id], references: [id]) // ← User?
+  losser      User?         @relation("losser", fields: [losser_Id], references: [id]) // ← User?
   problem     Problem       @relation(fields: [problem_Id], references: [id])
 }
 
