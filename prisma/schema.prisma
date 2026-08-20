@@ -13,8 +13,8 @@ model User {
   name               String        @unique
   password           String
   eloRating          Int           @default(1200)
-  wins               Int           @default(0)
-  losses             Int           @default(0)
+  wins               Decimal           @default(0)
+  losses             Decimal           @default(0)
   LeaderBoard        LeaderBoard[]
   user_To_Player_One Matches[]     @relation("player_One")
   user_To_Player_Two Matches[]     @relation("player_Two")
@@ -23,7 +23,7 @@ model User {
   submissions        submissions[]
   Results            Results[]     @relation("participant")
   winnerFromResults  Results[]     @relation("winner")
-  loser              Results[]     @relation("loser")
+  losser              Results[]     @relation("losser")
 }
 
 model Problem {
@@ -54,8 +54,8 @@ model Matches {
   matchName     String
   player_Id_One String
   player_Id_Two String
-  winner_Id     String?
-  losser_Id      String?
+  winner_Id     String?    
+  losser_Id     String?
   problem_Id    String
   started_At    DateTime  @default(now())
   ended_At      DateTime? 
@@ -73,7 +73,7 @@ model Results {
   id                   String   @id @default(uuid())
   user_Id              String
   winner_Id            String
-  loser_Id             String
+  losser_Id             String
   match_Id             String
   average_Verdict      Int
   average_exec_time_ms Decimal
@@ -86,7 +86,7 @@ model Results {
 
   participant User    @relation("participant", fields: [user_Id], references: [id])
   winner      User    @relation("winner", fields: [winner_Id], references: [id])
-  loser       User    @relation("loser", fields: [loser_Id], references: [id])
+  losser       User    @relation("losser", fields: [losser_Id], references: [id])
   matchResult Matches @relation("matchResult", fields: [match_Id], references: [id])
 }
 
