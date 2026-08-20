@@ -93,15 +93,15 @@ export const getWinner = async (userOne: User, userTwo: User) => {
   }
 
   let winner_Id
-  let loser_Id
+  let losser_Id
 
   if (userOne.pointCount > userOne.pointCount) {
     winner_Id = userOne.user_Id
-    loser_Id = userTwo.user_Id
+    losser_Id = userTwo.user_Id
   } else {
     winner_Id = userTwo.user_Id
-    loser_Id = userOne.user_Id
+    losser_Id = userOne.user_Id
   }
 
-  return [userOne, userTwo, winner_Id, loser_Id]
+  return [userOne, userTwo, winner_Id, losser_Id]
 }
