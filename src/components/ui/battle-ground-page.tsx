@@ -284,7 +284,23 @@ const BattleGround = ({
     ws.addEventListener('message', handler)
 
     if (opponentDone && userDone) {
-      router.push(`/results/${matchId}`)
+      const creatingResult = async () => {
+        try {
+          const res = await axios.post(
+            `http://localhost:3000/api/results/compute-result?matchId=${matchId}`
+          )
+          console.log('the match result is ', res)
+          // setResults(res.data.results)
+        } catch (err) {
+          // setError('Failed to load results.')
+        } finally {
+          // setLoading(false)
+        }
+      }
+      creatingResult()
+      setTimeout(() => {
+        router.push(`/results/${matchId}`)
+      }, 3000)
       ws.send(
         JSON.stringify({
           type: 'match-completed',
