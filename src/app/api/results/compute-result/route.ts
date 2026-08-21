@@ -123,7 +123,6 @@ export async function POST(request: NextRequest) {
 
       // making sure the wins and looses is updated once
 
-      console.log('-------------------------------- ', checkIftheWinnerIsNull)
       if (checkIftheWinnerIsNull?.winner_Id == null && checkIftheWinnerIsNull?.losser_Id == null) {
         await tx.user.update({
           where: {
@@ -131,7 +130,7 @@ export async function POST(request: NextRequest) {
           },
           data: {
             wins: {
-              increment: 0.25,
+              increment: 0.5,
             },
           },
         })
@@ -142,7 +141,7 @@ export async function POST(request: NextRequest) {
           },
           data: {
             losses: {
-              increment: 0.25,
+              increment: 0.5,
             },
           },
         })
