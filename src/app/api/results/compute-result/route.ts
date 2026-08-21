@@ -110,11 +110,44 @@ export async function POST(request: NextRequest) {
     const userTwoResult: User | any = answer[1]
 
     const winner_Id: string | any = answer[2]
-    const loser_Id: string | any = answer[3]
+    const losser_Id: string | any = answer[3]
 
     // Create results + update the wins and loss +update match atomically
 
     await prisma.$transaction(async (tx) => {
+      const checkIftheWinnerIsNull = await prisma.matches.findUnique({
+        where: {
+          id: matchId,
+        },
+      })
+
+      // making sure the wins and looses is updated once
+
+      console.log('-------------------------------- ', checkIftheWinnerIsNull)
+      if (checkIftheWinnerIsNull?.winner_Id == null && checkIftheWinnerIsNull?.losser_Id == null) {
+        await tx.user.update({
+          where: {
+            id: winner_Id,
+          },
+          data: {
+            wins: {
+              increment: 0.25,
+            },
+          },
+        })
+
+        await tx.user.update({
+          where: {
+            id: losser_Id,
+          },
+          data: {
+            losses: {
+              increment: 0.25,
+            },
+          },
+        })
+      }
+
       await tx.matches.update({
         where: {
           id: matchId,
@@ -124,12 +157,21 @@ export async function POST(request: NextRequest) {
         },
       })
 
+      await tx.matches.update({
+        where: {
+          id: matchId,
+        },
+        data: {
+          losser_Id: losser_Id,
+        },
+      })
+
       await tx.results.createMany({
         data: [
           {
             user_Id: userOneResult.user_Id,
             winner_Id,
-            loser_Id,
+            losser_Id,
             match_Id: matchId,
             average_exec_time_ms: userOneResult.average_exec_time_ms,
             average_memory_kb: userOneResult.average_memory_kb,
@@ -142,7 +184,7 @@ export async function POST(request: NextRequest) {
           {
             user_Id: userTwoResult.user_Id,
             winner_Id,
-            loser_Id,
+            losser_Id,
             match_Id: matchId,
             average_exec_time_ms: userTwoResult.average_exec_time_ms,
             average_memory_kb: userTwoResult.average_memory_kb,
