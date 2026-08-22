@@ -20,19 +20,25 @@ export default function RootLayout({
   return (
     <html lang='en'>
       <body className='bg-[#0A0A0F] text-[#F0EFF4] min-h-screen font-sans'>
-        <div
-          className='absolute inset-0 pointer-events-none'
-          style={{
-            background:
-              'radial-gradient(ellipse 60% 50% at 50% 0%, rgba(230,57,70,0.12), transparent 70%)',
-          }}
-        />
-        <Navbar />
-        <main className='pt-14'>
-          <ToastContainer theme='dark' toastStyle={{ background: '#111118' }} />
-          <Provider>{children}</Provider>
-        </main>
-        <Footer />
+        <Provider>
+          <div
+            className='absolute inset-0 pointer-events-none'
+            style={{
+              background:
+                'radial-gradient(ellipse 60% 50% at 50% 0%, rgba(230,57,70,0.12), transparent 70%)',
+            }}
+          />
+
+          <Navbar />
+
+          <main className='pt-14'>
+            <ToastContainer theme='dark' toastStyle={{ background: '#111118' }} />
+
+            {children}
+          </main>
+
+          <Footer />
+        </Provider>
       </body>
     </html>
   )
