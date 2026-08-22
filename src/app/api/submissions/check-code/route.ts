@@ -1,9 +1,22 @@
 import { NextRequest, NextResponse } from 'next/server'
 import prisma from '@/src/lib/prisma'
 import { LANGUAGES, buildSolution, runCodeAgainstAllTestCases } from '@/src/lib/judge'
+import { getServerSession } from 'next-auth'
+import { authOptions } from '@/src/lib/auth'
 
 export async function POST(request: NextRequest) {
   try {
+    const session = await getServerSession(authOptions)
+
+    if (!session) {
+      return NextResponse.json(
+        {
+          message: 'Invaild User ',
+        },
+        { status: 401 }
+      )
+    }
+
     const body = await request.formData()
 
     const code = body.get('code') as string
