@@ -1,8 +1,21 @@
 import { NextRequest, NextResponse } from 'next/server'
 import prisma from '@/src/lib/prisma'
+import { getServerSession } from 'next-auth'
+import { authOptions } from '@/src/lib/auth'
 
 export async function GET(request: NextRequest) {
   try {
+    const session = await getServerSession(authOptions)
+
+    if (!session) {
+      return NextResponse.json(
+        {
+          message: 'Invaild User ',
+        },
+        { status: 401 }
+      )
+    }
+
     const searchParams = request.nextUrl.searchParams
     const matchId = searchParams.get('matchId')
 

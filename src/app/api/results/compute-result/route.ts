@@ -1,6 +1,8 @@
 import { NextRequest, NextResponse } from 'next/server'
 import prisma from '@/src/lib/prisma'
 import { createAverageScores, getIndividualSubmission, getWinner } from '@/src/lib/resutls'
+import { getServerSession } from 'next-auth'
+import { authOptions } from '@/src/lib/auth'
 
 type User = {
   average_Verdict: number
@@ -14,6 +16,17 @@ type User = {
 
 export async function POST(request: NextRequest) {
   try {
+    const session = await getServerSession(authOptions)
+
+    if (!session) {
+      return NextResponse.json(
+        {
+          message: 'Invaild User ',
+        },
+        { status: 401 }
+      )
+    }
+
     // Get matchId
     const searchParams = request.nextUrl.searchParams
     const matchId = searchParams.get('matchId')
