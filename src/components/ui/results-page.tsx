@@ -1,10 +1,11 @@
 'use client'
 import { useEffect, useState } from 'react'
-import { useSession } from 'next-auth/react'
 import axios from 'axios'
 import { useRouter } from 'next/navigation'
 import Link from 'next/link'
-
+import { useSession } from 'next-auth/react'
+import NotAuthenicated from '@/src/components/ui/not-authenticated'
+import ApiError from '@/src/components/ui/api-error'
 type Result = {
   id: string
   user_Id: string
@@ -70,7 +71,12 @@ export default function ResultsPage({ matchId }: { matchId: string }) {
     )
   }
 
+  if (!session) {
+    return <NotAuthenicated />
+  }
+
   // ── error ──
+
   if (error) {
     return (
       <main className='bg-[#0A0A0F] min-h-screen flex items-center justify-center'>

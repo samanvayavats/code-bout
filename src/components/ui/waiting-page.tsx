@@ -3,6 +3,8 @@ import { useEffect, useState, useRef } from 'react'
 import { useRouter } from 'next/navigation'
 import axios from 'axios'
 import { useSession } from 'next-auth/react'
+import NotAuthenicated from '@/src/components/ui/not-authenticated'
+import ApiError from '@/src/components/ui/api-error'
 
 type matchStatus = 'searching' | 'matched' | 'timeout'
 interface Problem {
@@ -29,6 +31,7 @@ export default function WaitingPage({
 }) {
   const { data: session, status } = useSession()
 
+  const [apiError, setapiError] = useState('')
   const router = useRouter()
   const [problems, setproblems] = useState<Problem>()
   const [matchStatus, setmatchStatus] = useState<matchStatus>('searching')
@@ -43,10 +46,14 @@ export default function WaitingPage({
     let isMounted = true
 
     const fetchTheProlem = async () => {
-      const result = await axios.get(
-        `${process.env.NEXT_PUBLIC_BACKEND_URL}/api/problem/get-problem?problemId=${problemId}`
-      )
-      if (isMounted) setproblems(result.data.problem)
+      try {
+        const result = await axios.get(
+          `${process.env.NEXT_PUBLIC_BACKEND_URL}/api/problem/get-problem?problemId=${problemId}`
+        )
+        if (isMounted) setproblems(result.data.problem)
+      } catch (error) {
+        setapiError('Something went wrong at time of Matching')
+      }
     }
 
     fetchTheProlem()
@@ -115,6 +122,7 @@ export default function WaitingPage({
         }
       } catch (err) {
         console.error(err)
+        setapiError('Something went wrong at the time of Matching')
         setmatchStatus('timeout')
       }
     }
@@ -132,6 +140,14 @@ export default function WaitingPage({
   const radius = 54
   const circum = 2 * Math.PI * radius
   const progress = (timeLeft / 60) * circum
+
+  if (!session) {
+    return <NotAuthenicated />
+  }
+
+  if (apiError) {
+    return <ApiError error={apiError} />
+  }
 
   return (
     <main className='bg-[#0A0A0F] text-[#F0EFF4] min-h-screen flex flex-col items-center justify-center px-6 font-sans'>

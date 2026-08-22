@@ -4,6 +4,9 @@ import { toast } from 'react-toastify'
 import { useSession } from 'next-auth/react'
 import axios from 'axios'
 import { useRouter } from 'next/navigation'
+import NotAuthenicated from '@/src/components/ui/not-authenticated'
+import ApiError from '@/src/components/ui/api-error'
+
 type Verdict =
   'Accepted' | 'Wrong Answer' | 'TLE' | 'MLE' | 'Runtime Error' | 'Compilation Error' | null
 
@@ -55,7 +58,7 @@ const BattleGround = ({
   problemId: string
 }) => {
   const router = useRouter()
-
+  const [Error, setError] = useState('')
   const [code, setCode] = useState('')
   // session
   const { data: session, status } = useSession()
@@ -108,15 +111,19 @@ const BattleGround = ({
   useEffect(() => {
     let isMounted = true
     const fetchProblem = async () => {
-      const result = await axios.get(
-        `${process.env.NEXT_PUBLIC_BACKEND_URL}/api/problem/get-problem?problemId=${problemId}`
-      )
-      // console.log('problem data  :  ', result.data)
+      try {
+        const result = await axios.get(
+          `${process.env.NEXT_PUBLIC_BACKEND_URL}/api/problem/get-problem?problemId=${problemId}`
+        )
+        // console.log('problem data  :  ', result.data)
 
-      if (isMounted) {
-        setproblems(result.data.problem)
-        setSolutionStarterCode(result.data.problem.starter_code)
-        settestCases(result.data.problem.TestCases)
+        if (isMounted) {
+          setproblems(result.data.problem)
+          setSolutionStarterCode(result.data.problem.starter_code)
+          settestCases(result.data.problem.TestCases)
+        }
+      } catch (error) {
+        setError('Anything went for fetching probelm')
       }
     }
     fetchProblem()
@@ -231,6 +238,7 @@ const BattleGround = ({
       setSubmitVerdict(result.data.verdict)
     } catch (error) {
       // console.log('error at the time running the code ')
+      setError('Something at the time running the code')
     } finally {
       setIsRunning(false)
     }
@@ -264,6 +272,7 @@ const BattleGround = ({
       toast.success('code submitted successfully , pls wait for results')
     } catch (error) {
       // console.log('the error at the time of submitting the code')
+      setError('Something at the time running the code')
     }
   }
 
@@ -289,10 +298,10 @@ const BattleGround = ({
           const res = await axios.post(
             `http://localhost:3000/api/results/compute-result?matchId=${matchId}`
           )
-          console.log('the match result is ', res)
+          // console.log('the match result is ', res)
           // setResults(res.data.results)
         } catch (err) {
-          // setError('Failed to load results.')
+          setError('Failed to load results.')
         } finally {
           // setLoading(false)
         }
@@ -313,6 +322,14 @@ const BattleGround = ({
       ws.removeEventListener('message', handler)
     }
   }, [opponentDone, userDone, userId, matchId, router])
+
+  if (!session) {
+    return <NotAuthenicated />
+  }
+
+  if (Error) {
+    return <ApiError error={Error} />
+  }
 
   if (!problems) return <div>Loading...</div>
   return bothJoined ? (

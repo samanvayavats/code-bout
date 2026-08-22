@@ -1,7 +1,10 @@
 'use client'
 import axios from 'axios'
 import { useState, useEffect } from 'react'
-
+import { useRouter } from 'next/navigation'
+import { useSession } from 'next-auth/react'
+import NotAuthenicated from '@/src/components/ui/not-authenticated'
+import ApiError from '@/src/components/ui/api-error'
 type Leader = {
   // rank: number;
   id: string
@@ -13,6 +16,7 @@ type Leader = {
 export default function LeaderboardPage() {
   const [leaders, setleaders] = useState<Leader[]>([])
   const [error, seterror] = useState('')
+  const { data: session } = useSession()
 
   useEffect(() => {
     const fetchUsersLeaderboard = async () => {
@@ -27,12 +31,20 @@ export default function LeaderboardPage() {
     fetchUsersLeaderboard()
   }, [])
 
-  if (error) return <div className='mb-6 text-2xl font-bold'>{error}</div>
+  if (!session) {
+    return <NotAuthenicated />
+  }
+
+  if (error) {
+    return <ApiError error={error} />
+  }
 
   return (
     <main className='min-h-screen bg-[#0A0A0F] p-6 text-[#F0EFF4]'>
       <div className='mx-auto max-w-4xl'>
-        <h1 className='mb-6 text-2xl font-bold'>Leaderboard</h1>
+        <h1 className='mb-6 text-2xl font-bold'>
+          <span className='text-[#E63946]'>Leader</span>board
+        </h1>
 
         {/* ── TABLE ── */}
         <div className='border border-[#1E1E2E] rounded-xl overflow-hidden'>

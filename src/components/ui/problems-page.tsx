@@ -4,6 +4,8 @@ import RedButton from './red-button'
 import axios from 'axios'
 import Link from 'next/link'
 import { useSession } from 'next-auth/react'
+import NotAuthenicated from '@/src/components/ui/not-authenticated'
+import ApiError from '@/src/components/ui/api-error'
 // ── types ──
 type Difficulty = 'all' | 'easy' | 'medium' | 'hard'
 interface Problem {
@@ -28,7 +30,7 @@ const diffColor = (d: string) =>
 
 export default function ProblemsPage() {
   const { data: session, status } = useSession()
-
+  const [apiError, setapiError] = useState('')
   const [problems, setproblems] = useState<Problem[]>([])
 
   useEffect(() => {
@@ -43,6 +45,7 @@ export default function ProblemsPage() {
           setproblems(result.data.problems)
         }
       } catch (error) {
+        setapiError('Something went wrong at time of fetching problems')
         console.log('error at the time of fetching the data ', error)
       }
     }
@@ -102,13 +105,13 @@ export default function ProblemsPage() {
     'Bit Manipulation',
   ]
 
-  // if (status === "loading") {
-  //   return <p>Loading authentication state...</p>;
-  // }
+  if (!session) {
+    return <NotAuthenicated />
+  }
 
-  // if (status === "unauthenticated") {
-  //   return <p>You are not signed in.</p>;
-  // }
+  if (apiError) {
+    return <ApiError error={apiError} />
+  }
 
   return (
     <main className='bg-[#0A0A0F] text-[#F0EFF4] min-h-screen font-sans'>

@@ -1,10 +1,11 @@
 'use client'
-import React, { useState } from 'react'
+import { useState } from 'react'
 import RedButton from './red-button'
 import axios from 'axios'
 import { useRouter } from 'next/navigation'
 import { toast } from 'react-toastify'
 import { signIn } from 'next-auth/react'
+import Link from 'next/link'
 
 const signUpPage = ({ type }: { type: boolean }) => {
   const router = useRouter()
@@ -24,6 +25,18 @@ const signUpPage = ({ type }: { type: boolean }) => {
     password: '',
   })
   const handleLogin = async () => {
+    if (!login.name.trim() || !login.email.trim() || !login.password) {
+      toast.error('Please fill in all fields')
+      return
+    }
+    if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(login.email)) {
+      toast.error('Please enter a valid email')
+      return
+    }
+    if (login.password.length < 6) {
+      toast.error('Password must be at least 6 characters')
+      return
+    }
     try {
       setloginIsActive(true)
       const result = await signIn('credentials', {
@@ -48,6 +61,18 @@ const signUpPage = ({ type }: { type: boolean }) => {
   }
 
   const handleRegister = async () => {
+    if (!register.name.trim() || !register.email.trim() || !register.password) {
+      toast.error('Please fill in all fields')
+      return
+    }
+    if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(register.email)) {
+      toast.error('Please enter a valid email')
+      return
+    }
+    if (register.password.length < 6) {
+      toast.error('Password must be at least 6 characters')
+      return
+    }
     try {
       setregisterIsActive(true)
       toast.success('sign-up can take some time')
@@ -74,13 +99,13 @@ const signUpPage = ({ type }: { type: boolean }) => {
       <form className='flex flex-col items-center max-w-md border  border-[#1E1E2E] rounded-2xl bg-[#111118] overflow-hidden '>
         {type ? (
           <label className='py-4 text-xl text-[#E63946]'>
-            RE
-            <span className='text-white'>GISTER</span>
+            SIGN
+            <span className='text-white'>UP</span>
           </label>
         ) : (
           <label className='py-4 text-xl text-[#E63946]'>
-            LO
-            <span className='text-white'>GIN</span>
+            SIGN
+            <span className='text-white'>IN</span>
           </label>
         )}
 
@@ -133,16 +158,28 @@ const signUpPage = ({ type }: { type: boolean }) => {
         </div>
 
         {type ? (
-          <div className='p-4'>
+          <div className='p-4 w-full flex flex-col items-center justify-center'>
             <RedButton isActive={registerIsActive} onClick={() => handleRegister()}>
-              Register
+              SIGN-UP
             </RedButton>
+            <p className='mt-3 text-sm text-white'>
+              Already have an account?{' '}
+              <Link className='text-[#E63946] hover:underline' href='/sign-in'>
+                Sign in
+              </Link>
+            </p>
           </div>
         ) : (
-          <div className='p-4'>
+          <div className='p-4 w-full flex flex-col items-center justify-center'>
             <RedButton isActive={loginIsActive} onClick={handleLogin}>
-              Login
+              SIGN-IN
             </RedButton>
+            <p className='mt-3 text-sm text-white'>
+              Don&apos;t have an account?{' '}
+              <Link className='text-[#E63946] hover:underline' href='/sign-up'>
+                Please sign up
+              </Link>
+            </p>
           </div>
         )}
       </form>
