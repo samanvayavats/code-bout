@@ -11,8 +11,8 @@ const page = () => {
       <div className='hidden md:flex gap-8'>
         {[
           { name: 'Problems', link: '/problems' },
-          { name: 'Leaderboard', link: '#' },
-          { name: 'How it works', link: '#' },
+          { name: 'Leaderboard', link: '/leaderboard' },
+          { name: 'How it works', link: '/how-it-works' },
         ].map((l) => (
           <a
             key={l.name}
