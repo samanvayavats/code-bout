@@ -6,11 +6,14 @@ export async function GET() {
   try {
     const session = await getServerSession(authOptions)
 
-    // if(!session){
-    //     return NextResponse.json({
-    //         message :"Invaild User "
-    //     },{status : 401})
-    // }
+    if (!session) {
+      return NextResponse.json(
+        {
+          message: 'Invaild User ',
+        },
+        { status: 401 }
+      )
+    }
 
     const problems = await prisma.problem.findMany()
 
