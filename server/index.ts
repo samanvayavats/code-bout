@@ -22,14 +22,14 @@ wss.on('connection', (ws: ExtendedWebSocket) => {
 
   ws.on('message', (data: any) => {
     const message = JSON.parse(data)
-    console.log('received:', message)
+    // console.log('received:', message)
 
     // 1. user connects to socket server
     if (message.type === 'user-connect') {
       ws.user.id = message.id
       ws.user.username = message.username
       ws.user.problemId = message.problemId
-      console.log(`✅ user connected: ${message.username}`)
+      // console.log(`user connected: ${message.username}`)
     }
 
     // 2. both players join a match room
@@ -51,10 +51,10 @@ wss.on('connection', (ws: ExtendedWebSocket) => {
           creatingMatch.push(ws)
         }
       }
-      console.log(`player joined match: ${matchName}`)
+      // console.log(`player joined match: ${matchName}`)
 
       const players = matches.get(matchName)
-      console.log(`player joined match the size is : ${players?.length}`)
+      // console.log(`player joined match the size is : ${players?.length}`)
       if (players?.length === 2) {
         // notify both players match is ready
         players.forEach((client) => {
@@ -112,18 +112,18 @@ wss.on('connection', (ws: ExtendedWebSocket) => {
         )
       })
 
-      console.log(`broadcasted match: ${matchName}`)
+      // console.log(`broadcasted match: ${matchName}`)
     } else if (message.type == 'match-completed') {
       const matchName = message.matchName
 
       const match = matches.delete(matchName)
-      console.log('the match is deleted')
+      // console.log('the match is deleted')
     }
   })
 
   ws.on('close', () => {
-    console.log(`user disconnected: ${ws.user.username}`)
+    // console.log(`user disconnected: ${ws.user.username}`)
   })
 })
 
-console.log('⚡ WebSocket server running on port 8000')
+// console.log('⚡ WebSocket server running on port 8000')
