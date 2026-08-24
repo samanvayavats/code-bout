@@ -296,7 +296,7 @@ const BattleGround = ({
       const creatingResult = async () => {
         try {
           const res = await axios.post(
-            `http://localhost:3000/api/results/compute-result?matchId=${matchId}`
+            `${process.env.NEXT_PUBLIC_BACKEND_URL}/api/results/compute-result?matchId=${matchId}`
           )
           // console.log('the match result is ', res)
           // setResults(res.data.results)
