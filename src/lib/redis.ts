@@ -11,7 +11,7 @@ client.on('error', function (err) {
 
 const connectRedis = async () => {
   await client.connect()
-  console.log('✅ Redis connected')
+  // console.log('✅ Redis connected')
 }
 
 const addInTheQueue = async (userId: string, problemId: string, title: string) => {

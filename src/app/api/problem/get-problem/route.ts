@@ -16,9 +16,9 @@ export async function GET(request: NextRequest, response: NextResponse) {
     }
 
     const body = request.nextUrl.searchParams
-    console.log('body : ', body)
+    // console.log('body : ', body)
     const problemId = body.get('problemId') as string
-    console.log('problemId : ', problemId)
+    // console.log('problemId : ', problemId)
     const problem = await prisma.problem.findUnique({
       where: {
         id: problemId,
