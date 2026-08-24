@@ -37,7 +37,7 @@ export default function ResultsPage({ matchId }: { matchId: string }) {
     const fetchResults = async () => {
       try {
         const res = await axios.get(
-          `http://localhost:3000/api/results/get-result?matchId=${matchId}`
+          `${process.env.NEXT_PUBLIC_BACKEND_URL}/api/results/get-result?matchId=${matchId}`
         )
         // console.log("the match result is ",res)
         setResults(res.data.results)
