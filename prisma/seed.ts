@@ -1,4 +1,4 @@
-import { prisma, Difficulty } from '@/src/lib/prisma'
+import { prisma, Difficulty } from '../src/lib/prisma'
 
 const problems = [
   // ─────────────────────────────────────────
