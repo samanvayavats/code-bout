@@ -1,0 +1,76 @@
+services:
+  postgres:
+    image: postgres:18-alpine
+    container_name: code-bout-postgres
+    restart: unless-stopped
+    environment:
+      POSTGRES_USER: codebout
+      POSTGRES_PASSWORD: codeboutpostgres
+      POSTGRES_DB: codeboutdb
+    ports:
+      - '5432:5432'
+    volumes:
+      - postgres-vol-code-bout:/var/lib/postgresql
+    healthcheck:
+      test: ['CMD-SHELL', 'pg_isready -U codebout -d codeboutdb']
+      interval: 5s
+      timeout: 5s
+      retries: 5
+
+  redis:
+    image: redis:8-alpine
+    container_name: code-bout-redis
+    restart: unless-stopped
+    ports:
+      - '6379:6379'
+    volumes:
+      - redis-vol-code-bout:/data
+    healthcheck:
+      test: ['CMD', 'redis-cli', 'ping']
+      interval: 5s
+      timeout: 5s
+      retries: 5
+
+  next:
+    image: code-bout
+    container_name: code-bout-next
+    restart: unless-stopped
+    environment:
+      NEXT_PUBLIC_BACKEND_URL: 'http://localhost:3000'
+    env_file:
+      - .env
+    ports:
+      - '3000:3000'
+    build:
+      context: .
+      dockerfile: Dockerfile
+    depends_on:
+      postgres:
+        condition: service_healthy
+      redis:
+        condition: service_healthy
+
+  socket:
+    image: code-bout-socket
+    container_name: code-bout-socket-next
+    restart: unless-stopped
+    env_file:
+      - .env
+    ports:
+      - '8000:8000'
+    build:
+      context: .
+      dockerfile: Dockerfile.socket
+      args:
+        DATABASE_URL: 'postgresql://codebout:codeboutpostgres@postgres:5432/codeboutdb'
+    depends_on:
+      postgres:
+        condition: service_healthy
+      redis:
+        condition: service_healthy
+
+volumes:
+  postgres-vol-code-bout:
+    name: postgres-vol-code-bout
+  redis-vol-code-bout:
+    name: redis-vol-code-bout
