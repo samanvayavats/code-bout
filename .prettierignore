@@ -1,6 +1,9 @@
 # Dependencies
 node_modules
 
+#types 
+next-env.d.ts
+
 # Next.js
 .next
 out
