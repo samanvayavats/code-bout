@@ -2,10 +2,10 @@ import prisma from '@/src/lib/prisma'
 import { NextRequest, NextResponse } from 'next/server'
 import bcrypt, { genSalt, genSaltSync } from 'bcrypt'
 import { registerUser } from '@/src/lib/zod-validation-schema'
-export async function POST(request: NextRequest, response: NextResponse) {
+export async function POST(request: NextRequest) {
   try {
     const { name, email, password } = await request.json()
-    console.log('data', name, email, password)
+    // console.log('data', name, email, password)
     // const name = body.get('name') as string
     // const email = body.get('email') as string
     // const password = body.get('password') as string
