@@ -1,5 +1,6 @@
 'use client'
-import React, { useEffect, useId, useRef, useState } from 'react'
+
+import React, { useEffect, useRef, useState } from 'react'
 import { toast } from 'react-toastify'
 import { useSession } from 'next-auth/react'
 import axios from 'axios'
@@ -58,8 +59,10 @@ const BattleGround = ({
   problemId: string
 }) => {
   const router = useRouter()
+
   const [Error, setError] = useState('')
   const [code, setCode] = useState('')
+
   // session
   const { data: session, status } = useSession()
 
@@ -71,6 +74,7 @@ const BattleGround = ({
 
   // problem hook
   const [problems, setproblems] = useState<Problem>()
+
   // testcases hook
   const [testCases, settestCases] = useState<TestCases[]>()
 
@@ -80,20 +84,20 @@ const BattleGround = ({
   )
 
   // ── match state ──
-  const [timeLeft, setTimeLeft] = useState(30 * 60) // 30 min
+  const [timeLeft, setTimeLeft] = useState(30 * 60)
   const [opponentDone, setOpponentDone] = useState(false)
   const [opponentVerdict, setOpponentVerdict] = useState<string | null>(null)
-  //your state
+
+  // your state
   const [userDone, setuserDone] = useState(false)
 
-  //for running the testcases and probelm toggle
-
+  // for running the testcases and problem toggle
   const [problemAndTestcasesToggle, setproblemAndTestcasesToggle] = useState<boolean>(false)
+
   const handlerToggleproblemAndTestcases = () => {
     setproblemAndTestcasesToggle(!problemAndTestcasesToggle)
   }
 
-  // for code submission
   // ── submission state ──
   const [isRunning, setIsRunning] = useState(false)
   const [isSubmitting, setIsSubmitting] = useState(false)
@@ -107,15 +111,18 @@ const BattleGround = ({
   // check that user can only run the code for 3 times
   const [runCodeThreeTimes, setrunCodeThreeTimes] = useState<number>(0)
 
-  // fetching the particular problem
+  // --------------------------------------------------
+  // FETCH PROBLEM
+  // --------------------------------------------------
+
   useEffect(() => {
     let isMounted = true
+
     const fetchProblem = async () => {
       try {
         const result = await axios.get(
           `${process.env.NEXT_PUBLIC_BACKEND_URL}/api/problem/get-problem?problemId=${problemId}`
         )
-        // console.log('problem data  :  ', result.data)
 
         if (isMounted) {
           setproblems(result.data.problem)
@@ -123,91 +130,190 @@ const BattleGround = ({
           settestCases(result.data.problem.TestCases)
         }
       } catch (error) {
-        setError('Anything went for fetching probelm')
+        setError('Anything went wrong while fetching problem')
       }
     }
+
     fetchProblem()
+
     return () => {
       isMounted = false
     }
-  }, [])
+  }, [problemId])
+
+  // --------------------------------------------------
+  // WEBSOCKET CONNECTION
+  // --------------------------------------------------
 
   useEffect(() => {
-    // only connect when session is available
     if (!session?.user?.id) return
 
+    console.log('Creating WebSocket connection...')
+
     const ws = new WebSocket('ws://localhost:8000')
+
     websocketRef.current = ws
 
+    // ----------------------------------------------
+    // CONNECTION OPEN
+    // ----------------------------------------------
+
     ws.onopen = () => {
+      console.log('WebSocket connected')
+
+      // Tell server who we are
       ws.send(
         JSON.stringify({
           type: 'user-connect',
-          username: session.user.name,
           userId: userId,
+          username: session.user.name,
           problemId: problemId,
         })
       )
 
+      // Join / rejoin the match
       ws.send(
         JSON.stringify({
           type: 'match-found',
-          useId: userId,
-          matchName: matchId, // we are using the match id as the match name for the WebSocket
+          userId: userId,
+          matchId: matchId,
           problemId: problemId,
         })
       )
     }
 
-    ws.onmessage = (e) => {
-      const msg = JSON.parse(e.data)
-      // console.log('hello : ', msg)
+    // ----------------------------------------------
+    // MESSAGE FROM SERVER
+    // ----------------------------------------------
 
-      if (msg.type === 'match-started') {
-        // ensure we read the correct field
-        // console.log('the length of players : ', msg.players?.length)
-        if (Array.isArray(msg.players) && msg.players.length === 2) setbothJoined(true)
+    ws.onmessage = (e) => {
+      try {
+        const msg = JSON.parse(e.data)
+
+        console.log('WebSocket message:', msg)
+
+        // Match started
+        if (msg.type === 'match-started') {
+          console.log('Both players are connected')
+
+          if (Array.isArray(msg.players) && msg.players.length === 2) {
+            setbothJoined(true)
+          }
+        }
+
+        // User successfully reconnected
+        if (msg.type === 'match-reconnected') {
+          console.log('Successfully reconnected to match')
+
+          if (Array.isArray(msg.players) && msg.players.length === 2) {
+            setbothJoined(true)
+          }
+        }
+
+        // Opponent submitted
+        if (msg.type === 'player-submit') {
+          if (msg.userId !== userId) {
+            setOpponentDone(true)
+          } else {
+            setuserDone(true)
+          }
+        }
+
+        // Match data
+        if (msg.type === 'match-data') {
+          console.log('Received match data:', msg)
+
+          // If you later want to restore opponent/code state,
+          // this is where you can handle it.
+        }
+
+        // Server error
+        if (msg.type === 'error') {
+          console.error('WebSocket server error:', msg.message)
+        }
+      } catch (error) {
+        console.error('Invalid WebSocket message:', error)
       }
     }
 
+    // ----------------------------------------------
+    // ERROR
+    // ----------------------------------------------
+
+    ws.onerror = (error) => {
+      console.error('WebSocket error:', error)
+    }
+
+    // ----------------------------------------------
+    // CLOSED
+    // ----------------------------------------------
+
+    ws.onclose = () => {
+      console.log('WebSocket disconnected')
+    }
+
+    // ----------------------------------------------
+    // CLEANUP
+    // ----------------------------------------------
+
     return () => {
-      // cleanup
-      if (websocketRef.current) {
-        websocketRef.current.close()
+      console.log('Cleaning WebSocket connection')
+
+      if (ws.readyState === WebSocket.OPEN) {
+        ws.close()
+      }
+
+      if (websocketRef.current === ws) {
         websocketRef.current = null
       }
     }
-  }, [])
+  }, [session?.user?.id, userId, matchId, problemId])
 
-  // ── format time ──
+  // --------------------------------------------------
+  // FORMAT TIME
+  // --------------------------------------------------
+
   const fmt = (s: number) => {
     const m = Math.floor(s / 60)
       .toString()
       .padStart(2, '0')
+
     const sec = (s % 60).toString().padStart(2, '0')
+
     return `${m}:${sec}`
   }
 
-  // timer ref so we can clear interval on unmount
+  // --------------------------------------------------
+  // TIMER
+  // --------------------------------------------------
+
   const timerRef = useRef<number | null>(null)
 
   const startClock = () => {
     if (timerRef.current) return
+
     timerRef.current = window.setInterval(() => {
       setTimeLeft((s) => {
         if (s <= 0) {
-          if (timerRef.current) window.clearInterval(timerRef.current)
+          if (timerRef.current) {
+            window.clearInterval(timerRef.current)
+          }
+
           timerRef.current = null
+
           return 0
         }
+
         return s - 1
       })
     }, 1000)
   }
 
-  // starting the clock
   useEffect(() => {
-    if (bothJoined) startClock()
+    if (bothJoined) {
+      startClock()
+    }
+
     return () => {
       if (timerRef.current) {
         window.clearInterval(timerRef.current)
@@ -219,12 +325,20 @@ const BattleGround = ({
   const timerColor =
     timeLeft < 300 ? 'text-[#E63946]' : timeLeft < 600 ? 'text-[#F4D03F]' : 'text-[#F0EFF4]'
 
+  // --------------------------------------------------
+  // RUN CODE
+  // --------------------------------------------------
+
   const handleRunCode = async () => {
     setIsRunning(true)
+
     setrunCodeThreeTimes((run) => run + 1)
+
     toast.warn(`code running only ${2 - runCodeThreeTimes} chance left`)
+
     try {
       const form = new FormData()
+
       form.append('problemId', problemId)
       form.append('userId', userId)
       form.append('code', code)
@@ -234,21 +348,28 @@ const BattleGround = ({
         `${process.env.NEXT_PUBLIC_BACKEND_URL}/api/submissions/check-code`,
         form
       )
+
       settestResult(result.data.result.testResults)
       setSubmitVerdict(result.data.verdict)
     } catch (error) {
-      // console.log('error at the time running the code ')
-      setError('Something at the time running the code')
+      setError('Something went wrong while running the code')
     } finally {
       setIsRunning(false)
     }
   }
 
+  // --------------------------------------------------
+  // SUBMIT CODE
+  // --------------------------------------------------
+
   const handlerSubmitCode = async () => {
     setIsRunning(true)
-    toast.success('submitting code ')
+
+    toast.success('submitting code')
+
     try {
       const form = new FormData()
+
       form.append('userId', userId)
       form.append('problemId', problemId)
       form.append('code', code)
@@ -261,32 +382,50 @@ const BattleGround = ({
       )
 
       setisCodeSubmitted(true)
-      websocketRef.current?.send(
-        JSON.stringify({
-          type: 'user-submit',
-          userId: userId,
-          matchId: matchId,
-        })
-      )
 
-      toast.success('code submitted successfully , pls wait for results')
+      // Notify opponent
+      const ws = websocketRef.current
+
+      if (ws?.readyState === WebSocket.OPEN) {
+        ws.send(
+          JSON.stringify({
+            type: 'user-submit',
+            userId: userId,
+            matchId: matchId,
+          })
+        )
+      }
+
+      toast.success('code submitted successfully, pls wait for results')
     } catch (error) {
-      // console.log('the error at the time of submitting the code')
-      setError('Something at the time running the code')
+      setError('Something went wrong while submitting the code')
+    } finally {
+      setIsRunning(false)
     }
   }
 
+  // --------------------------------------------------
+  // RESULT HANDLING
+  // --------------------------------------------------
+
   useEffect(() => {
     const ws = websocketRef.current
+
     if (!ws) return
 
-    // console.log('do we reaching the handler ----------------------')
+    const handler = (e: MessageEvent) => {
+      try {
+        const msg = JSON.parse(e.data)
 
-    const handler = (e: any) => {
-      const msg = JSON.parse(e?.data ?? e)
-      if (msg.type === 'player-submit') {
-        if (msg.userId !== userId) setOpponentDone(true)
-        else setuserDone(true)
+        if (msg.type === 'player-submit') {
+          if (msg.userId !== userId) {
+            setOpponentDone(true)
+          } else {
+            setuserDone(true)
+          }
+        }
+      } catch (error) {
+        console.error('Invalid WebSocket message:', error)
       }
     }
 
@@ -295,33 +434,38 @@ const BattleGround = ({
     if (opponentDone && userDone) {
       const creatingResult = async () => {
         try {
-          const res = await axios.post(
+          await axios.post(
             `${process.env.NEXT_PUBLIC_BACKEND_URL}/api/results/compute-result?matchId=${matchId}`
           )
-          // console.log('the match result is ', res)
-          // setResults(res.data.results)
         } catch (err) {
           setError('Failed to load results.')
-        } finally {
-          // setLoading(false)
         }
       }
+
       creatingResult()
+
       setTimeout(() => {
         router.push(`/results/${matchId}`)
       }, 3000)
-      ws.send(
-        JSON.stringify({
-          type: 'match-completed',
-          matchName: matchId,
-        })
-      )
+
+      if (ws.readyState === WebSocket.OPEN) {
+        ws.send(
+          JSON.stringify({
+            type: 'match-completed',
+            matchId: matchId,
+          })
+        )
+      }
     }
 
     return () => {
       ws.removeEventListener('message', handler)
     }
   }, [opponentDone, userDone, userId, matchId, router])
+
+  // --------------------------------------------------
+  // AUTH
+  // --------------------------------------------------
 
   if (!session) {
     return <NotAuthenicated />
@@ -331,12 +475,17 @@ const BattleGround = ({
     return <ApiError error={Error} />
   }
 
-  if (!problems) return <div>Loading...</div>
+  if (!problems) {
+    return <div>Loading...</div>
+  }
+
+  // --------------------------------------------------
+  // UI
+  // --------------------------------------------------
+
   return bothJoined ? (
     <main className='h-screen bg-[#07070A] flex flex-col'>
-      {/* ========================= HEADER ========================= */}
       <header className='h-20 shrink-0 border-b border-[#1E1E2E] bg-[#111118] px-6 flex items-center justify-between'>
-        {/* Left */}
         <div className='flex items-center gap-4'>
           <h1 className='text-lg font-semibold text-white'>{problems.title}</h1>
 
@@ -349,23 +498,23 @@ const BattleGround = ({
           </span>
         </div>
 
-        {/* Center */}
         <div className='flex items-center gap-2'>
           <span className='text-xs uppercase text-[#6B6B80]'>Time</span>
 
           <span className={`text-2xl font-bold ${timerColor}`}>{fmt(timeLeft)}</span>
         </div>
 
-        {/* Right */}
         <div className='flex items-center gap-3'>
           {opponentDone ? (
             <div className='flex items-center gap-2 px-3 py-1 rounded-lg bg-red-500/10 border border-red-500/20'>
               <div className='w-2 h-2 rounded-full bg-red-500' />
+
               <span className='text-xs text-red-400'>Opponent Submitted</span>
             </div>
           ) : (
             <div className='flex items-center gap-2 px-3 py-1 rounded-lg bg-[#1E1E2E]'>
               <div className='w-2 h-2 rounded-full bg-gray-400 animate-pulse' />
+
               <span className='text-xs text-[#8E8EA8]'>Opponent Coding...</span>
             </div>
           )}
@@ -375,23 +524,22 @@ const BattleGround = ({
               type='button'
               disabled={isRunning}
               onClick={handleRunCode}
-              className={`px-4 py-2 rounded-md ${isRunning ? 'bg-[#559DFF]' : 'bg-[#2E8BFF]'} bg-[#2E8BFF] hover:bg-[#559DFF] text-sm font-semibold `}
+              className={`px-4 py-2 rounded-md ${
+                isRunning ? 'bg-[#559DFF]' : 'bg-[#2E8BFF]'
+              } hover:bg-[#559DFF] text-sm font-semibold`}
             >
               Run
             </button>
-          ) : (
-            <></>
-          )}
+          ) : null}
+
           <button
             onClick={handlerToggleproblemAndTestcases}
             className='px-4 py-2 rounded-md bg-[#E63946] hover:bg-[#e36570] text-sm font-semibold'
           >
-            {!problemAndTestcasesToggle ? 'Check TestCase' : 'view Probelm'}
+            {!problemAndTestcasesToggle ? 'Check TestCase' : 'view Problem'}
           </button>
 
-          {isCodeSubmitted ? (
-            <></>
-          ) : (
+          {isCodeSubmitted ? null : (
             <button
               onClick={handlerSubmitCode}
               className='px-4 py-2 rounded-md bg-[#16A34A] hover:bg-[#22C55E] text-sm font-semibold'
@@ -402,9 +550,7 @@ const BattleGround = ({
         </div>
       </header>
 
-      {/* ========================= BODY ========================= */}
       <div className='flex flex-1 gap-4 p-4 overflow-hidden'>
-        {/* ================= LEFT PANEL ================= */}
         {!problemAndTestcasesToggle ? (
           <div className='w-1/2 rounded-lg bg-[#0F1115] border border-[#1E1E2E] overflow-y-auto'>
             <div className='p-6 space-y-6'>
@@ -439,18 +585,16 @@ const BattleGround = ({
             </div>
           </div>
         ) : (
-          <div className='w-1/2 rounded-lg bg-[#0F1115] border border-[#1E1E2E] overflow-y-auto flex flex-col '>
-            {/* heading */}
+          <div className='w-1/2 rounded-lg bg-[#0F1115] border border-[#1E1E2E] overflow-y-auto flex flex-col'>
             <div className='w-full p-2'>
-              <h1 className='text-lg font-semibold '>Result of the Testcases : </h1>
+              <h1 className='text-lg font-semibold'>Result of the Testcases:</h1>
             </div>
 
-            {/* verdict */}
             <div className='space-y-4'>
-              {/* submit verdict */}
               {isRunning ? (
                 <div className='flex items-center gap-3 p-4 mx-1 bg-[#111118] border border-[#1E1E2E] rounded-xl'>
                   <div className='w-4 h-4 border-2 border-[#E63946] border-t-transparent rounded-full animate-spin' />
+
                   <span className='font-mono text-xs text-[#6B6B80]'>Running test cases...</span>
                 </div>
               ) : (
@@ -464,11 +608,14 @@ const BattleGround = ({
                   >
                     <p className={`font-mono text-sm font-bold ${verdictColor(submitVerdict)}`}>
                       {submitVerdict === 'Accepted' ? '✓ ' : '✗ '}
+
                       {submitVerdict}
                     </p>
+
                     {submitTime && (
                       <div className='flex gap-4 mt-2'>
                         <span className='font-mono text-xs text-[#6B6B80]'>⚡ {submitTime}ms</span>
+
                         <span className='font-mono text-xs text-[#6B6B80]'>
                           💾 {submitMemory}KB
                         </span>
@@ -477,6 +624,7 @@ const BattleGround = ({
                   </div>
                 )
               )}
+
               {testResult &&
                 testResult.map((r, i) => (
                   <div
@@ -491,29 +639,32 @@ const BattleGround = ({
                       <span className='font-mono text-xs font-semibold text-[#6B6B80]'>
                         Test Case {i + 1}
                       </span>
+
                       <span
                         className={`font-mono text-[10px] font-bold ${verdictColor(r.verdict)}`}
                       >
                         {r.verdict === 'Accepted' ? '✓ Pass' : '✗ Fail'}
                       </span>
                     </div>
+
                     <div className='font-mono text-[11px] space-y-1 text-[#B0B0C0]'>
                       <div>
-                        <span className='text-[#6B6B80]'>Input: </span>
-                        {r.input}
+                        <span className='text-[#6B6B80]'>Input:</span> {r.input}
                       </div>
+
                       <div>
-                        <span className='text-[#6B6B80]'>Expected: </span>
-                        {r.expected}
+                        <span className='text-[#6B6B80]'>Expected:</span> {r.expected}
                       </div>
+
                       <div>
-                        <span className='text-[#6B6B80]'>Got: </span>
+                        <span className='text-[#6B6B80]'>Got:</span>{' '}
                         <span
                           className={r.verdict === 'Accepted' ? 'text-[#2ECC71]' : 'text-[#E63946]'}
                         >
                           {r.actual ?? 'null'}
                         </span>
                       </div>
+
                       {r.exec_time_ms && (
                         <div className='text-[#6B6B80]'>⚡ {r.exec_time_ms}ms</div>
                       )}
@@ -524,14 +675,11 @@ const BattleGround = ({
           </div>
         )}
 
-        {/* ================= RIGHT PANEL ================= */}
         <div className='w-1/2 rounded-lg border border-[#1E1E2E] bg-[#05060A] flex flex-col overflow-hidden'>
-          {/* File Tab */}
           <div className='h-11 border-b border-[#1E1E2E] bg-[#0D0E13] px-4 flex items-center'>
             <span className='text-xs text-[#8E8EA8]'>solution.js</span>
           </div>
 
-          {/* Editor */}
           <div className='flex-1 overflow-auto'>
             <div className='p-3'>
               <div className='text-[#8E8EA8]'>
@@ -554,7 +702,6 @@ const BattleGround = ({
           </div>
         </div>
       </div>
-      {/* ---------finshed the codearea-------------- */}
     </main>
   ) : (
     <div className='flex items-center justify-center h-screen bg-[#0A0A0F] text-[#6B6B80] font-sans'>
@@ -562,4 +709,5 @@ const BattleGround = ({
     </div>
   )
 }
+
 export default BattleGround
