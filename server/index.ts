@@ -1,7 +1,4 @@
 import { WebSocketServer, WebSocket } from 'ws'
-import { json } from 'zod'
-
-// import { matchFound } from "@/src/lib/redis"
 
 const wss = new WebSocketServer({ port: 8000 })
 
@@ -10,120 +7,284 @@ interface ExtendedWebSocket extends WebSocket {
     id?: string
     username?: string
     problemId?: string
+    matchId?: string
   }
 }
 
 const matches = new Map<string, ExtendedWebSocket[]>()
+
+// Remove a socket from its match
+function removeSocketFromMatch(ws: ExtendedWebSocket) {
+  const matchId = ws.user.matchId
+
+  if (!matchId) return
+
+  const players = matches.get(matchId)
+
+  if (!players) return
+
+  const index = players.indexOf(ws)
+
+  if (index !== -1) {
+    players.splice(index, 1)
+  }
+
+  if (players.length === 0) {
+    matches.delete(matchId)
+  }
+
+  ws.user.matchId = undefined
+}
+
+// Remove an old socket belonging to the same user
+function removeOldUserSocket(userId: string) {
+  for (const [matchId, players] of matches) {
+    const index = players.findIndex((player) => player.user.id === userId)
+
+    if (index !== -1) {
+      players.splice(index, 1)
+
+      if (players.length === 0) {
+        matches.delete(matchId)
+      }
+
+      return matchId
+    }
+  }
+
+  return null
+}
 
 wss.on('connection', (ws: ExtendedWebSocket) => {
   ws.user = {}
 
   ws.on('error', console.error)
 
-  ws.on('message', (data: any) => {
-    const message = JSON.parse(data)
-    // console.log('received:', message)
+  ws.on('message', (data) => {
+    try {
+      const message = JSON.parse(data.toString())
 
-    // 1. user connects to socket server
-    if (message.type === 'user-connect') {
-      ws.user.id = message.id
-      ws.user.username = message.username
-      ws.user.problemId = message.problemId
-      // console.log(`user connected: ${message.username}`)
-    }
+      // 1. USER CONNECT
 
-    // 2. both players join a match room
-    else if (message.type === 'match-found') {
-      const matchName = message.matchName
-      // checking if the match is there no need to create that again
-      if (!matches.has(matchName)) {
-        matches.set(matchName, [])
+      if (message.type === 'user-connect') {
+        ws.user.id = message.userId
+        ws.user.username = message.username
+        ws.user.problemId = message.problemId
+
+        console.log(`User connected: ${ws.user.username} (${ws.user.id})`)
       }
 
-      // getting the match and pushing the player if the player is not there in the match
-      const creatingMatch = matches.get(matchName)
-      if (creatingMatch && creatingMatch.length <= 2) {
-        const alreadyJoined = ws.user.id
-          ? creatingMatch.some((client) => client.user.id === ws.user.id)
-          : false
+      // 2. USER RECONNECT
+      else if (message.type === 'user-reconnect') {
+        const userId = message.userId
+        const matchId = message.matchId
 
-        if (!alreadyJoined) {
-          creatingMatch.push(ws)
+        ws.user.id = userId
+        ws.user.username = message.username
+        ws.user.problemId = message.problemId
+        ws.user.matchId = matchId
+
+        // Remove old socket belonging to this user
+        const oldMatchId = removeOldUserSocket(userId)
+
+        // Get/create match
+        let players = matches.get(matchId)
+
+        if (!players) {
+          players = []
+          matches.set(matchId, players)
+        }
+
+        // Add new socket
+        players.push(ws)
+
+        console.log(`User ${userId} reconnected to match ${matchId}`)
+
+        // Tell this user that reconnection succeeded
+        ws.send(
+          JSON.stringify({
+            type: 'match-reconnected',
+            matchId,
+            problemId: message.problemId,
+            players: players.map((player) => ({
+              id: player.user.id,
+              username: player.user.username,
+            })),
+          })
+        )
+
+        // If both players are connected again,
+        // notify both players
+        if (players.length === 2) {
+          players.forEach((client) => {
+            client.send(
+              JSON.stringify({
+                type: 'match-started',
+                matchId,
+                problemId: message.problemId,
+                players: players.map((player) => ({
+                  id: player.user.id,
+                  username: player.user.username,
+                })),
+              })
+            )
+          })
         }
       }
-      // console.log(`player joined match: ${matchName}`)
 
-      const players = matches.get(matchName)
-      // console.log(`player joined match the size is : ${players?.length}`)
-      if (players?.length === 2) {
-        // notify both players match is ready
-        players.forEach((client) => {
-          client.send(
+      // 3. MATCH FOUND
+      else if (message.type === 'match-found') {
+        const matchId = message.matchId
+        const userId = message.userId
+
+        if (!matchId || !userId) {
+          ws.send(
             JSON.stringify({
-              type: 'match-started',
-              problemId: message.problemId,
-              players: players,
+              type: 'error',
+              message: 'matchId or userId missing',
             })
           )
+
+          return
+        }
+
+        ws.user.id = userId
+        ws.user.matchId = matchId
+        ws.user.problemId = message.problemId
+
+        // Create match if it doesn't exist
+        if (!matches.has(matchId)) {
+          matches.set(matchId, [])
+        }
+
+        const players = matches.get(matchId)!
+
+        // Check if this user already exists
+        const existingIndex = players.findIndex((player) => player.user.id === userId)
+
+        // If user already exists, replace old socket
+        if (existingIndex !== -1) {
+          players.splice(existingIndex, 1)
+        }
+
+        // Match only supports 2 players
+        if (players.length >= 2) {
+          ws.send(
+            JSON.stringify({
+              type: 'error',
+              message: 'Match is already full',
+            })
+          )
+
+          return
+        }
+
+        players.push(ws)
+
+        console.log(`Player ${userId} joined match ${matchId}`)
+
+        // Two players connected
+        if (players.length === 2) {
+          players.forEach((client) => {
+            client.send(
+              JSON.stringify({
+                type: 'match-started',
+                matchId,
+                problemId: message.problemId,
+                players: players.map((player) => ({
+                  id: player.user.id,
+                  username: player.user.username,
+                })),
+              })
+            )
+          })
+        }
+      }
+
+      // 4. USER SUBMIT
+      else if (message.type === 'user-submit') {
+        const userId = message.userId
+        const matchId = message.matchId
+
+        const players = matches.get(matchId)
+
+        if (!players) {
+          ws.send(
+            JSON.stringify({
+              type: 'error',
+              message: 'match not found',
+            })
+          )
+
+          return
+        }
+
+        players.forEach((client) => {
+          if (client.readyState === WebSocket.OPEN) {
+            client.send(
+              JSON.stringify({
+                type: 'player-submit',
+                userId,
+                message: `Player with id ${userId} submitted the code`,
+              })
+            )
+          }
         })
       }
-    } else if (message.type == 'user-submit') {
-      const userId = message.userId
-      const matchId = message.matchId
 
-      const players = matches.get(matchId)
-      if (!players) {
-        ws.send(JSON.stringify({ type: 'error', message: 'match not found' }))
-        return
+      // 5. BROADCAST MATCH
+      else if (message.type === 'broadcast-match') {
+        const matchId = message.matchId
+        const problemId = message.problemId
+        const code = message.code
+
+        const players = matches.get(matchId)
+
+        if (!players) {
+          ws.send(
+            JSON.stringify({
+              type: 'error',
+              message: 'match not found',
+            })
+          )
+
+          return
+        }
+
+        players.forEach((client) => {
+          if (client.readyState === WebSocket.OPEN) {
+            client.send(
+              JSON.stringify({
+                type: 'match-data',
+                matchId,
+                problemId,
+                code,
+              })
+            )
+          }
+        })
       }
 
-      players.map((client) => {
-        client.send(
-          JSON.stringify({
-            type: 'player-submit',
-            userId: userId,
-            message: `player with id ${userId} sumbitted the cide `,
-          })
-        )
-      })
-    }
+      // 6. MATCH COMPLETED
+      else if (message.type === 'match-completed') {
+        const matchId = message.matchId
 
-    // 3. broadcast problem to both players
-    else if (message.type === 'broadcast-match') {
-      const matchName = message.matchName
-      const problemId = message.problemId
-      const code = message.code
+        matches.delete(matchId)
 
-      const players = matches.get(matchName)
-
-      if (!players) {
-        ws.send(JSON.stringify({ type: 'error', message: 'match not found' }))
-        return
+        console.log(`Match ${matchId} completed`)
       }
-
-      players.forEach((client) => {
-        client.send(
-          JSON.stringify({
-            type: 'match-data',
-            matchName,
-            problemId,
-            code,
-          })
-        )
-      })
-
-      // console.log(`broadcasted match: ${matchName}`)
-    } else if (message.type == 'match-completed') {
-      const matchName = message.matchName
-
-      const match = matches.delete(matchName)
-      // console.log('the match is deleted')
+    } catch (error) {
+      console.error('Invalid WebSocket message:', error)
     }
   })
 
+  // 7. SOCKET CLOSED
+
   ws.on('close', () => {
-    // console.log(`user disconnected: ${ws.user.username}`)
+    console.log(`Socket disconnected: ${ws.user.username ?? 'unknown'}`)
+
+    removeSocketFromMatch(ws)
   })
 })
 
-// console.log('⚡ WebSocket server running on port 8000')
+console.log('⚡ WebSocket server running on port 8000')
