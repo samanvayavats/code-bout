@@ -176,50 +176,106 @@ CodeDuel is split into multiple runtime components:
 
 ```text
 Player
-│
-▼
+   │
+   ▼
 Select Problem
-│
-▼
+   │
+   ▼
 Join Arena
-│
-▼
+   │
+   ▼
 Matchmaking
-│
-▼
+   │
+   ▼
 Opponent Found
-│
-▼
+   │
+   ▼
 Both Players Receive Same Problem
-│
-▼
+   │
+   ▼
 ┌───────────────────────────────┐
-│ CODING BATTLE │
-│ │
-│ Player A Player B │
-│ │ │ │
-│ ▼ ▼ │
-│ Code Code │
-│ │ │ │
-│ ▼ ▼ │
-│ Run Run │
-│ │ │ │
-│ ▼ ▼ │
-│ Submit Submit │
+│          CODING BATTLE        │
+│                               │
+│   Player A        Player B    │
+│      │               │        │
+│      ▼               ▼        │
+│    Code            Code       │
+│      │               │        │
+│      ▼               ▼        │
+│     Run             Run       │
+│      │               │        │
+│      ▼               ▼        │
+│   Submit          Submit      │
 └───────────────┬───────────────┘
+                │
+                ▼
+         Evaluate Results
+                │
+                ▼
+       Compare Performance
+                │
+                ▼
+          Determine Winner
+                │
+                ▼
+          Match Results
+                │
+                ▼
+            Leaderboard
+```
+
+# 🧠 Match Scoring
+
+The primary objective is to submit a correct solution.
+A simplified scoring model is:
+
+```text
+Correctness
+     │
+     ├── Incorrect → 0 points
+     │
+     └── Correct
+           │
+           ▼
+      Execution Speed
+           │
+           ▼
+      Final Points
+```
+
+# 📁 Project Structure
+
+```text
+code-bout/
 │
-▼
-Evaluate Results
+├── .husky/
 │
-▼
-Compare Performance
+├── prisma/
+│   ├── schema.prisma
+│   └── seed.ts
 │
-▼
-Determine Winner
+├── server/
+│   └── index.ts
 │
-▼
-Match Results
+├── src/
+│   ├── app/
+│   ├── components/
+│   ├── lib/
+│   └── ...
 │
-▼
-Leaderboard
+├── .dockerignore
+├── .env.example
+├── .gitignore
+│
+├── Dockerfile
+├── Dockerfile.socket
+├── docker-compose.yaml
+│
+├── next.config.ts
+├── package.json
+├── prisma.config.ts
+├── tailwind.config.js
+├── tsconfig.json
+│
+└── README.md
 ```
