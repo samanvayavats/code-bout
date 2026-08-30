@@ -121,6 +121,10 @@ The leaderboard tracks:
 - **WebSocket (`ws`)**
 - **Redis**
 
+## Code Execution
+
+- **Judge0 API**
+
 ## Database
 
 - **PostgreSQL**
@@ -139,8 +143,6 @@ The leaderboard tracks:
 
 - **Docker**
 - **Docker Compose**
-
----
 
 # 🏗️ Architecture
 
