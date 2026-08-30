@@ -174,6 +174,7 @@ CodeDuel is split into multiple runtime components:
    └─────────────┘   └─────────────┘  └───────────┘   └───────────┘
 ```
 
+```text
 Player
 │
 ▼
@@ -221,3 +222,4 @@ Match Results
 │
 ▼
 Leaderboard
+```
