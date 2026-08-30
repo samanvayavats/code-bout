@@ -530,6 +530,28 @@ Some potential improvements for future versions include:
 
 Players can compare their wins and losses against other competitors.
 
+## 🧠 Engineering Challenges
+
+### Real-Time Matchmaking
+
+Players waiting for the same problem are matched through the WebSocket server.
+
+### Concurrent Match State
+
+Redis is used for temporary real-time state while PostgreSQL stores persistent application data.
+
+### Code Execution
+
+Submissions are evaluated against test cases and execution metrics are compared between players.
+
+### Match Synchronization
+
+Both players need to receive the same problem, match state, countdown, and final result without relying on page refreshes.
+
+### Containerized Development
+
+The application, WebSocket server, PostgreSQL, and Redis can be started together using Docker Compose.
+
 ## 👨‍💻 Author
 
 **Samanvaya Vats**
