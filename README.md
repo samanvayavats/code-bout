@@ -481,6 +481,7 @@ These scripts correspond to the current package.json in the repository.
 
 Traditional competitive programming platforms are primarily designed around:
 
+```text
 Problem
 ↓
 Solve
@@ -504,6 +505,7 @@ Submit
 Compare Performance
 ↓
 WIN / LOSE
+```
 
 The goal is to make algorithmic problem solving feel less like an isolated exercise and more like a competitive sport.
 
