@@ -173,3 +173,51 @@ CodeDuel is split into multiple runtime components:
    │             │   │             │  │           │   │ / Rooms    │
    └─────────────┘   └─────────────┘  └───────────┘   └───────────┘
 ```
+
+Player
+│
+▼
+Select Problem
+│
+▼
+Join Arena
+│
+▼
+Matchmaking
+│
+▼
+Opponent Found
+│
+▼
+Both Players Receive Same Problem
+│
+▼
+┌───────────────────────────────┐
+│ CODING BATTLE │
+│ │
+│ Player A Player B │
+│ │ │ │
+│ ▼ ▼ │
+│ Code Code │
+│ │ │ │
+│ ▼ ▼ │
+│ Run Run │
+│ │ │ │
+│ ▼ ▼ │
+│ Submit Submit │
+└───────────────┬───────────────┘
+│
+▼
+Evaluate Results
+│
+▼
+Compare Performance
+│
+▼
+Determine Winner
+│
+▼
+Match Results
+│
+▼
+Leaderboard
