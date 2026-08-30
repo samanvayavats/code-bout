@@ -552,6 +552,32 @@ Both players need to receive the same problem, match state, countdown, and final
 
 The application, WebSocket server, PostgreSQL, and Redis can be started together using Docker Compose.
 
+## 📸 Screenshots
+
+### 🏠 Landing Page
+
+![Landing Page](/public/screenshots/landingpage.jpg)
+
+### 📚 Problem Bank
+
+![Problem Bank](/public/screenshots/problems.jpg)
+
+### ⚔️ Real-Time Matchmaking
+
+![Matchmaking](/public/screenshots/matchmaking.jpg)
+
+### 💻 Coding Arena
+
+![Coding Arena](/public/screenshots/arena.jpg)
+
+### 🏆 Match Result
+
+![Match Result](/public/screenshots/results.jpg)
+
+### 📊 Leaderboard
+
+![Leaderboard](/public/screenshots/leaderboard.jpg)
+
 ## 👨‍💻 Author
 
 **Samanvaya Vats**
