@@ -279,3 +279,268 @@ code-bout/
 │
 └── README.md
 ```
+
+# ⚙️ Getting Started
+
+Make sure you have installed:
+
+- Node.js
+- npm
+- PostgreSQL
+- Redis
+
+For the recommended setup, Docker and Docker Compose are sufficient.
+
+# 📦 Installation
+
+Clone the repository:
+
+```bash
+git clone https://github.com/samanvayavats/code-bout.git
+```
+
+Move into the project:
+
+```bash
+cd code-bout
+```
+
+Install dependencies:
+
+```bash
+npm install
+```
+
+# 🔐 Environment Variables
+
+Create a .env file in the root directory:
+
+Configure the required environment variables.
+
+Example:
+
+```
+DATABASE_URL="postgresql://codebout:codeboutpostgres@localhost:5432/codeboutdb"
+NEXTAUTH_SECRET="your-nextauth-secret"
+NEXTAUTH_URL="http://localhost:3000"
+NEXT_PUBLIC_BACKEND_URL="http://localhost:3000"
+JUDGE0_API_URL=""
+REDIS_URL="redis://localhost:6379"
+```
+
+# 🗄️ Database Setup
+
+Generate the Prisma client:
+
+```bash
+npm run db:generate
+```
+
+Push the Prisma schema to PostgreSQL:
+
+```bash
+npm run db:push
+```
+
+For development migrations:
+
+```bash
+npm run db:migrate
+```
+
+Seed the database:
+
+```bash
+npm run db:seed
+```
+
+# 💻 Running Locally
+
+## Start Next.js
+
+```bash
+npm run dev
+```
+
+The application will run on:
+
+```
+http://localhost:3000
+```
+
+## Start WebSocket Server
+
+In another terminal:
+
+```bash
+npm run socket
+```
+
+The WebSocket server runs on:
+
+```
+ws://localhost:8000
+```
+
+## Start Everything Together
+
+You can also run the Next.js application and WebSocket server together:
+
+```bash
+npm run dev:all
+```
+
+# 🐳 Running with Docker
+
+CodeDuel includes Docker support for the application, WebSocket server, PostgreSQL and Redis.
+
+The Compose configuration contains:
+
+```text
+┌───────────────────────┐
+│       Docker          │
+│                       │
+│  ┌─────────────────┐  │
+│  │     Next.js     │  │
+│  │      :3000      │  │
+│  └─────────────────┘  │
+│                       │
+│  ┌─────────────────┐  │
+│  │  Socket Server  │  │
+│  │      :8000      │  │
+│  └─────────────────┘  │
+│                       │
+│  ┌─────────────────┐  │
+│  │   PostgreSQL    │  │
+│  │      :5432      │  │
+│  └─────────────────┘  │
+│                       │
+│  ┌─────────────────┐  │
+│  │      Redis      │  │
+│  │      :6379      │  │
+│  └─────────────────┘  │
+│                       │
+└───────────────────────┘
+```
+
+Build and start the complete stack:
+
+```bash
+docker compose up --build
+```
+
+Run in detached mode:
+
+```bash
+docker compose up --build -d
+```
+
+Stop the containers:
+
+```bash
+docker compose down
+```
+
+View logs:
+
+```bash
+docker compose logs -f
+```
+
+## 🔌 Services
+
+| Service    | Port | Purpose                                      |
+| ---------- | ---- | -------------------------------------------- |
+| Next.js    | 3000 | Web application and API                      |
+| WebSocket  | 8000 | Real-time matchmaking and duel communication |
+| PostgreSQL | 5432 | Persistent application data                  |
+| Redis      | 6379 | Real-time / temporary state                  |
+
+The Docker Compose configuration defines PostgreSQL and Redis health checks and makes the application services depend on those services being healthy.
+
+## 📜 Available Scripts
+
+| Command              | Description                      |
+| -------------------- | -------------------------------- |
+| npm run dev          | Start Next.js development server |
+| npm run socket       | Start WebSocket server           |
+| npm run dev:all      | Start Next.js + WebSocket server |
+| npm run build        | Create production build          |
+| npm run start        | Start production server          |
+| npm run lint         | Run ESLint                       |
+| npm run format       | Format project using Prettier    |
+| npm run format:check | Check formatting                 |
+| npm run db:generate  | Generate Prisma Client           |
+| npm run db:push      | Push schema to database          |
+| npm run db:migrate   | Run Prisma migrations            |
+| npm run db:seed      | Seed database                    |
+
+These scripts correspond to the current package.json in the repository.
+
+## 🎯 Why CodeDuel?
+
+Traditional competitive programming platforms are primarily designed around:
+
+Problem
+↓
+Solve
+↓
+Submit
+↓
+Accepted
+
+CodeDuel changes the experience to:
+
+Problem
+↓
+Find Opponent
+↓
+Start Match
+↓
+Race Against Time
+↓
+Submit
+↓
+Compare Performance
+↓
+WIN / LOSE
+
+The goal is to make algorithmic problem solving feel less like an isolated exercise and more like a competitive sport.
+
+## 🚧 Future Improvements
+
+Some potential improvements for future versions include:
+
+- More programming languages
+- Private matches / challenge friends
+- Match history
+- Player profiles
+- Rating / ELO system
+- Global rankings
+- Tournament mode
+- Spectator mode
+- Replays
+- Anti-cheat mechanisms
+- Improved matchmaking based on rating
+- More detailed performance analytics
+- Contest / college event mode
+- Scalable distributed code execution
+
+Players can compare their wins and losses against other competitors.
+
+## 👨‍💻 Author
+
+**Samanvaya Vats**
+
+Full-stack developer and creator of CodeDuel.
+
+- **GitHub**: https://github.com/samanvayavats
+- **Project**: https://github.com/samanvayavats/code-bout
+
+## ⭐ Support
+
+If you find CodeDuel interesting, consider giving the repository a ⭐ on GitHub.
+
+## 📄 License
+
+This project is currently intended as a personal/educational project.
