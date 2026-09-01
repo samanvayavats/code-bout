@@ -146,7 +146,7 @@ export default function WaitingPage({
   }
 
   if (apiError) {
-    return <ApiError error={apiError} />
+    return <ApiError message={apiError} />
   }
 
   return (

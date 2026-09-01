@@ -36,7 +36,7 @@ export default function LeaderboardPage() {
   }
 
   if (error) {
-    return <ApiError error={error} />
+    return <ApiError message={error} />
   }
 
   return (
