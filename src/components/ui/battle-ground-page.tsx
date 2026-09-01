@@ -330,6 +330,10 @@ const BattleGround = ({
   // --------------------------------------------------
 
   const handleRunCode = async () => {
+    if (!code.trim()) {
+      toast.error('Please write some code before running.')
+      return
+    }
     setIsRunning(true)
 
     setrunCodeThreeTimes((run) => run + 1)
@@ -363,6 +367,10 @@ const BattleGround = ({
   // --------------------------------------------------
 
   const handlerSubmitCode = async () => {
+    if (!code.trim()) {
+      toast.error('Please write some code before submitting.')
+      return
+    }
     setIsRunning(true)
 
     toast.success('submitting code')
@@ -472,7 +480,7 @@ const BattleGround = ({
   }
 
   if (Error) {
-    return <ApiError error={Error} />
+    return <ApiError message={Error} />
   }
 
   if (!problems) {
